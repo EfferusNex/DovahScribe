@@ -18,10 +18,24 @@
 - Агенту **не нужно** вручную конфигурировать или прописывать пути к директории игры или папкам MO2 — HouseCARL определяет их автоматически.
 - Если пользователю требуется помощь с выбором установленного мода, агент может вызвать `housecarl_load_order_status` и вежливо предложить список активных плагинов на выбор.
 
-### Основной пайплайн:
-```
-[ESP/ESM/ESL] ──► 1. Extract ──► 2. Match (Vanilla/TM) ──► 3. Review JSON ──► 4. AI Translate (Context Window) ──► 5. Quality Gate ──► 6. Patch & Deploy
-```
+### 📋 ОБЯЗАТЕЛЬНЫЙ РЕГЛАМЕНТ РАБОТЫ АГЕНТА (5-STEP WORKFLOW):
+Когда пользователь даёт команду перевести конкретный мод (например, `CustomMod.esp`), агент обязан строго последовательно выполнить следующие шаги:
+
+1. **Шаг 1. Дамп в `.jsonl` (Extraction):**
+   - Вызвать `housecarl_records` (или `python translate.py --step extract --plugin CustomMod.esp`).
+   - Сохранить дамп в `data/raw_extracted/CustomMod_raw.jsonl`.
+2. **Шаг 2. Сопоставление по ванильной базе Скайрима (Vanilla Matcher):**
+   - Запустить `python translate.py --step match --plugin CustomMod.esp` (или внутренний `VanillaMatcher`).
+   - Моментально и бесплатно (0 токенов) сопоставить все строки по 68 000 оригинальным строкам официального Skyrim (Skyrim, Update, Dawnguard, Hearthfires, Dragonborn).
+3. **Шаг 3. Проверка локального словаря мода (Translation Memory):**
+   - Проверить наличие `data/mod_translations/CustomMod.json` (словарь от прошлых версий перевода).
+   - Если мод обновлялся, автоматически подтянуть уже переведенные строки прошлых версий.
+4. **Шаг 4. AI-Перевод оставшихся непереведённых строк:**
+   - Сформировать пакеты контекста с учётом диалоговых веток, пола спикера (`speaker_context.gender`) и лора TES.
+   - Перевести только оставшиеся строки со статусом `pending`.
+   - Записать готовый файл ревью в `data/review/CustomMod_review.json`.
+5. **Шаг 5. Открытие интерактивного превью:**
+   - Запустить десктопное приложение `DovahScribe.exe` (или `python app.py CustomMod`), чтобы пользователь мог визуально просмотреть и отредактировать строки в красивом CAT-дашборде.
 
 ---
 
@@ -33,7 +47,7 @@
 # 1. Извлечение строк и контекста диалогов из мода
 python translate.py --step extract --plugin <ModName.esp>
 
-# 2. Быстрое сопоставление с ванильной базой (68 000 строк, 0 токенов)
+# 2. Быстрое сопоставление с ванильной базой (68 000 строк, 0 токенов) и TM
 python translate.py --step match --plugin <ModName.esp>
 
 # 3. Аудит качества и поиск языковых утечек
@@ -45,8 +59,9 @@ python translate.py --step patch --plugin <ModName.esp>
 # 5. Деплой мода в Mod Organizer 2 (<ModName> [RU])
 python translate.py --step deploy --plugin <ModName.esp>
 
-# 6. Запуск десктопного CAT-интерфейса
+# 6. Запуск десктопного CAT-интерфейса / превью
 python app.py <ModName>
+# или запуск скомпилированного DovahScribe.exe
 ```
 
 ---
