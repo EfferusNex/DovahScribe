@@ -1,91 +1,114 @@
-# 🐉 DovahScribe — Руководство для AI-Агентов (Agent Guide)
+# 🐉 DovahScribe — AI Agent Operational Guide
 
-Этот документ предназначен для любых сторонних ИИ-агентов (Gemini, Claude Code, Cursor, Cline, Windsurf, Antigravity), работающих с репозиторием **DovahScribe**.
-
----
-
-## 🧭 Назначение и архитектура
-
-**DovahScribe** — интеллектуальный комплекс CAT-локализации плагинов The Elder Scrolls V: Skyrim.
-
-### ⚠️ КРИТИЧЕСКИЙ ПРОТОКОЛ ДЛЯ ИИ-АГЕНТА:
-1. **Никогда не начинай автоматическое извлечение или перевод реальных плагинов из Mod Organizer 2 без прямого указания пользователя!**
-2. Если пользователь говорит «давай обкатаем», «проверь как работает» или «запусти пайплайн» без названия мода — **сначала спроси пользователя**, какой конкретно плагин он хочет локализовать, либо предложи запустить проверку системы через `python -m unittest discover -s tests -v`.
-3. Запрещено произвольно перебирать моды из активного лоад-ордера MO2.
-
-### 🏰 Взаимодействие с HouseCARL MCP:
-- MCP-сервер `housecarl` автоматически связан с активным профилем Mod Organizer 2 и экземпляром Skyrim.
-- Агенту **не нужно** вручную конфигурировать или прописывать пути к директории игры или папкам MO2 — HouseCARL определяет их автоматически.
-- Если пользователю требуется помощь с выбором установленного мода, агент может вызвать `housecarl_load_order_status` и вежливо предложить список активных плагинов на выбор.
-
-### 📋 ОБЯЗАТЕЛЬНЫЙ РЕГЛАМЕНТ РАБОТЫ АГЕНТА (ПОЛНЫЙ ЦИКЛ):
-Когда пользователь даёт команду перевести конкретный мод (например, `CustomMod.esp`), агент обязан строго последовательно выполнить следующие шаги:
-
-1. **Шаг 1. Дамп в `.jsonl` (Extraction):**
-   - Вызвать `housecarl_records` (или `python translate.py --step extract --plugin CustomMod.esp`).
-   - Сохранить дамп в `data/raw_extracted/CustomMod_raw.jsonl`.
-2. **Шаг 2. Сопоставление по ванильной базе Скайрима (Vanilla Matcher):**
-   - Запустить `python translate.py --step match --plugin CustomMod.esp` (или внутренний `VanillaMatcher`).
-   - Моментально и бесплатно (0 токенов) сопоставить все строки по 68 000 оригинальным строкам официального Skyrim (Skyrim, Update, Dawnguard, Hearthfires, Dragonborn).
-3. **Шаг 3. Проверка локального словаря мода (Translation Memory):**
-   - Проверить наличие `data/mod_translations/CustomMod.json` (словарь от прошлых версий перевода).
-   - Если мод обновлялся, автоматически подтянуть уже переведенные строки прошлых версий.
-4. **Шаг 4. AI-Перевод оставшихся непереведённых строк:**
-   - Сформировать пакеты контекста с учётом диалоговых веток, пола спикера (`speaker_context.gender`) и лора TES.
-   - Перевести только оставшиеся строки со статусом `pending`.
-   - Записать готовый файл ревью в `data/review/CustomMod_review.json`.
-5. **Шаг 5. Открытие интерактивного превью и РЕЖИМ ОЖИДАНИЯ (Interactive Review & Standby):**
-   - Запустить десктопное приложение в фоновом/неблокирующем режиме Windows:
-     ```powershell
-     Start-Process -FilePath "python" -ArgumentList "app.py CustomMod"
-     # или через exe:
-     Start-Process -FilePath ".\DovahScribe.exe" -ArgumentList "CustomMod"
-     ```
-   - **ВАЖНО (Режим ожидания):** Агент сообщает пользователю, что окно редактора открыто, и **переходит в режим ожидания правок пользователя**. Агент не выполняет деплой самовольно, пока пользователь просматривает строки и правит перевод!
-   - Пример сообщения пользователю:
-     > *«Окно редактора DovahScribe открыто с модом CustomMod! Вы можете просмотреть строки, отредактировать их (Ctrl+S для сохранения) и закрыть окно. Напишите мне "Готово" или "Деплой", когда закончите проверку, и я соберу патч в MO2!»*
-6. **Шаг 6. Сборка патча (Patch Packaging):**
-   - После подтверждения пользователя запустить: `python translate.py --step patch --plugin CustomMod.esp`.
-   - Система сформирует манифест правок и применит изменения в бинарник `.esp` / `.esm` / `.esl` (или `.strings` файлы).
-7. **Шаг 7. Автоматический деплой и выставление порядка загрузки в MO2 (Deploy & Load Order):**
-   - Запустить: `python translate.py --step deploy --plugin CustomMod.esp`.
-   - Скрипт **автоматически**:
-     - Создаёт изолированную папку перевода в Mod Organizer 2: `mods/CustomMod [RU]/`.
-     - Кладёт туда пропатченный плагин.
-     - **Автоматически прописывает мод в `modlist.txt` MO2 с наивысшим приоритетом (в конец списка загрузки ПОСЛЕ оригинального мода)**, гарантируя, что перевод победит во всех коллизиях!
+This document is designed for AI coding agents (Gemini, Claude Code, Cursor, Cline, Windsurf, Antigravity) operating in the **DovahScribe** repository.
 
 ---
 
-## 🛠️ Команды управления CLI (`translate.py`)
+## 🧭 Purpose & Architectural Overview
 
-Агент может запускать отдельные стадии или полный цикл:
+**DovahScribe** is an intelligent Computer-Assisted Translation (CAT) & localization engine for **The Elder Scrolls V: Skyrim** plugins (`.esp`, `.esm`, `.esl`) and SkyUI MCM configs.
+
+---
+
+## ⚠️ CRITICAL OPERATIONAL PROTOCOL
+
+1. **NEVER automatically extract, modify, or translate random plugins from Mod Organizer 2 without explicit user instruction!**
+2. If the user says *"let's test"*, *"run the pipeline"*, or *"try translating"* without specifying a target mod name:
+   - **Ask the user** which specific plugin they want to translate.
+   - Alternatively, offer to run the self-contained test suite via: `python -m unittest discover -s tests -v`.
+3. Do not randomly scan or pick plugins from the active MO2 load order without user confirmation.
+
+---
+
+## 🏰 HouseCARL MCP Integration
+
+- The `housecarl` MCP server connects directly to the user's active Mod Organizer 2 instance and Skyrim game directory.
+- **Paths are resolved automatically:** The agent does NOT need to manually configure or hardcode game directories or MO2 mod folders.
+- If the user needs help picking an installed mod, invoke `housecarl_load_order_status` to list available active plugins and present the list for the user to choose from.
+
+---
+
+## 📋 MANDATORY 7-STEP TRANSLATION LIFECYCLE
+
+When the user specifies a plugin to translate (e.g. `SampleMod.esp`), execute the following steps in sequence:
+
+### Step 1. Raw Extraction (`.jsonl`)
+- Query plugin records using `housecarl_records` (or execute `python translate.py --step extract --plugin SampleMod.esp`).
+- Save the raw dump to `data/raw_extracted/SampleMod_raw.jsonl`.
+- Extract SkyUI MCM translation files (`Interface/Translations/SampleMod_ENGLISH.txt`) if present.
+
+### Step 2. Vanilla Skyrim Base Matching (0 Tokens)
+- Run `python translate.py --step match --plugin SampleMod.esp` (or internal `VanillaMatcher`).
+- Instantly matches against the official 68,000-entry canonical Russian Skyrim dictionary (`Skyrim`, `Update`, `Dawnguard`, `Hearthfires`, `Dragonborn`) with zero token consumption.
+
+### Step 3. Translation Memory Lookup (Mod Translation Memory)
+- Check for existing `data/mod_translations/SampleMod.json`.
+- If the mod was previously translated or updated, pull in existing verified translations automatically.
+
+### Step 4. Contextual AI Translation (Pending Strings)
+- Assemble contextual packages containing dialogue branches, speaker metadata (`speaker_context.gender`, `speaker_context.role`), and Elder Scrolls lore rules.
+- Translate only the remaining `pending` strings into natural, lore-accurate Russian.
+- Export the intermediate review manifest to `data/review/SampleMod_review.json`.
+
+### Step 5. Launch Interactive Preview & ENTER STANDBY MODE
+- Launch the native desktop CAT dashboard in a non-blocking Windows process:
+  ```powershell
+  Start-Process -FilePath "python" -ArgumentList "app.py SampleMod"
+  # or via compiled binary:
+  Start-Process -FilePath ".\DovahScribe.exe" -ArgumentList "SampleMod"
+  ```
+- **CRITICAL (Standby Requirement):** Notify the user that the editor window is open, and **PAUSE execution**. Do NOT proceed to patching or deployment until the user has reviewed their strings.
+- Example message to user:
+  > *"DovahScribe Desktop Review Window is now open for `SampleMod`! You can inspect and edit translations in the CAT interface (Ctrl+S to save). When you are satisfied and close the window, let me know with 'Ready' or 'Deploy' to package and deploy the patch to MO2!"*
+
+### Step 6. Binary Patch Packaging
+- After the user confirms review completion, execute:
+  ```powershell
+  python translate.py --step patch --plugin SampleMod.esp
+  ```
+- Builds the operation manifest `data/patches/SampleMod_ops.json` and patches the binary via `housecarl_apply`.
+
+### Step 7. Automated MO2 Deployment & Load Order Priority
+- Deploy the localized mod into Mod Organizer 2:
+  ```powershell
+  python translate.py --step deploy --plugin SampleMod.esp
+  ```
+- The deployment script automatically:
+  1. Creates an isolated mod folder in Mod Organizer 2: `mods/SampleMod [RU]/`.
+  2. Places patched binaries and Russian MCM translation files into the directory.
+  3. **Appends the mod to MO2 `modlist.txt` with highest priority AFTER the original plugin**, guaranteeing the translation wins all asset conflicts.
+
+---
+
+## 🛠️ CLI Management Commands (`translate.py`)
+
+Individual pipeline stages can be invoked directly:
 
 ```bash
-# 1. Извлечение строк и контекста диалогов из мода
+# 1. Extract strings and dialogue context
 python translate.py --step extract --plugin <ModName.esp>
 
-# 2. Быстрое сопоставление с ванильной базой (68 000 строк, 0 токенов) и TM
+# 2. Match against official vanilla dictionary (68k strings) & Translation Memory
 python translate.py --step match --plugin <ModName.esp>
 
-# 3. Аудит качества и поиск языковых утечек
+# 3. Audit translation quality & check for English leaks
 python translate.py --step audit --plugin <ModName.esp>
 
-# 4. Сборка патча изменений (housecarl_apply)
+# 4. Build binary patch via housecarl_apply
 python translate.py --step patch --plugin <ModName.esp>
 
-# 5. Деплой мода в Mod Organizer 2 (<ModName> [RU])
+# 5. Deploy localized mod to Mod Organizer 2 (<ModName> [RU])
 python translate.py --step deploy --plugin <ModName.esp>
 
-# 6. Запуск десктопного CAT-интерфейса / превью
+# 6. Launch Desktop CAT Dashboard / Preview Window
 python app.py <ModName>
-# или запуск скомпилированного DovahScribe.exe
 ```
 
 ---
 
-## 📄 Структура рабочего файла `data/review/{mod}_review.json`
+## 📄 Review File Schema (`data/review/{mod}_review.json`)
 
-Все стадии обмениваются данными через стандартизированный файл ревью:
+All stages communicate through standardized JSON review files:
 
 ```json
 {
@@ -122,60 +145,26 @@ python app.py <ModName>
 
 ---
 
-## 🛡️ Правила локализации для ИИ-Агента (Quality Rules)
+## 🛡️ Localization Quality Rules for AI Agents
 
-1. **Грамматический род спикера:** Всегда проверяйте `speaker_context.gender`. Если `female` — все глаголы прошедшего времени и причастия должны быть в женском роде (*«Я нашла»*, *«Я готова»*).
-2. **Защита тегов (Tag Parity):** Запрещено удалять или переводить теги `<ALIAS=...>`, `<Global=...>`, `<font color=...>`, `[pagebreak]`, спецификаторы `%s`, `%d`, `%f`.
-3. **Каноничный лор TES:** Соблюдайте официальный словарь терминов (Даэдрические Принцы, 9 Божеств, школы магии, расы, города).
-4. **Anti-Trap правила:**
-   - `Race` ➔ `Раса` (никогда не *«гонка»*)
-   - `Staff` ➔ `Посох` (никогда не *«персонал»*)
-   - `Follower` ➔ `Спутник` (никогда не *«подписчик»*)
-   - `Cast` ➔ `Сотворение / Каст` (никогда не *«гипс»*)
-   - `Chest` ➔ `Сундук` (никогда не *«грудь»*)
-   - `Hostile` ➔ `Враждебный` (никогда не *«хостел»*)
-
----
-
-## 📦 Развертывание и зависимости
-
-- Python 3.11+ (рекомендуется Python 3.12/3.13)
-- Установка зависимостей: `pip install -r requirements.txt`
-- Конфигурация путей: скопировать `.env.example` ➔ `.env`
+1. **Speaker Grammatical Gender:** Always check `speaker_context.gender`. When `female`, past-tense verbs and participles in first-person speech must use feminine grammatical inflections (*«Я нашла»*, *«Я готова»*).
+2. **Tag Parity & Preservation:** Never alter or strip engine placeholder tags: `<ALIAS=...>`, `<Global=...>`, `<font color=...>`, `[pagebreak]`, or formatting specifiers `%s`, `%d`, `%f`.
+3. **Canonical TES Lore:** Adhere to the official Russian localization terminology (Daedric Princes, Divines, Magic Schools, Races, Holds, Cities).
+4. **Anti-Trap Glossary Enforcement:**
+   - `Race` ➔ `Раса` (never *«гонка»*)
+   - `Staff` ➔ `Посох` (never *«персонал»*)
+   - `Follower` ➔ `Спутник` (never *«подписчик»*)
+   - `Cast` ➔ `Сотворение / Каст` (never *«гипс»*)
+   - `Chest` ➔ `Сундук` (never *«грудь»*)
+   - `Hostile` ➔ `Враждебный` (never *«хостел»*)
 
 ---
 
-## 🏰 Интеграция с Housecarl MCP (Для AI-Агентов)
+## 📦 Verification & Test Execution
 
-Для полного цикла низкоуровневой работы с бинарными плагинами Bethesda (`.esp`/`.esm`/`.esl`) и компиляции Papyrus-скриптов используется MCP-сервер **houseCARL**:
-- **Официальный репозиторий:** [Avick3110/houseCARL (GitHub)](https://github.com/Avick3110/houseCARL)
-- **Лицензия:** GPL-3.0-only.
-- **Модель взаимодействия:** DovahScribe является независимым клиентом и взаимодействует с Housecarl исключительно через стандартизированный протокол Model Context Protocol (MCP) по JSON-RPC (`stdio`), не включая бинарники и код Housecarl в свой состав.
+Run the internal unit test suite to verify system integrity before or after any modifications:
 
-Если ваш агент поддерживает протокол MCP (Model Context Protocol), подключите сервер Housecarl (пример конфигурации в [`mcp_config.example.json`](file:///H:/Ai/Lain_Ai/Skyrim_translator/mcp_config.example.json)):
-
-### Ключевые MCP-инструменты конвейера:
-1. **`housecarl_records` (Выгрузка данных из ESP/ESM/ESL):**
-   - Вызывается для получения сырого дампа плагина.
-   - Скрипт `src/io_utils.py` генерирует оптимизированный запрос:
-     ```json
-     {
-       "plugin": "SampleMod.esp",
-       "types": ["ARMO", "WEAP", "BOOK", "INFO", "DIAL", "QUST", "NPC_", "SPEL", "MGEF"],
-       "to_file": "data/raw_extracted/SampleMod_raw.json"
-     }
-     ```
-2. **`housecarl_apply` (Бинарная сборка патча):**
-   - Модуль `src/patcher.py` формирует проверенный манифест `data/patches/{mod}_ops.json`.
-   - Агент вызывает инструмент:
-     ```json
-     {
-       "plugin": "SampleMod.esp",
-       "patch_manifest": "data/patches/SampleMod_ops.json"
-     }
-     ```
-
-3. **`housecarl_decompile_script` / `housecarl_compile_script` (Скрипты Papyrus):**
-   - Используются для декомпиляции, извлечения строковых литералов и обратной компиляции бинарных `.pex` файлов.
-
-
+```powershell
+python -m unittest discover -s tests -v
+python tests/test_current_state.py
+```
