@@ -42,34 +42,34 @@ def test_pipeline_stages():
     sample_dialogues = [
         {
             "id": 1,
-            "formid": "000907:Damsels.esp",
+            "formid": "000907:SampleQuestMod.esp",
             "type": "DialogResponses",
             "path": "Responses[0].Text",
             "text": "Huh...? You're not a Forsworn.",
             "parent_context": {
-                "topic_id": "LunaTopic01",
+                "topic_id": "SampleTopic01",
                 "topic_name": "Are you alright?"
             }
         },
         {
             "id": 2,
-            "formid": "000907:Damsels.esp",
+            "formid": "000907:SampleQuestMod.esp",
             "type": "DialogResponses",
             "path": "Responses[1].Text",
             "text": "Are you here to save me?",
             "parent_context": {
-                "topic_id": "LunaTopic01",
+                "topic_id": "SampleTopic01",
                 "topic_name": "Are you alright?"
             }
         },
         {
             "id": 3,
-            "formid": "000909:Damsels.esp",
+            "formid": "000909:SampleQuestMod.esp",
             "type": "DialogResponses",
             "path": "Responses[0].Text",
             "text": "Thank you! Please get me out of here!",
             "parent_context": {
-                "topic_id": "LunaTopic01",
+                "topic_id": "SampleTopic01",
                 "topic_name": "Are you alright?"
             }
         }
@@ -94,8 +94,8 @@ def test_pipeline_stages():
 
     # [3] Проверка генерации структурированного промпта
     mod_context = {
-        "description": "Мод на спасение пленниц из лагерей Изгоев",
-        "lore": "Предел (Reach), Эпоха 4Э 201"
+        "description": "Сюжетный квест по исследованию древних руин",
+        "lore": "Скайрим, Эпоха 4Э 201"
     }
     prompt = buffer.format_prompt_for_packages(packages, mod_context)
     print(f"\n[3] Фрагмент сгенерированного промпта для AI:\n{'-'*40}\n{prompt[:450]}...\n{'-'*40}")

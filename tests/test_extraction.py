@@ -22,7 +22,7 @@ def test_extraction_pipeline():
     print("🐾 === ТЕСТ ЭКСТРАКТОРА RAW ДАННЫХ ИЗ HOU бинарных записей ===")
 
     # 1. Проверяем построитель параметров houseCARL
-    params = build_housecarl_records_params("Damsels in Distress.esp")
+    params = build_housecarl_records_params("SampleQuestMod.esp")
     print(f"\n[1] Сгенерированы параметры для housecarl_records:")
     print(f"    Плагин: {params['plugins']['names']}")
     print(f"    Отслеживаемые типы: {len(params['types'])} типов")
@@ -32,38 +32,38 @@ def test_extraction_pipeline():
     sample_housecarl_data = {
         "records": [
             {
-                "formid": "000849:Damsels in Distress.esp",
+                "formid": "000849:SampleQuestMod.esp",
                 "type": "Armor",
-                "editorid": "damsel0_FalmerSkirt",
+                "editorid": "sample_FalmerSkirt",
                 "fields": [
                     {"path": "Name", "value": "Falmer Slave Skirt"},
                     {"path": "Description", "value": ""},
                 ]
             },
             {
-                "formid": "000847:Damsels in Distress.esp",
+                "formid": "000847:SampleQuestMod.esp",
                 "type": "Book",
-                "editorid": "damsel0_VeilNote",
+                "editorid": "sample_VeilNote",
                 "fields": [
                     {"path": "Name", "value": "Last Warning"},
                     {"path": "BookText", "value": "<font face='$HandwrittenFont'>I told you to stop!</font>"},
                 ]
             },
             {
-                "formid": "000907:Damsels in Distress.esp",
+                "formid": "000907:SampleQuestMod.esp",
                 "type": "DialogResponses",
                 "editorid": None,
                 "fields": [
                     {"path": "Responses[0].Text", "value": "Huh...? You're not a Forsworn."},
                     {"path": "Responses[1].Text", "value": "Are you here to save me?"},
-                    {"path": "*parent.EditorID", "value": "damsel0_QuestRescue_LunaBranch01Topic"},
+                    {"path": "*parent.EditorID", "value": "sample_QuestRescue_Branch01Topic"},
                     {"path": "*parent.Name", "value": "Are you alright?"}
                 ]
             },
             {
-                "formid": "000999:Damsels in Distress.esp",
+                "formid": "000999:SampleQuestMod.esp",
                 "type": "Armor",
-                "editorid": "damsel0_AlreadyTranslated",
+                "editorid": "sample_AlreadyTranslated",
                 "fields": [
                     {"path": "Name", "value": "Броня Изгоя"},  # Уже на русском!
                     {"path": "Description", "value": "12345"},    # Мусор (только цифры)

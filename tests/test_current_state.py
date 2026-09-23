@@ -34,7 +34,7 @@ def run_test():
         "SilverWeapons_v1.0.esp",
         "SilverWeapons_v1.2.esp",
         "SilverWeapons - 2.0.esm",
-        "Damsels in Distress.esp",
+        "SampleQuestMod.esp",
     ]
     print("[2] Тест нормализации имен плагинов (привязка словаря к моду):")
     for name in test_names:

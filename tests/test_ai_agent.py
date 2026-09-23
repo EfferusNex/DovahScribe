@@ -74,7 +74,7 @@ def test_ai_agent_pipeline():
 
     # [4] Тест ReviewManager (Экспорт файла для проверки человеком)
     print("\n[4] Проверка экспорта файла ревью для Сэмпая...")
-    review_path = ReviewManager.export_for_review("Damsels_Test", sample_items)
+    review_path = ReviewManager.export_for_review("SampleMod_Test", sample_items)
     print(f"    Файл ревью успешно создан: {review_path}")
     assert review_path.exists()
 
