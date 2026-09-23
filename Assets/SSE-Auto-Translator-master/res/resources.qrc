@@ -1,0 +1,24 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/sse-at">
+        <!-- SSE-AT Icons -->
+        <file>icons/cdt.svg</file>
+        <file>icons/detect_lang.svg</file>
+        <file>icons/icon.ico</file>
+        <file>icons/icon.png</file>
+        <file>icons/icon.svg</file>
+        <file>icons/nexus_mods.svg</file>
+        <file>icons/plugin.svg</file>
+        <file>icons/scan_online.svg</file>
+        
+        <!-- Localisation Files -->
+        <file>loc/de_DE.qm</file>
+        <file>loc/ru_RU.qm</file>
+        <file>loc/zh_CN.qm</file>
+
+        <!-- Other -->
+        <file>skyrimse.json</file>
+        <file>string_records.json</file>
+        <file>style.qss</file>
+    </qresource>
+</RCC>

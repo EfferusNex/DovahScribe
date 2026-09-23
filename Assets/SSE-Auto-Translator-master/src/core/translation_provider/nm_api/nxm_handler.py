@@ -1,0 +1,218 @@
+"""
+Copyright (c) Cutleast
+"""
+
+import logging
+import sys
+import winreg
+from typing import NoReturn, Optional
+
+import pyuac
+import pywintypes
+import zmq
+from cutleast_core_lib.core.utilities.singleton import SingletonQObject
+from cutleast_core_lib.core.utilities.thread import Thread
+from PySide6.QtCore import Signal
+
+
+class NXMHandler(SingletonQObject):
+    """
+    Class for listening for Nexus Mods downloads.
+    """
+
+    REG_PATH: str = "nxm\\shell\\open\\command"
+    PORT: int = 1248
+
+    request_signal = Signal(str)
+    """
+    Signal emitted whenever a Mod Manager download is started by the user and was
+    relayed to this app.
+
+    Args:
+        str: Full NXM Mod Manager download URL containing key and expiration timestamp
+    """
+
+    __reg_value: str
+    __prev_value: Optional[str]
+
+    __listening: bool = False
+    __context: Optional[zmq.Context] = None
+    __socket: Optional[zmq.Socket] = None
+    __thread: Thread
+
+    log: logging.Logger = logging.getLogger("NXMHandler")
+
+    def __init__(self, executable: str) -> None:
+        """
+        Args:
+            executable (str): Full path to the app's executable.
+        """
+
+        super().__init__()
+
+        self.__reg_value = executable + ' --download "%1"'
+        self.__thread = Thread(self.__listen)
+
+    def bind(self) -> None:
+        """
+        Starts listening on Port 1248 and sets Registry key.
+        """
+
+        if self.__listening:
+            return
+
+        self.bind_reg()
+        self.__listening = True
+        self.__thread = Thread(self.__listen)
+        self.__thread.start()
+
+        self.log.debug("Started listening for downloads.")
+
+    def __listen(self) -> None:
+        with zmq.Context() as self.__context:
+            self.__socket = self.__context.socket(zmq.REP)
+            self.__socket.bind(f"tcp://127.0.0.1:{NXMHandler.PORT}")  # type: ignore
+
+            while self.__listening:
+                if (self.__socket.poll(100) & zmq.POLLIN) == 0:  # type: ignore
+                    continue
+
+                request: str = self.__socket.recv_string()  # type: ignore
+
+                self.log.debug("Received NXM download request.")
+                self.request_signal.emit(request)
+
+                self.__socket.send_string("SUCCESS")  # type: ignore
+
+    def unbind(self) -> None:
+        """
+        Stops listening and resets Registry key.
+        """
+
+        self.unbind_reg()
+        self.__listening = False
+
+        if self.__socket is not None:
+            self.__socket.close(linger=0)
+            self.__socket = None
+
+        self.__thread.wait(1000)
+
+        self.log.debug("Stopped listening for downloads.")
+
+    def bind_reg(self, start_uac: bool = True) -> None:
+        """
+        Sets Registry key to link to this app.
+
+        TODO: Store original value in a persistent cache in case of a crash
+
+        Args:
+            start_uac (bool, optional):
+                Toggles whether admin rights are requested if necessary
+                or if it just fails. Defaults to True.
+        """
+
+        if self.is_bound():
+            return
+
+        self.log.info("Binding to NXM Links...")
+
+        try:
+            with winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, NXMHandler.REG_PATH) as hkey:
+                self.__prev_value = winreg.QueryValue(hkey, None)
+        except FileNotFoundError:
+            self.__prev_value = None
+
+        self.log.debug(f"Previous Value: '{self.__prev_value}'")
+
+        try:
+            with winreg.CreateKey(winreg.HKEY_CLASSES_ROOT, NXMHandler.REG_PATH) as hkey:
+                winreg.SetValue(hkey, "", winreg.REG_SZ, self.__reg_value)
+
+        except PermissionError:
+            self.log.error("Failed to bind to NXM Links: Admin Rights required!")
+
+            if start_uac:
+                try:
+                    pyuac.runAsAdmin([self.__reg_value, "--bind-nxm"])
+                except pywintypes.error:
+                    self.log.warning("Failed to bind to NXM Links: Canceled by User.")
+                    return
+            else:
+                raise
+
+        self.log.info(f"Binding successful: {self.is_bound()}")
+
+    def unbind_reg(self) -> None:
+        """
+        Sets Registry key to previous value.
+        """
+
+        if not self.is_bound():
+            return
+
+        self.log.info("Unbinding from NXM Links...")
+
+        if self.__prev_value is None:
+            self.log.debug("Previous Value is None. Deleting Registry Key...")
+
+            try:
+                winreg.DeleteKey(winreg.HKEY_CLASSES_ROOT, NXMHandler.REG_PATH)
+            except OSError:
+                return
+
+        else:
+            self.log.debug(f"Setting Registry value to '{self.__prev_value}'...")
+
+            with winreg.OpenKey(
+                winreg.HKEY_CLASSES_ROOT, NXMHandler.REG_PATH, access=winreg.KEY_WRITE
+            ) as hkey:
+                winreg.SetValue(hkey, "", winreg.REG_SZ, self.__prev_value)
+
+        self.log.info("Unbound from NXM Links.")
+
+    def is_bound(self) -> bool:
+        """
+        Checks if Registry key links to this app.
+
+        Returns:
+            bool: Whether the key links to this app
+        """
+
+        try:
+            with winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, NXMHandler.REG_PATH) as hkey:
+                cur_value: str = winreg.QueryValue(hkey, None)
+        except FileNotFoundError:
+            return False
+
+        return cur_value == self.__reg_value
+
+    @staticmethod
+    def send_request(request: str) -> NoReturn:
+        """
+        Sends download request to the currently running app, if any.
+        Exits with fitting return code.
+
+        Args:
+            request (str):
+                Full NXM Mod Manager download URL containing key and expiration
+                timestamp.
+        """
+
+        with zmq.Context() as context:
+            client: zmq.SyncSocket = context.socket(zmq.REQ)
+            client.connect(f"tcp://127.0.0.1:{NXMHandler.PORT}")
+
+            client.send_string(request)
+
+            if (client.poll(1000) & zmq.POLLIN) != 0:
+                reply: str = client.recv_string()
+                if reply == "SUCCESS":
+                    NXMHandler.log.debug("NXM download request succeeded.")
+                    sys.exit()
+                else:
+                    NXMHandler.log.warning("Received unexpected NXM response.")
+                    sys.exit(1)
+
+            NXMHandler.log.warning("NXM download request timed out.")
+            sys.exit(1)

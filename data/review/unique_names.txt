@@ -1,0 +1,349 @@
+AWPN FX
+Alpha Wolf
+Ambush
+Anathema
+Ancient Lich
+Annihilation
+Arcane Distortion
+Arcane Weapon
+Arctic Grasp
+Arctic Snap
+Area
+Armageddon
+Armor of Faith
+Avatar of Storm
+Avenging Wrath
+Band of Devastation
+Band of Devouring
+Band of Frozen Time
+Band of Illusions
+Band of Permanence
+Beastial Wrath
+Benediction
+Bite
+Bite Effects
+Blazing Speed
+Bleed
+Bleeding
+Bleeding Damage
+Blessed  Aegis
+Blessed Aegis
+Blessed Weapon
+Blessing of the Nines
+Blight Curse
+Bloodthirst
+Bond of Corruption
+Bound Battleaxe
+Bound Bow
+Bound Dagger
+Bound Greatsword
+Bound Sword
+CD
+Charged Atmosphere
+Chilled to the Bones
+Cinder
+Cleanse
+Cleansing Touch
+Cold Snap
+Combat Perception
+Combustion
+Concussive Blast
+Conflagrate
+Conflux
+Contagion
+Corrosion
+Curse of Discord
+Curse of Frailty
+Curse of Oblivion
+Cursed Rune
+Cyclone
+DPNG Cooldown
+DVH FX
+Dark Impulse
+Dark Spawn
+Death Nova
+Death's Dominion
+Deathguard
+Deathly Barrage
+Deathly Pall
+Dehydration
+Dense Smoke
+Desecration
+Devout Deflection
+Disarm
+Disarm: Swordbreaker
+Discharge
+Discord
+Discord Chaos
+Discord Chaos 2
+Discord Frenzy
+Discord Frenzy 2
+Discord Susceptibility
+Disease Damage
+Distortion
+Distracting Shroud
+Divine Aegis
+Divine Armor
+Divine Avenger
+Divine Hammer
+Divine Insight
+Divine Intervention
+Divine Light
+Divine Plea
+Divine Vengeance
+Doppelganger
+Doppelganger Cooldown
+Dread Aura
+Dreadful Touch
+Earthbound Weapon
+Eldritch Power
+Electric Charge
+Electric Charge Hidden
+Elethor
+Elethor's Goods
+Enhanced Mind
+Enslave Spirit
+Envenom
+Everlasting Pain
+Fear
+Fire Blast
+Fire Bomb
+Fire Cloak
+Fire Damage
+Flamestrike
+Flare
+Flash of Light
+Forgotten Magic
+Forgotten Magic: Ancient Lich
+Forgotten Magic: Arcane Weapon
+Forgotten Magic: Blessed Weapon
+Forgotten Magic: Blight Curse
+Forgotten Magic: Conflagrate
+Forgotten Magic: Cursed Rune
+Forgotten Magic: Deathguard
+Forgotten Magic: Deathly Pall
+Forgotten Magic: Discord
+Forgotten Magic: Divine Armor
+Forgotten Magic: Divine Light
+Forgotten Magic: Doppelganger
+Forgotten Magic: Earthbound Weapon
+Forgotten Magic: Electric Charge
+Forgotten Magic: Fire Blast
+Forgotten Magic: Frost Armor
+Forgotten Magic: Frost Bomb
+Forgotten Magic: Glacial Fortress
+Forgotten Magic: Hammer of Justice
+Forgotten Magic: Healing Touch
+Forgotten Magic: Holy Bolt
+Forgotten Magic: Ice Lance
+Forgotten Magic: Lightning Strike
+Forgotten Magic: Meteor Shower
+Forgotten Magic: Necrosis
+Forgotten Magic: Nether Rift
+Forgotten Magic: Phantom Armor
+Forgotten Magic: Phantom Shroud
+Forgotten Magic: Phoenix Strike
+Forgotten Magic: Salamander Touch
+Forgotten Magic: Seed of Life
+Forgotten Magic: Skyfall
+Forgotten Magic: Spectral Missiles
+Forgotten Magic: Storm Armor
+Forgotten Magic: Stormgate
+Forgotten Magic: Stormstrike
+Forgotten Magic: Veil of Nature
+Forgotten Magic: Void Bolt
+Forgotten Magic: Wild Mushroom
+Forgotten Magic: Winter Woe
+Forgotten Magic: Wolf Pack
+Fortify Stats
+Frost
+Frost Armor
+Frost Barrier
+Frost Bomb
+Frostbite
+Furious Curse
+Glacial Fortress
+Glacial Fortress Aftermath
+Glacial Fortress Area
+Glacial Fortress Cooldown
+Hammer of Justice
+Hammer of Justice FX
+Healing Touch
+Hibernate
+Hoarfrost
+Holy Bolt
+Hot Streak
+Howling Wind
+Hypnotic Gaze
+Ice Charge
+Ice Lance
+Icy Gale
+Ignite
+Immune freeze
+Inferno
+Instability
+Invisibility
+Jolt
+Last Hope
+Leader of the Pack
+Leadership
+Lifegiving Veil
+Light Bearer
+Lightning Conductor
+Lightning Strike
+Lingering Curse
+Lokun
+Lokun the Sage
+Lokun's Goods
+Loot
+Magic
+Mark of the Death
+Mending
+Meteor
+Meteor Shower
+Microburst
+Molten Fury
+Molten Skin
+Mystic Bow
+Mystic Dagger
+Mystic Greatsword
+Mystic Sword
+Natural Fusion
+Nature's Wrath
+Necrosis
+Negation
+Nether Rift
+Oak Flesh
+Obscured Visibility
+Ooze
+Overgrowth
+Pain Suppression
+Panic Curse
+Paralysing Touch
+Penance
+Permanence
+Petrify
+Phantasm
+Phantom
+Phantom Armor
+Phantom Shroud
+Phase Shift
+Phoenix CD
+Phoenix Cooldown
+Phoenix Gift CD
+Phoenix Strike
+Phytogenesis
+Poison Essence
+Poison Sting
+Poison Swarm
+Purifying Flames
+Radiance of Light
+Rage of the North
+Raised in Nature
+Replenish
+Resonance
+Revelation
+Revenant
+Revenant Ring
+Rift CD
+Rift Cooldown
+Rift of Despair
+Ring of Confusion
+Ring of Furious Flames
+Ring of Hungering Cold
+Ring of Retribution
+Ring of Virulence
+SMS
+SMSpassive
+Sacrifice
+Salamander Flame
+Salamander Terrible Flames
+Salamander Touch
+Salamander Weapon
+Searing Light
+Searing Pain
+Seed of Life
+Sequence
+Shadow Orb
+Shieldbreaker
+Shock Damage
+Shocking Pulse
+ShockingPulse
+Skyfall
+Slow Time Effect
+SlowTime
+Snowblind
+Soften Weapon
+Soporific Poison
+Soul Reaper
+Soul Steal
+Soul Trap
+Spectral Cloak
+Spectral Missile
+Spectral Missiles
+Stagger
+Static Barrier
+Storm Armor
+Storm Caller
+Storm Orb
+Storm Orb Hidden
+Storm Shard
+Storm Shield
+Stormgate
+Stormstrike
+Straying Gateway
+Strength
+Summon Ancient Lich
+Summon Deathguard
+Sunshine
+Supercharge
+Superconductor
+Susceptibility
+Swift Recharge
+Synthesis
+Tanglefoot
+Taunt
+Tempest Spawn
+Terrible Flames
+Throe
+Tinder
+Triumph
+Unholy Obsession
+Unrelenting Force Middle
+Vanquish the Weak
+Veil of Nature
+Vile Infusion
+Vile Spores
+Visions of Death
+Void Bolt
+Wild Growth
+Wild Growth Cooldown
+Wild Mushroom
+Wild Mushrooms
+Wildfire
+Winter Weapon
+Winter Weapon Frost
+Winter Woe
+Wolf
+Wolf Pack
+Wolf pack
+Wrath of the North
+pArmorDurationMultSetting
+pCombatPerception
+pGlacialFortress
+pGlacialFortressActive
+pGlacialFortressAfter
+pRingConfusion
+pRingLightBearer
+pRingNature01
+pRingNature02
+pRingRetribution
+pRingStormcaller
+pRingVirulence
+pSalamander
+pSalamanderHeart
+pWinterWoe
+pWinterWoeActive
+v
+vFaction
+xxp

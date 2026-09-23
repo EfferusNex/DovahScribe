@@ -1,0 +1,950 @@
+"""
+Copyright (c) Cutleast
+"""
+
+import re
+import webbrowser
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
+from pathlib import Path
+from queue import Empty, Queue
+from typing import Any, Optional, TypeVar, override
+from urllib.parse import urljoin
+from uuid import uuid4
+
+import bs4
+import jstyleson as json
+import requests as req
+import websocket as ws
+from curl_cffi import requests as curl_requests
+from cutleast_core_lib.core.cache.cache import Cache
+from cutleast_core_lib.core.filesystem.utils import norm
+from pydantic import BaseModel, ValidationError
+
+from core.translation_provider.nm_api.models.file_manifest import FileManifest
+from core.translation_provider.nm_api.nxm_id import NxmModId
+from core.utilities.filesystem import extract_file_paths
+from core.utilities.web_utils import get_url_identifier
+
+from ..exceptions import (
+    ApiInvalidServerError,
+    ApiNoServerAvailableError,
+    UnexpectedResponseError,
+)
+from ..mod_details import ModDetails
+from ..mod_id import ModId
+from ..provider_api import ProviderApi
+from ..source import Source
+from .models.nm_file import NmFile
+from .models.nm_files import NmFiles
+from .models.nm_mod import NmMod
+from .nxm_handler import NXMHandler
+from .nxm_request import NxmRequest
+
+M = TypeVar("M", bound=BaseModel)
+
+
+class NexusModsApi(ProviderApi):
+    """
+    Class for communication with Nexus Mods API.
+    """
+
+    APP_SLUG: str = "sse-at"
+    """Slug of the application used for the Single-Sign-On (SSO) flow."""
+
+    GAME_IDS: dict[str, int] = {
+        "skyrimspecialedition": 1704,
+    }
+    """Map of Nexus Mods game IDs."""
+
+    LANG_OVERRIDES: dict[str, str] = {
+        "Mandarin": "Chinese",
+        "Simplified Chinese": "Chinese",
+        "Portuguese (Brazil)": "Portuguese",
+        "Portuguese (Portugal)": "Portuguese",
+        "Spanish (Spain)": "Spanish",
+    }
+    """Map for languages that are named differently on the Nexus Mods site."""
+
+    NXM_REQUEST_TIMEOUT: float = 300.0
+    """Maximum time to wait for a non-premium NXM download request in seconds."""
+
+    MODPAGE_URL_PATTERN: re.Pattern[str] = re.compile(
+        r"https://www\.nexusmods\.com/([a-z]+)/mods/([0-9]+)(?:\?tab=files&file_id=([0-9]+))?"
+    )
+    """
+    Regex pattern for capturing, game id, mod id and file id from
+    a Nexus Mods modpage url.
+    """
+
+    FILE_NAME_PATTERN: re.Pattern[str] = re.compile(
+        r"^(?P<display_name>.*)-(?P<mod_id>[0-9]{2,})-(?P<version>.*)-(?P<timestamp>[0-9]{9,})\.(?P<file_type>zip|rar|7z)$"
+    )
+    """
+    Regex pattern for extracting mod id, version and upload timestamp from a file name,
+    like: `Untarnished UI - RaceMenu Patch-97347-v1-3-1713561432.7z`
+
+    The pattern provides these named groups:
+    - `display_name` - the display name of the file
+    - `mod_id` - the mod id at Nexus Mods
+    - `version` - the sluggified version of the file (e.g. `v1-3` for `v1.3`)
+    - `timestamp` - the upload timestamp of the file
+    """
+
+    OLD_CONTENT_URL_PATTERN: re.Pattern[str] = re.compile(
+        r"https://file-metadata\.nexusmods\.com/file/nexus-files-s3-meta/\d+/\d+/[^/]+\.json",
+        re.IGNORECASE,
+    )
+    """
+    Regex pattern for file content URLs belonging to the old file content preview system.
+
+    Example:
+        `https://file-metadata.nexusmods.com/file/nexus-files-s3-meta/1704/73920/TESL Loading Screens - German-73920-v2-1-1-1688886211.7z.json`
+    """
+
+    INVALID_CONTENT_URL_PATTERN: re.Pattern[str] = re.compile(
+        r"https://file-metadata\.nexusmods\.com/file/nexus-files-s3-meta/\d+/\d+/"
+        r"(?P<id>[/0-9a-f\-]+)\.json",
+        re.IGNORECASE,
+    )
+    """
+    Regex pattern for file content URLs that are returned by the API but are invalid
+    because they belong to files uploaded with the new upload system.
+
+    The pattern provides these named groups:
+    - `id` - the file id of the file, which is a sluggified hash of the file
+    """
+
+    NEW_CONTENT_URL_PATTERN: re.Pattern[str] = re.compile(
+        r"https://mod-file-manifests\.nexusmods\.com/[0-9a-f/\-]+", re.IGNORECASE
+    )
+    """Regex pattern for file content URLs belonging to the new file content preview system."""
+
+    NEW_CONTENT_BASE_URL: str = "https://mod-file-manifests.nexusmods.com/"
+    """The base URL for the new file content preview system, which uses file manifests."""
+
+    __api_key: Optional[str] = None
+    """The user-specific API key used for most API requests."""
+
+    __premium: bool = False
+    """Whether the user has Nexus Mods premium or not."""
+
+    __rem_hreq: int = 0
+    """Remaining API requests at current hour"""
+
+    __rem_dreq: int = 0
+    """Remaining API requests at current day"""
+
+    __scraper: Optional[curl_requests.Session] = None
+    """
+    Scraper for circumventing Cloudflare protection when scraping the HTML of a
+    modpage for translations.
+    """
+
+    def set_api_key(self, key: str) -> None:
+        """
+        Sets API key and checks it.
+
+        Args:
+            key (str): API key
+
+        Raises:
+            ValueError: when the API key is invalid
+        """
+
+        self.log.info("Checking API Key...")
+
+        api_key_valid: bool
+        premium: bool
+        api_key_valid, premium = self.__validate_api_key(key)
+
+        self.log.info(f"API Key valid: {api_key_valid}")
+
+        if not api_key_valid:
+            raise ValueError("Invalid API Key!")
+
+        self.__api_key = key
+        self.__premium = premium
+
+    def __validate_api_key(self, key: str) -> tuple[bool, bool]:
+        from app import App
+
+        url: str = "https://api.nexusmods.com/v1/users/validate.json"
+        headers: dict[str, str] = {
+            "accept": "application/json",
+            "apikey": key,
+            "User-Agent": self.user_agent,
+        }
+
+        self.log.debug(f"Sending API request to '{url}'...")
+        res: req.Response = self._request(url, headers=headers, handle_status_code=False)
+        self.log.debug(f"Status Code: {res.status_code}")
+
+        api_key_valid: bool = res.status_code == 200
+        premium: bool = False
+        if api_key_valid:
+            data: dict[str, Any] = json.loads(res.content.decode("utf8"))
+            premium = data.get("is_premium", False)
+        else:
+            self.log.error("Response has non-200 status code!")
+            self.log.debug(f"Response content: {res.content}")
+
+        if App.has_instance() and App.get().args.disable_nxm_premium:
+            premium = False
+            self.log.warning("Premium features disabled by command line argument.")
+
+        return api_key_valid, premium
+
+    @override
+    def is_api_key_valid(self, key: str) -> bool:
+        return self.__validate_api_key(key)[0]
+
+    @override
+    def _request(
+        self,
+        url: str,
+        headers: Optional[dict[str, str]] = None,
+        handle_status_code: bool = True,
+    ) -> req.Response:
+        res: req.Response = super()._request(url, headers, handle_status_code)
+
+        rem_hreq: Optional[str] = res.headers.get("X-RL-Hourly-Remaining", None)
+        rem_dreq: Optional[str] = res.headers.get("X-RL-Daily-Remaining", None)
+
+        if rem_hreq is not None and rem_hreq.isnumeric():
+            self.__rem_hreq = int(rem_hreq)
+        if rem_dreq is not None and rem_dreq.isnumeric():
+            self.__rem_dreq = int(rem_dreq)
+
+        return res
+
+    def __request(self, path: str, cache_result: bool = True) -> req.Response:
+        """
+        Sends request to `path` and returns response.
+
+        Caches result for avoiding redundant requests if `cache_result` is `True`.
+        """
+
+        url: str = "https://api.nexusmods.com/v1/" + path
+
+        if self.__api_key is None:
+            raise ValueError("API Key not set!")
+
+        headers: dict[str, str] = {
+            "accept": "application/json",
+            "apikey": self.__api_key,
+            "User-Agent": self.user_agent,
+        }
+
+        if cache_result:
+            return self._cached_request(url, headers)
+
+        return self._request(url, headers)
+
+    def __request_with_model(
+        self, path: str, model: type[M], cache_result: bool = True
+    ) -> M:
+        """
+        Sends a request to a given path and attempts to deserialize the response to a
+        given model.
+
+        Args:
+            path (str): Path to the API endpoint, relative to the base URL.
+            model (type[M]): Model to deserialize the response to.
+            cache_result (bool, optional): Whether to cache the result. Defaults to True.
+
+        Raises:
+            UnexpectedResponseError: If the response failed to deserialize to the model.
+
+        Returns:
+            M: Deserialized response.
+        """
+
+        res: req.Response = self.__request(path, cache_result)
+
+        try:
+            return model.model_validate_json(res.content, by_alias=True)
+        except ValidationError as ex:
+            raise UnexpectedResponseError(path, res.content.decode()) from ex
+
+    @override
+    def is_direct_download_possible(self) -> bool:
+        return self.__premium
+
+    @override
+    def get_remaining_requests(self) -> tuple[int, int]:
+        return (self.__rem_hreq, self.__rem_dreq)
+
+    @override
+    def get_mod_details(self, mod_id: ModId) -> ModDetails:
+        if not isinstance(mod_id, NxmModId):
+            ProviderApi.raise_mod_not_found_error(mod_id)
+
+        mod: NmMod = self.__request_mod_details(mod_id)
+
+        mod_details: ModDetails
+        if mod_id.file_id:
+            file: NmFile = self.__request_file(mod_id)
+
+            mod_details = ModDetails(
+                display_name=file.name,
+                mod_display_name=mod.name,
+                version=file.version,
+                file_name=file.file_name,
+                mod_id=mod_id,
+                timestamp=file.uploaded_timestamp,
+                author=mod.author,
+                uploader=mod.uploader,
+                modpage_url=NexusModsApi.create_nexus_mods_url(
+                    game_id=mod_id.nm_game_id,
+                    mod_id=mod_id.mod_id,
+                    file_id=mod_id.file_id,
+                ),
+            )
+
+        else:
+            mod_details = ModDetails(
+                display_name=mod.name,
+                mod_display_name=None,
+                version=mod.version,
+                file_name="",
+                mod_id=mod_id,
+                timestamp=mod.updated_timestamp,
+                author=mod.author,
+                uploader=mod.uploader,
+                modpage_url=NexusModsApi.create_nexus_mods_url(
+                    game_id=mod_id.nm_game_id,
+                    mod_id=mod_id.mod_id,
+                    file_id=mod_id.file_id,
+                ),
+            )
+
+        return mod_details
+
+    def __request_file(self, mod_id: ModId) -> NmFile:
+        if not isinstance(mod_id, NxmModId):
+            ProviderApi.raise_mod_not_found_error(mod_id)
+
+        if not mod_id.mod_id or not mod_id.file_id:
+            ProviderApi.raise_mod_not_found_error(mod_id)
+        elif mod_id.mod_id == mod_id.file_id:
+            # Although this could occur naturally, it's most likely due to faulty
+            # metadata written by a modlist installer like the Nolvus Dashboard.
+            # Catching it here prevents a lot of unnecessary requests just to get a
+            # similar exception at a later point.
+            raise ValueError("Mod ID and file ID are the same! Wrong metadata?")
+
+        self.log.debug(f"Requesting file info for {mod_id.mod_id} > {mod_id.file_id}...")
+        files: NmFiles = self.__request_mod_files(mod_id.nm_game_id, mod_id.mod_id)
+        files_by_id: dict[int, NmFile] = {f.file_id: f for f in files.files}
+
+        if mod_id.file_id not in files_by_id:
+            ProviderApi.raise_mod_not_found_error(mod_id)
+
+        return files_by_id[mod_id.file_id]
+
+    def __request_mod_details(self, mod_id: ModId) -> NmMod:
+        if not isinstance(mod_id, NxmModId):
+            ProviderApi.raise_mod_not_found_error(mod_id)
+
+        self.log.debug(f"Requesting mod info for {mod_id.mod_id}...")
+        path: str = f"games/{mod_id.nm_game_id}/mods/{mod_id.mod_id}.json"
+
+        return self.__request_with_model(path, NmMod)
+
+    @override
+    def get_modpage_url(self, mod_id: ModId) -> str:
+        if not isinstance(mod_id, NxmModId):
+            ProviderApi.raise_mod_not_found_error(mod_id)
+
+        return NexusModsApi.create_nexus_mods_url(
+            game_id=mod_id.nm_game_id, mod_id=mod_id.mod_id
+        )
+
+    @override
+    def get_translations(
+        self, mod_id: ModId, file_name: str, language: str
+    ) -> list[ModId]:
+        if not isinstance(mod_id, NxmModId):
+            ProviderApi.raise_mod_not_found_error(mod_id)
+
+        translation_mod_ids: list[int] = self.__scrape_mod_translations(
+            game_id=mod_id.nm_game_id, mod_id=mod_id.mod_id, language=language
+        )
+
+        translations: list[ModId] = []
+        for translation_mod_id in translation_mod_ids:
+            translation_files: list[int] = self.__scan_mod_for_filename(
+                game_id=mod_id.nm_game_id,
+                mod_id=translation_mod_id,
+                file_name=file_name,
+            )
+
+            translations += [
+                NxmModId(
+                    mod_id=translation_mod_id,
+                    file_id=file_id,
+                    nm_game_id=mod_id.nm_game_id,
+                )
+                for file_id in translation_files
+            ]
+
+        try:
+            self.__sort_available_translations(translations, mod_id)
+        except Exception as ex:
+            self.log.error(f"Failed to sort translations: {ex}", exc_info=ex)
+
+        return translations
+
+    def __sort_available_translations(
+        self, available_translations: list[ModId], original_mod_id: ModId
+    ) -> None:
+        """
+        Sorts the available translations after their relevance (and potential
+        compatibility) to the installed original mod.
+
+        Translation relevance is determined by the following factors in this order:
+        1. File version vaguely matches the version of the installed original mod.
+        2. File has the "same" age as the installed mod (newer than the installed
+        original but older than the original's updates (if any)).
+        3. File upload timestamp (newer first).
+
+        Args:
+            available_translations (list[ModId]): List of available translations.
+            original_mod_id (ModId): Mod identifier of the installed original mod.
+        """
+
+        original_mod_details: ModDetails
+        if original_mod_id.installation_file_name is not None:
+            try:
+                original_mod_details = (
+                    NexusModsApi.reconstruct_mod_details_from_file_name(
+                        original_mod_id.installation_file_name
+                    )
+                )
+            except ValueError:
+                original_mod_details = self.get_mod_details(original_mod_id)
+        else:
+            original_mod_details = self.get_mod_details(original_mod_id)
+
+        # sort translations ascending after their timestamp difference to the original
+        # mod timestamp or their upload timestamp if they're older than the original mod
+        def get_sort_key(mod_id: ModId) -> tuple[bool, bool, int]:
+            translation_details: ModDetails = self.get_mod_details(mod_id)
+
+            return self.__get_sort_key(
+                translation_timestamp=translation_details.timestamp,
+                translation_version=translation_details.version,
+                original_mod_timestamp=original_mod_details.timestamp,
+                original_mod_version=original_mod_details.version,
+            )
+
+        available_translations.sort(key=get_sort_key, reverse=True)
+
+        self.log.debug(
+            f"Sorted {len(available_translations)} translations after their potential "
+            "relevance."
+        )
+
+    @staticmethod
+    def __get_sort_key(
+        translation_timestamp: int,
+        translation_version: str,
+        original_mod_timestamp: int,
+        original_mod_version: str,
+    ) -> tuple[bool, bool, int]:
+        """
+        Calculates a sort key for a translation. The sort key consists of these values:
+        - vague version match (prefer translations that start with the same version as
+          the original)
+        - relative translation age
+        - translation upload timestamp
+
+        Args:
+            translation_timestamp (int): Timestamp of the translation.
+            translation_version (str): Version of the translation.
+            original_mod_timestamp (int): Timestamp of the original mod.
+            original_mod_version (str): Version of the original mod.
+
+        Returns:
+            tuple[bool, bool, int]: Sort key
+        """
+
+        translation_version = translation_version.lower().removeprefix("v")
+        original_mod_version = original_mod_version.lower().removeprefix("v")
+
+        version_match: bool = bool(
+            translation_version.strip() and original_mod_version.strip()
+        ) and translation_version.startswith(original_mod_version)
+
+        return (
+            # vague version match (prefer translations that start with the same version
+            # as the original)
+            version_match,
+            # relative translation age
+            translation_timestamp > original_mod_timestamp,
+            # translation upload timestamp
+            translation_timestamp,
+        )
+
+    def __request_mod_files(self, game_id: str, mod_id: int) -> NmFiles:
+        """
+        Requests a list of files a mod has at Nexus Mods.
+        """
+
+        path = f"games/{game_id}/mods/{mod_id}/files.json?category=main%2Cupdate%2Coptional%2Cold_version%2Cmiscellaneous"
+        return self.__request_with_model(path, NmFiles)
+
+    def __get_file_contents(self, url: str) -> Optional[list[str]]:
+        res: req.Response
+        try:
+            old_content_url_match: Optional[re.Match[str]] = (
+                NexusModsApi.OLD_CONTENT_URL_PATTERN.match(url)
+            )
+
+            if old_content_url_match is not None:
+                res = self._cached_request(url)
+                return extract_file_paths(res.json())
+
+            invalid_content_url_match: Optional[re.Match[str]] = (
+                NexusModsApi.INVALID_CONTENT_URL_PATTERN.match(url)
+            )
+            if invalid_content_url_match is not None:
+                file_id: str = invalid_content_url_match.group("id")
+                url = f"{NexusModsApi.NEW_CONTENT_BASE_URL}{file_id}"
+
+            new_content_url_match: Optional[re.Match[str]] = (
+                NexusModsApi.NEW_CONTENT_URL_PATTERN.match(url)
+            )
+            if new_content_url_match is None:
+                raise RuntimeError(f"Unknown URL scheme: {url}")
+
+            res = self._cached_request(url)
+            file_manifest: FileManifest = FileManifest.model_validate_json(
+                res.content, by_alias=True
+            )
+            return [norm(str(f.path)) for f in file_manifest.files]
+
+        except FileNotFoundError:
+            self.log.warning(
+                f"Failed to get file contents: No content preview at '{url}' available."
+            )
+            return None
+
+        except Exception as ex:
+            self.log.error(f"Failed to get file contents: {ex}", exc_info=ex)
+            self.log.debug(f"Request URL: {url}")
+            return None
+
+    def __scan_mod_for_filename(
+        self, game_id: str, mod_id: int, file_name: str
+    ) -> list[int]:
+        """
+        Scans modpage for Files that contain `file_name` and returns their file ids.
+        """
+
+        self.log.debug(f"Scanning mod {mod_id} for file '{file_name}'...")
+
+        mod_files: NmFiles = self.__request_mod_files(game_id, mod_id)
+
+        file_contents: dict[NmFile, list[str]] = {}
+        with ThreadPoolExecutor(thread_name_prefix="NexusModsApiThread") as executor:
+            futures: dict[Future[Optional[list[str]]], NmFile] = {}
+            for mod_file in mod_files.files:
+                if mod_file.category_name is None:
+                    self.log.debug(
+                        f"Skipped file without category: '{mod_file.file_name}'"
+                    )
+                    continue
+
+                futures[
+                    executor.submit(
+                        self.__get_file_contents, mod_file.content_preview_link
+                    )
+                ] = mod_file
+
+            for future in as_completed(futures):
+                mod_file: NmFile = futures[future]
+                result: Optional[list[str]] = future.result()
+                if result is not None:
+                    file_contents[mod_file] = result
+                else:
+                    self.log.debug(
+                        f"Failed to get file contents of '{mod_file.file_name}'!"
+                    )
+
+        matches: list[int] = []
+        for mod_file, content in file_contents.items():
+            if any(
+                file.lower().strip().endswith(file_name.lower().strip())
+                or (
+                    f"skse/plugins/dynamicstringdistributor/{file_name.lower().strip()}"
+                    in file.lower()
+                )
+                for file in content
+            ):
+                self.log.debug(f"Found '{file_name}' in file '{mod_file.file_name}'.")
+                matches.append(mod_file.file_id)
+
+        matches.reverse()
+
+        if not matches:
+            self.log.error(f"File '{file_name}' not found in mod {mod_id}!")
+
+        return matches
+
+    def __scrape_mod_translations(
+        self, game_id: str, mod_id: int, language: str
+    ) -> list[int]:
+        """
+        Requests modpage and extracts translations from HTML code
+        because official API does not include translations in its response.
+
+        As soon as the API v2 is available and supports translations, this function
+        can be removed/replaced.
+
+        Permission granted by Pickysaurus (Nexus Mods Moderator).
+
+        Args:
+            game_id (str): Nexus Mods game id, eg. skyrimspecialedition
+            mod_id (int): Nexus Mods mod id
+            language (str): Language to filter translations for
+
+        Raises:
+            ModNotFoundError: when the requested mod could not be found
+
+        Returns:
+            list[int]: List of translation mod ids
+        """
+
+        if not mod_id:
+            raise ProviderApi.raise_mod_not_found_error(NxmModId(mod_id=mod_id))
+
+        url: str = f"https://www.nexusmods.com/{game_id}/mods/{mod_id}"
+        cache_file_path: Path = ProviderApi.CACHE_FOLDER / (
+            get_url_identifier(url) + ".cache"
+        )
+
+        cached: Optional[req.Response | curl_requests.Response] = Cache.get_from_cache(
+            cache_file_path, default=None
+        )
+
+        res: req.Response | curl_requests.Response
+        if cached is None:
+            if self.__scraper is None:
+                self.__scraper = curl_requests.Session(impersonate="chrome")
+
+            headers: dict[str, str] = {
+                "User-Agent": self.user_agent,
+            }
+
+            res = self.__scraper.get(url, headers=headers)
+            self.handle_status_code(url, res.status_code)
+            Cache.save_to_cache(cache_file_path, res)
+        else:
+            res = cached
+            self.log.debug(f"Got cached Web response for '{url}'")
+
+        html: str = res.content.decode(errors="replace")
+        parsed = bs4.BeautifulSoup(html, features="html.parser")
+
+        language_aliases: dict[str, str] = {
+            name.casefold(): alias.casefold()
+            for name, alias in NexusModsApi.LANG_OVERRIDES.items()
+        }
+        requested_language: str = language.strip().casefold()
+        available_translations: list[int] = []
+        seen_ids: set[int] = set()
+        for tag in parsed.select("table.translation-table td.table-translation-name a"):
+            lang_name: str = " ".join(tag.get_text(" ", strip=True).split()).casefold()
+            lang_name = language_aliases.get(lang_name, lang_name)
+            if lang_name != requested_language:
+                continue
+
+            href = tag.get("href")
+            if not isinstance(href, str) or not href.strip():
+                continue
+            if href.lstrip().startswith(("#", "?")):
+                continue
+            try:
+                linked_game_id, translation_id, _ = NexusModsApi.get_ids_from_url(
+                    urljoin(url, href.strip())
+                )
+            except ValueError:
+                continue
+            if linked_game_id != game_id or translation_id in seen_ids:
+                continue
+            available_translations.append(translation_id)
+            seen_ids.add(translation_id)
+
+        return available_translations
+
+    def get_sso_key(self) -> str:
+        """
+        Initializes SSO process and waits for API key from server.
+
+        Follows instructions from here: https://github.com/Nexus-Mods/sso-integration-demo
+        """
+
+        self.log.info("Starting SSO process...")
+
+        self.log.debug("Connecting to Nexus Mods SSO webserver...")
+        connection: ws.WebSocket = ws.create_connection("wss://sso.nexusmods.com")
+
+        self.log.debug("Generating UUID v4...")
+        uuid = str(uuid4())
+        self.log.debug(f"UUID: {uuid}")
+
+        self.log.debug("Requesting SSO token...")
+        request_data: dict[str, Any] = {
+            "id": uuid,
+            "token": None,
+            "protocol": 2,
+        }
+        connection.send(json.dumps(request_data).encode())
+
+        response: str | bytes = connection.recv()
+        if isinstance(response, bytes):
+            response = response.decode()
+        res_data: dict[str, Any] = json.loads(response)
+        token: str = res_data["data"]["connection_token"]  # type: ignore  # noqa: F841
+
+        self.log.debug("Opening page in Web Browser...")
+        url: str = f"https://www.nexusmods.com/sso?id={uuid}&application={NexusModsApi.APP_SLUG}"
+        webbrowser.open(url)
+
+        self.log.info("Waiting for User to sign in...")
+        connection.settimeout(600)  # Timeout of 5 minutes
+        response = connection.recv()
+        if isinstance(response, bytes):
+            response = response.decode()
+        res_data = json.loads(response)
+        api_key: str = res_data["data"]["api_key"]
+        self.log.debug("Received API key.")
+
+        connection.close()
+        self.log.debug("Connection closed.")
+
+        self.__api_key = api_key
+        self.log.info("SSO process successful.")
+
+        return self.__api_key
+
+    def __get_premium_download_url(
+        self, game_id: str, mod_id: int, file_id: int, server_id: str = "Nexus CDN"
+    ) -> str:
+        """
+        Generates premium download URL for `file_id` from `mod_id`.
+        Uses `server` if specified.
+        """
+
+        path: str = f"games/{game_id}/mods/{mod_id}/files/{file_id}/download_link.json"
+        res: req.Response = self.__request(path, cache_result=False)
+        data: list[dict[str, str]] = json.loads(res.content.decode())
+
+        if not data:
+            raise ApiNoServerAvailableError(path)
+
+        try:
+            for url_data in data:
+                if url_data["short_name"].lower() == server_id.lower():
+                    return url_data["URI"]
+
+            # Handle errors
+            raise ApiInvalidServerError(path)
+
+        except KeyError as ex:
+            raise UnexpectedResponseError(path, res.content.decode()) from ex
+
+    def __get_free_download_url(
+        self, game_id: str, mod_id: int, file_id: int, key: str, expires: int
+    ) -> str:
+        """
+        Generates non-premium download URL for `file_id` from `mod_id`
+        by using `key` and `expires`.
+        """
+
+        path: str = f"games/{game_id}/mods/{mod_id}/files/{file_id}/download_link.json"
+        path += f"?key={key}&expires={expires}"
+
+        res: req.Response = self.__request(path, cache_result=False)
+        data: list[dict[str, str]] = json.loads(res.content.decode())
+
+        try:
+            for url_data in data:
+                return url_data["URI"]
+
+            raise ApiNoServerAvailableError(path)
+
+        except KeyError as ex:
+            raise UnexpectedResponseError(path, res.content.decode()) from ex
+
+    @override
+    def request_download(self, mod_id: ModId) -> str:
+        """
+        Requests direct download url for a mod file from Nexus Mods.
+        Waits for a Mod Manager download if the user has no Premium
+        so make sure that the user is able to start it.
+
+        Args:
+            mod_id (ModId): Mod identifier
+
+        Returns:
+            str: Direct download url
+        """
+
+        if not isinstance(mod_id, NxmModId):
+            ProviderApi.raise_mod_not_found_error(mod_id)
+
+        if mod_id.file_id is None:
+            raise ValueError("Mod file id must not be None.")
+
+        url: str
+        if self.__premium:
+            self.log.info("Starting premium download...")
+
+            url = self.__get_premium_download_url(
+                mod_id.nm_game_id, mod_id.mod_id, mod_id.file_id
+            )
+
+        else:
+            self.log.info("Waiting for non-premium download...")
+
+            # Use a queue to get the download details in a thread-safe way
+            queue: Queue[NxmRequest] = Queue(1)
+
+            def process_url(url: str) -> None:
+                nxm_request: NxmRequest = NxmRequest.from_url(url)
+
+                if (
+                    nxm_request.mod_id == mod_id.mod_id
+                    and nxm_request.file_id == mod_id.file_id
+                    and nxm_request.game == mod_id.nm_game_id
+                ):
+                    queue.put(nxm_request)
+
+            handler: NXMHandler = NXMHandler.get()
+            handler.request_signal.connect(process_url)
+            try:
+                nxm_request: NxmRequest = queue.get(
+                    timeout=NexusModsApi.NXM_REQUEST_TIMEOUT
+                )
+            except Empty as ex:
+                raise TimeoutError(
+                    "Timed out waiting for an NXM download request."
+                ) from ex
+            finally:
+                handler.request_signal.disconnect(process_url)
+
+            key: str = nxm_request.key
+            expires: int = nxm_request.expires
+
+            url = self.__get_free_download_url(
+                mod_id.nm_game_id, mod_id.mod_id, mod_id.file_id, key, expires
+            )
+            queue.task_done()
+
+            self.log.info("Got non-premium download.")
+
+        return url
+
+    @override
+    @classmethod
+    def get_source(cls) -> Source:
+        return Source.NexusMods
+
+    @staticmethod
+    def create_nexus_mods_url(
+        game_id: str,
+        mod_id: int,
+        file_id: Optional[int] = None,
+        mod_manager: bool = False,
+    ) -> str:
+        """
+        Creates URL to Nexus Mods page of `mod_id` in `game_id` nexus.
+
+        `file_id` is optional and can be used to link directly to a file.
+        """
+
+        url: str = "https://www.nexusmods.com/"
+        if file_id is None:
+            url += f"{game_id}/mods/{mod_id}"
+        else:
+            url += f"{game_id}/mods/{mod_id}?tab=files&file_id={file_id}"
+            if mod_manager:
+                url += "&nmm=1"
+
+        return url
+
+    @staticmethod
+    def get_ids_from_url(url: str) -> tuple[str, int, Optional[int]]:
+        """
+        Extracts the game id, mod id and file id from a Nexus Mods url.
+
+        Args:
+            url (str): Nexus Mods url
+
+        Raises:
+            ValueError:
+                When the url is not a Nexus Mods url or does not contain a mod or game id
+
+        Returns:
+            tuple[str, int, Optional[int]]: Game id, mod id and file id, if any
+        """
+
+        url_match: Optional[re.Match[str]] = NexusModsApi.MODPAGE_URL_PATTERN.match(url)
+
+        if url_match is not None:
+            game_id: str = url_match.group(1)
+            mod_id = int(url_match.group(2))
+            file_id: Optional[int] = int(url_match.group(3) or 0) or None
+
+            return game_id, mod_id, file_id
+
+        raise ValueError(f"Could not extract mod id from '{url}'")
+
+    @staticmethod
+    def reconstruct_mod_details_from_file_name(file_name: str) -> ModDetails:
+        """
+        Attempts to reconstruct the mod details from the file name of a file downloaded
+        from Nexus Mods.
+
+        Args:
+            file_name (str): Full name of the downloaded mod archive
+
+        Raises:
+            ValueError:
+                When the file name is not from Nexus Mods or does not match the file
+                name pattern.
+
+        Returns:
+            ModDetails: Reconstructed mod details
+        """
+
+        file_name_match: Optional[re.Match[str]] = NexusModsApi.FILE_NAME_PATTERN.search(
+            file_name
+        )
+
+        if file_name_match is not None:
+            display_name: str = file_name_match.group("display_name")
+            mod_id = int(file_name_match.group("mod_id"))
+            version: str = file_name_match.group("version")
+            timestamp = int(file_name_match.group("timestamp"))
+
+            # attempt to "desluggify" the version
+            version = version.replace("-", ".")
+
+            return ModDetails(
+                display_name=display_name,
+                mod_display_name=None,
+                file_name=file_name,
+                mod_id=NxmModId(mod_id=mod_id, installation_file_name=file_name),
+                version=version,
+                timestamp=timestamp,
+                author=None,
+                uploader=None,
+                modpage_url=NexusModsApi.create_nexus_mods_url(
+                    game_id="skyrimspecialedition", mod_id=mod_id
+                ),
+            )
+
+        raise ValueError(f"Could not reconstruct mod details from '{file_name}'")

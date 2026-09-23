@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "mod_name": "SilverWeapons",
+    "created_at": "2026-09-20T21:26:16.218211",
+    "updated_at": "2026-09-20T21:26:16.229877",
+    "total_entries": 4
+  },
+  "entries": {
+    "WEAP:Name:Silver Broadsword": {
+      "original": "Silver Broadsword",
+      "translated": "[RU] Silver Broadsword",
+      "record_type": "WEAP",
+      "field": "Name",
+      "formid": "01000D01",
+      "source": "ai",
+      "updated_at": "2026-09-20T21:26:16.218967"
+    },
+    "WEAP:Description:Effective against undead and werewolves.": {
+      "original": "Effective against undead and werewolves.",
+      "translated": "[RU] Effective against undead and werewolves.",
+      "record_type": "WEAP",
+      "field": "Description",
+      "formid": "01000D02",
+      "source": "ai",
+      "updated_at": "2026-09-20T21:26:16.218974"
+    },
+    "MISC:Name:Purified Silver Ingot": {
+      "original": "Purified Silver Ingot",
+      "translated": "[RU] Purified Silver Ingot",
+      "record_type": "MISC",
+      "field": "Name",
+      "formid": "01000D03",
+      "source": "ai",
+      "updated_at": "2026-09-20T21:26:16.218978"
+    },
+    "WEAP:Name:Silver Dagger": {
+      "original": "Silver Dagger",
+      "translated": "[RU] Silver Dagger",
+      "record_type": "WEAP",
+      "field": "Name",
+      "formid": "01000D04",
+      "source": "ai",
+      "updated_at": "2026-09-20T21:26:16.229864"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+= Translation Editor
+
+SSE-AT has an integrated translation editor for manually creating and editing translations.
+The editor can be opened either by creating a translation for a mod or mod file or by editing an installed translation.
+
+.This overview displays SSE-AT's translation editor and all of its features.
+image::translation_editor_overview.png[]
+
+.This overview displays the dialog for editing a single string.
+image::editor_dialog_overview.png[]
+
+You can edit a string by making a double click on it.
+
+TIP: Click on the images to view them in full size.
+
+[TIP]
+====
+Move your mouse over the number of strings or the colored bar beneath the search bar to get a breakdown of the translation state of your translation:
+
+image::editor_status_tooltip.png[]
+====
+
+.The context menu when right clicking on a string contains additional features and options.
+image::editor_context_menu.png[]
+
+== Import a translation
+
+To manually import an existing translation for a mod or mod file, just drag its downloaded archive file (.zip, .rar, .7z) from the file explorer to SSE-AT and drop it on the "Translations" list.
+SSE-AT will then import the translation for all mod files that are installed in the loaded mod list and not marked as green (= _Translation installed_ / _Already in target language_).
+
+Alternatively, use the image:import.svg[width=24px,height=24px] _Import translation from local disk_ button in the toolbar right above the "Translations" list.
+
+== Create a translation
+
+To create a new translation for a mod or mod file, make a right click on the mod / mod file and click on _Create new translation..._ .
+The option is only available if the mod or mod file contains translatable strings and there is no translation already installed for it.
+
+image::create_translation_menu.png[]
+
+SSE-AT will then create a new translation for the mod or the mod file and attempt to pre-translate all strings that are covered by the installed translations.
+Exact matches (id and original string) with existing strings are marked in blue (= _Translation complete_).
+Indirect matches (just the original string) with existing strings are marked in purple (= _Translation incomplete_) and should be checked manually.
+
+== Edit a translation
+
+To edit an installed translation in the database, make a right click on it and click on _Edit translation..._ .
+
+image::edit_translation_menu.png[]
+
+The translation and all its mod files are then opened in the translation editor.
+
+== Update a translation after a mod update
+
+To update an installed translation for an updated mod or mod file, click on image:update_translations.svg[width=24px,height=24px] _Update translations from installed mods_ on the translations toolbar on the xref:main_page.adoc[main page]. +
+This will check for strings that are missing in the translation and add them as untranslated strings. +
+It will also invalidate strings where the original text has changed in the mod file. +
+In addition to that, if a mod got a new mod file through an update, that also requires a translation, it will automatically be added to an existing translation for that mod.
+After the update is complete, the mod files that had new strings are marked in purple (= _Translation incomplete_) in the mod list. +
+Now you can open the translation in the editor (if it is already open, you have to close it and open it again) and translate the new strings.

@@ -1,0 +1,19 @@
+*.old
+/.env
+/.venv
+/.vscode
+/app_state_dump.7z
+/build
+/data
+/dist
+/experiments
+/main.dist
+/qt_lupdate.json
+/res/loc/*.qm
+/src/resources_rc.py
+.coverage
+.pytest_cache
+.vs
+__pycache__
+/SSE-AT Output
+/DbGen-Output

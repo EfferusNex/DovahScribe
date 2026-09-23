@@ -1,0 +1,324 @@
+"""
+Copyright (c) Cutleast
+"""
+
+import subprocess
+from argparse import Namespace
+from collections.abc import Callable
+from pathlib import Path
+from typing import Optional, cast, override
+
+from cutleast_core_lib.base_app import BaseApp
+from cutleast_core_lib.core.cache.cache import Cache
+from cutleast_core_lib.core.config.app_config import AppConfig as BaseAppConfig
+from cutleast_core_lib.core.utilities.exe_info import get_execution_info
+from cutleast_core_lib.core.utilities.localisation import detect_system_locale
+from cutleast_core_lib.core.utilities.path_limit_fixer import PathLimitFixer
+from cutleast_core_lib.core.utilities.qt_res_provider import read_resource
+from cutleast_core_lib.core.utilities.singleton import Singleton
+from cutleast_core_lib.core.utilities.unique import unique
+from cutleast_core_lib.ui.progress.dialog import ProgressDialog
+from cutleast_core_lib.ui.theme.manager import ThemeManager
+from cutleast_core_lib.ui.utilities.state_manager import WidgetStateManager
+from mod_manager_lib.core.game_service import GameService
+from PySide6.QtCore import QTranslator
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox
+
+from core.component_provider import ComponentProvider
+from core.config.app_config import AppConfig
+from core.config.user_config import UserConfig
+from core.translation_provider.nm_api.nm_api import NexusModsApi
+from core.translation_provider.nm_api.nxm_handler import NXMHandler
+from core.user_data.user_data import UserData
+from core.user_data.user_data_service import UserDataService
+from core.utilities.localisation import Language
+from resources_rc import qt_resource_data as qt_resource_data  # noqa: PLC0414
+from ui.main_window import MainWindow
+from ui.startup_dialog.startup_dialog import StartupDialog
+from ui.utilities.icon_provider import IconProvider, ResourceIcon
+from ui.widgets.api_setup_dialog import ApiSetupDialog
+
+
+class App(BaseApp, Singleton):
+    """
+    Main Application Class.
+    """
+
+    APP_NAME: str = "SSE Auto Translator"
+    APP_VERSION: str = "development"
+
+    cache_path: Path
+    """Path to the cache folder."""
+
+    __user_data: Optional[UserData] = None
+    __user_data_service: UserDataService
+
+    compiled: bool
+    executable: list[str]
+    """
+    Stores command to execute this app.
+    """
+
+    executable, compiled = get_execution_info()
+
+    exit_chain: list[Callable[[], None]]
+    """
+    List of functions to call before the application exits.
+    """
+
+    setup_complete: bool = True
+
+    __component_provider: Optional[ComponentProvider] = None
+
+    def __init__(self, args: Namespace) -> None:
+        """
+        Args:
+            args (Namespace): The argparse namespace containing command line arguments.
+        """
+
+        Singleton.__init__(self)
+
+        self.data_path = (
+            (self.cur_path / "data") if not args.data_path else Path(args.data_path)
+        )
+        self.cache_path = self.data_path / "cache"
+        self.log_path = self.data_path / "logs"
+        self.exit_chain = []
+
+        Cache(self.cache_path, App.APP_VERSION)
+        self.__user_data_service = UserDataService(self.res_path, self.data_path)
+
+        GameService(read_resource(":/sse-at/skyrimse.json"))
+
+        super().__init__(args)
+
+    @override
+    def _init(self) -> None:
+        """
+        Initializes the application.
+        """
+
+        self.setApplicationName(App.APP_NAME)
+        self.setApplicationVersion(App.APP_VERSION)
+        self.setWindowIcon(IconProvider.get_res_icon(ResourceIcon.SSEAT))
+
+        super()._init()
+
+    @override
+    def _load_app_config(self) -> BaseAppConfig:
+        app_config = AppConfig.load(self.data_path)
+        app_config.debug_mode = getattr(self.args, "debug_mode", False)
+
+        return app_config
+
+    @override
+    def _init_main_window(self) -> MainWindow:
+        self.__load_translation()
+
+        ThemeManager(
+            app=self,
+            initial_primary_color=self.app_config.accent_color,
+            initial_ui_mode=self.app_config.ui_mode,
+            qss_files=ThemeManager.CORE_RES_QSS_FILES + [":/sse-at/style.qss"],
+        )
+
+        return MainWindow()
+
+    def __load_translation(self) -> None:
+        """
+        Loads translation for the configured language and installs the translator into
+        the app.
+        """
+
+        translator = QTranslator(self)
+
+        app_config: AppConfig = cast(AppConfig, self.app_config)
+
+        language: str
+        if app_config.language == Language.System:
+            language = detect_system_locale() or "en_US"
+        else:
+            language = app_config.language.value
+
+        if language != "en_US":
+            res_file: str = f":/sse-at/loc/{language}.qm"
+            if not translator.load(res_file):
+                self.log.error(
+                    f"Failed to load localisation for {language} from '{res_file}'."
+                )
+            else:
+                self.installTranslator(translator)
+                self.log.info(f"Loaded localisation for {language}.")
+
+    @override
+    def exec(self) -> int:  # pyright: ignore[reportIncompatibleMethodOverride]
+        self.log.info("Application started.")
+
+        if self.__user_data_service.is_setup_required():
+            self.setup_complete = (
+                StartupDialog(self.data_path, QApplication.activeModalWidget()).exec()
+                == QDialog.DialogCode.Accepted
+            )
+
+        retcode: int = 0
+        if self.setup_complete:
+            self.__start_main_app()
+            retcode = super().exec()
+
+        return retcode
+
+    def __start_main_app(self) -> None:
+        app_config: AppConfig = cast(AppConfig, self.app_config)
+
+        self.__user_data = ProgressDialog(
+            lambda pdisplay: self.__user_data_service.load(
+                app_config.worker_thread_num, pdisplay
+            ),
+            QApplication.activeModalWidget(),
+        ).run()
+
+        if app_config.auto_bind_nxm and NXMHandler.has_instance():
+            NXMHandler.get().bind()
+            self.log.info("Bound Nexus Mods Links.")
+        # TODO: Reimplement this
+        # self.nxm_listener.request_signal.connect(
+        #     self.download_manager.add_download_item
+        # )
+        # self.nxm_listener.download_signal.connect(
+        #     lambda url: self.log.info(f"Handled NXM link: {url}")
+        # )
+        self.__component_provider = ComponentProvider(app_config, self.__user_data)
+        self.__component_provider.initialize_components()
+
+        self.__check_nm_api_key(self.__user_data.user_config)
+
+        main_window: MainWindow = cast(MainWindow, self.main_window)
+        main_window.initialize(
+            app_config=cast(AppConfig, self.app_config),
+            user_data=self.__user_data,
+            translator_service=self.__component_provider.get_translator_service(),
+            scanner=self.__component_provider.get_scanner(),
+            provider=self.__component_provider.get_provider(),
+            download_manager=self.__component_provider.get_download_manager(),
+            state_service=self.__component_provider.get_state_service(),
+        )
+        main_window.showMaximized()
+
+        WidgetStateManager.get().register_geometry("main_window", main_window)
+
+        self.detect_path_limit()
+
+    def __check_nm_api_key(self, user_config: UserConfig) -> None:
+        if self.__component_provider is None:
+            raise ValueError("Component provider is not initialized.")
+
+        try:
+            nm_api: NexusModsApi = self.__component_provider.get_provider().get_provider(
+                NexusModsApi
+            )
+        except ValueError:
+            self.log.warning("No Nexus Mods API available.")
+        else:
+            nm_api_valid = nm_api.is_api_key_valid(user_config.api_key)
+
+            if not nm_api_valid:
+                self.__run_nm_api_key_setup(nm_api, user_config)
+
+    def __run_nm_api_key_setup(
+        self, nm_api: NexusModsApi, user_config: UserConfig
+    ) -> None:
+        self.log.error("Nexus Mods API Key is invalid!")
+
+        dialog = ApiSetupDialog()
+
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            user_config.api_key = dialog.get_api_key()
+            user_config.save()
+
+            nm_api.set_api_key(user_config.api_key)
+
+        else:
+            self.exit()
+
+    def detect_path_limit(self) -> None:
+        """
+        Detects if the NTFS path length limit is enabled
+        and asks if the user wants to disable it.
+        """
+
+        path_limit_enabled: bool = PathLimitFixer.is_path_limit_enabled()
+        self.log.info(f"Path length limit enabled: {path_limit_enabled}")
+
+        if path_limit_enabled:
+            reply = QMessageBox.question(
+                self.main_window,
+                self.tr("Path Limit Enabled"),
+                self.tr(
+                    "The NTFS path length limit is enabled and paths longer than 255 "
+                    "characters will cause issues. Would you like to disable it now "
+                    "(admin rights may be required)? "
+                    "A reboot is required for this to take effect.\n\n"
+                    "You can always disable it later under "
+                    "Help > Fix Windows Path Limit."
+                ),
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No,
+            )
+
+            if reply == QMessageBox.StandardButton.Yes:
+                PathLimitFixer.disable_path_limit(self.res_path)
+
+    @override
+    def clean(self) -> None:
+        """
+        Cleans up temporary files, running downloads and log folder.
+        """
+
+        super().clean()
+
+        for function in unique(self.exit_chain):
+            function()
+
+        if self.__component_provider is not None:
+            self.__component_provider.get_download_manager().stop()
+
+            try:
+                self.__component_provider.get_temp_folder_provider().clean_temp_folder()
+            except Exception as ex:
+                self.log.error(f"Failed to clean temp folder: {ex}", exc_info=ex)
+
+        if NXMHandler.has_instance() and NXMHandler.get().is_bound():
+            NXMHandler.get().unbind()
+            self.log.info("Unbound Nexus Mods Links.")
+
+    def get_execution_command(self) -> str:
+        """
+        Returns the joined command this application was started with.
+        """
+
+        return subprocess.list2cmdline(self.executable)
+
+    def restart_application(self) -> None:
+        """
+        Restarts the application.
+        """
+
+        subprocess.Popen(
+            self.executable, cwd=Path.cwd(), creationflags=subprocess.DETACHED_PROCESS
+        )
+        self.exit()
+
+    @override
+    @classmethod
+    def get_repo_owner(cls) -> Optional[str]:
+        return "Cutleast"
+
+    @override
+    @classmethod
+    def get_repo_name(cls) -> Optional[str]:
+        return "SSE-Auto-Translator"
+
+    @override
+    @classmethod
+    def get_repo_branch(cls) -> Optional[str]:
+        return "master"

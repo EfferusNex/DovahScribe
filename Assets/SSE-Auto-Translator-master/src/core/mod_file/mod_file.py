@@ -1,0 +1,121 @@
+"""
+Copyright (c) Cutleast
+"""
+
+from __future__ import annotations
+
+from abc import ABCMeta, abstractmethod
+from pathlib import Path
+from typing import override
+
+from cutleast_core_lib.core.cache.cache import Cache
+from pydantic import BaseModel
+
+from core.file_source.file_source_factory import FileSourceFactory
+from core.string.types import StringList
+from core.utilities.filesystem import relative_data_path
+
+from .translation_status import TranslationStatus
+
+
+class ModFile(BaseModel, metaclass=ABCMeta):
+    """
+    Dataclass for translatable mod files.
+    """
+
+    name: str
+    """
+    The filename of this file.
+    """
+
+    full_path: Path
+    """
+    The full path to the file in its mod instance.
+    """
+
+    status: TranslationStatus = TranslationStatus.NoneStatus
+    """
+    Translation status of this file.
+    """
+
+    @property
+    def path(self) -> Path:
+        """
+        Path of this file, relative to the game's "Data" folder.
+        """
+
+        return Path(relative_data_path(str(self.full_path)))
+
+    @override
+    def __hash__(self) -> int:
+        return hash((self.name.lower(), str(self.full_path).lower()))
+
+    @classmethod
+    @abstractmethod
+    def get_glob_patterns(cls, language: str) -> list[str]:
+        """
+        Returns the glob patterns for this file type.
+
+        Args:
+            language (str):
+                Language to filter for (esp. relevant for interface translation files)
+
+        Returns:
+            list[str]: List of glob patterns
+        """
+
+    @classmethod
+    @abstractmethod
+    def can_be_in_bsas(cls) -> bool:
+        """
+        Returns whether this file type can occur in BSA archives.
+
+        Returns:
+            bool: Whether this file type can occur in BSA archives.
+        """
+
+    @Cache.persistent_cache(
+        cache_subfolder=Path("modfile_strings"),
+        id_generator=lambda self: FileSourceFactory.for_file_path(
+            self.full_path
+        ).get_file_identifier(),
+    )
+    def get_strings(self) -> StringList:
+        """
+        Extracts and returns all strings from this file. Uses the current app's cache, if
+        available.
+
+        Returns:
+            StringList: List of all strings from this file.
+        """
+
+        return self._extract_strings()
+
+    @abstractmethod
+    def _extract_strings(self) -> StringList:
+        """
+        Extracts and returns all strings from this file.
+
+        Returns:
+            StringList: List of all strings from this file.
+        """
+
+    @abstractmethod
+    def dump_strings(
+        self,
+        strings: StringList,
+        output_folder: Path,
+        use_dsd_format: bool,
+        output_mod: bool = False,
+    ) -> None:
+        """
+        Creates a copy of this mod file at a output folder with its strings replaced.
+
+        Args:
+            strings (StringList): Strings to insert into the file.
+            output_folder (Path): Folder to output the file to.
+            use_dsd_format (bool): Whether to use the Dynamic String Distributor format.
+            output_mod (bool, optional):
+                Whether the export is used in the output mod. May affect filenames.
+                Defaults to False.
+        """

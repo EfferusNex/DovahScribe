@@ -1,0 +1,132 @@
+$PHOE_Ready
++<mag> armor rating.
++<mag> health and magicka.
+Applies an electric charge at the enemy for <60> sec. Use Electric Charge hotkey (default V) to trigger this spell, causing <10>-<60> shock damage.
+Attacks with swords have a 15% chance of doing more critical damage.
+Blasts the target with light, causing <80> healing to an ally, or half that in damage to an enemy.
+Bond of Pain can't be triggered.
+Burns the target for <mag> points. Targets on fire take extra damage.
+Can't reapply Frost Barrier.
+Can't reapply Oak Flesh effect.
+Can't trigger Light's Domination.
+Can't use Stormgate.
+Cast on a nearby surface, it explodes for <mag> points of arcane damage when enemies come near, and curses the survivors.
+Caster is invisible for <dur> seconds. Activating an object or attacking will break the spell.
+Causes <mag> shock damage to all targets in a 20 ft radius.
+Causes your next Electric Charge to deal an additional 50% damage.
+Charges at the enemy target, knocking them down. <30> sec cooldown.
+Charges the target, causing <mag> shock damage per sec for <dur> sec.
+Concussive Blast can't be triggered.
+Conflagrate deals <10>% more damage.
+Conflagrate deals <20>% more damage.
+Conflagrate deals <30>% more damage.
+Creates a magic mace for <dur> seconds. Sheathe it to dispel.
+Creates a mystical portal at the caster location for <dur> sec. Upon pressing the hotkey (default G), instantly teleports the caster to the portal. There is a <10> sec cooldown between each translocation.
+Creates an arcane weapon for <dur> seconds. Sheathe it to dispel.
+Creates an illusionary copy of the target for <dur> seconds. Doesn't work on dragons, undeads and machines. 30 sec cooldown.
+Creatures and people up to level <mag> flee from combat for <dur> seconds.
+Creatures and people up to level <mag> will attack anyone nearby for <dur> seconds,
+Curses the target, causing <mag> disease damage per sec for <dur> sec.
+Deals extra fire damage.
+Death Nova can't be triggered.
+Decrease the spells mana cost by <50>%.
+Decreases Wild Mushroom mana cost by <100>%.
+Decreases all damage taken by <50>%.
+Decreases damage taken by  <15>%.
+Decreases electric spells mana cost by <25>%.
+Decreases magic damage taken by <50>%.
+Decreases the mana cost of Stormstrike and Lightning Strike by <50>%.
+Divine Avenger can't be triggered.
+Divine Intervention can't be triggered.
+Doubles the Susceptibility effects of Cursed Rune and Discord.
+Electrocute does not require a storm shard to trigger, and works on targets with 35% health or less.
+Encases the caster in solid ice for <10> seconds, providing a respite from combat.
+Encases the caster in solid ice for <dur> sec.
+Fire Blast costs <70>% less mana to cast.
+Fire damage increased by <25>%.
+Fire resistance decreased.
+For <dur> seconds, opponents in melee range take <mag> points fire damage per second. Targets on fire take extra damage.
+Healing spells cost nothing.
+Heals the caster <22> to <30> health on hit.
+Heals the caster <mag> points per sec for <dur> sec.
+Heals the caster <mag> points per sec.
+Heals the caster <mag> points.
+Hurls a fiery bolt at the target, causing <mag> fire damage.
+Hurls a spear of ice at the target that causes <mag> points of frost damage to Health and Stamina.
+Ice Surge restores <20> mana.
+If target dies within <dur> seconds, fills a soul gem.
+Imbues the caster with divine energy, reducing incoming spells damage by <15>% for <dur> sec.
+Imbues the caster with electricity, increasing shock resistance by <mag>% for <dur> sec.
+Imbues the caster's weapon with Earth, increasing magicka regeneration by <mag>% for <dur> sec.
+Immunity to magic.
+Immunity to physical damage.
+Increase your Holy Bolt effectiveness by 50%.
+Increases Wild Mushroom damage by <25>%.
+Increases a chance to apply Searing Pain and Ignite effects by <mag>%.
+Increases a chance to freeze the target by <50>%.
+Increases damage by <50>%.
+Increases damage of all fire spells.
+Increases electric damage by <50>%.
+Increases electric resistance by <mag>%.
+Increases fire resistance by <mag>%.
+Increases frost resistance by <mag>%.
+Increases frost spells damage and mana cost by <25>%.
+Increases magic resistance by <20>%.
+Increases meteors count by <mag>.
+Increases physical damage by <25>%.
+Increases the Doppelganger duration by <50>%.
+Increases the damage of Ice Lance by <20>%.
+Increases the damage of Poison Bite and Vile Spores by <2> points/sec.
+Increases the damage, healing, and mana cost of your Druid's spells by <25>%.
+Increases the duration of Divine Light effects by <2> sec.
+Increases the duration of Frost Barrier by <2> sec.
+Increases the duration of Stormstrike by <50>%.
+Increases the duration of Veil of Nature by <100>%.
+Increases the duration of your next Blight Curse and Necrosis by <50>%.
+Increases the effect of Divine Vengeance by <10>%.
+Increases the initial damage of Seed of Life by <50>%.
+Increases your armor rating by <25>%.
+Increases your chance to score a critcal strike by 15%.
+Increases your damage by <mag>%.
+Increases your physical damage by <20>%.
+Increases your spell damage by <mag>%.
+Infects the target with pestilence, causing <mag> disease damage each <5> sec for <dur> sec.
+Instantly blasts the target, causing <mag> fire damage.
+Jolt can't be triggered.
+Last Hope can't be triggered.
+Launches <2> magic missiles at the target, each causing <mag>% of your total magicka as fire, frost, or shock damage. Each missile drains <10>% of your magicka.
+Movement speed increased by <mag>.
+On activation, absorbs up to <25>% incoming damage, draining magicka instead. Drains <8> magicka per sec. Lasts until canceled.
+Places a magical trap at the target location. For <15> sec afterwards, the enemy will be teleported to trap's initial position.
+Plants a wild mushroom at the target position that explodes each <3> sec, causing <mag> poison damage to all nearby enemies.
+Pressing the hotkey within 5 sec after translocation, moves the stormgate to your initial position.
+Progress: %.0f%%
+Protects the caster with frost armor, increasing armor rating by <mag> for <dur> sec.
+Raise victims of Blight Curse to do your bidding.
+Reanimate a very powerful dead body to fight for you for <dur> seconds.
+Reduces armor rating by <mag>.
+Reduces shock resistance by <mag>%.
+Reflects melee damage.
+Restores 3 to 5 mana per sec.
+Sends a bolt of dark energy at the target, causing damage equal to <15>% of the caster's current health. Restores health equal to <50>% of that damage to the caster after <3> sec.
+Sends a poison bolt at the target, causing <mag> damage.
+Shock spells cost nothing.
+Siphon effects restore an additional <mag> points per tick.
+Slows time for <dur> seconds.
+Spell damage increased by <mag>%.
+Strikes the target with lightning, causing <mag> shock damage to health, and half that to mana.
+Summons <3> fiery meteors down upon the target, causing <mag> fire damage. Only usable outdoors.
+Summons a Deathguard for <dur> seconds wherever the caster is pointing.
+Summons a pack of wolves for <dur> seconds wherever the caster is pointing.
+Summons an Ancient Lich for <dur> seconds wherever the caster is pointing.
+Summons an axe imbued with divine energy to fight for you for <dur> seconds.
+Surrounds the caster with death energy for <dur> seconds, increasing damage of Blight Curse and Necrosis by <25>%.
+Surrounds the caster with natural energy that affects nearby enemies, decreasing their poison resistance by <33>%. Lasts <dur> sec.
+Take the form of a phantom, making sneaking <mag>% more effective for <dur> sec.
+Targets take <mag> points of frost damage for <dur> seconds, plus Stamina damage.
+The target becomes a living bomb, taking <mag> frost damage per sec over <6> sec. After 6 sec, frost bomb explodes, causing frost damage to all targets nearby.
+Time between shouts is reduced by <50>%.
+Warlock spells cost no mana.
+Wolf Pack summons <4> wolves at once.
+Your spells cost <40>% less to cast.
+spreading chaos among your enemies.

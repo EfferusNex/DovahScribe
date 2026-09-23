@@ -1,0 +1,296 @@
+"""
+Copyright (c) Cutleast
+"""
+
+import logging
+from typing import Optional, TypeVar
+
+from core.config.user_config import UserConfig
+from core.masterlist.masterlist import Masterlist
+from core.masterlist.masterlist_entry import MasterlistEntry
+
+from .exceptions import ModNotFoundError
+from .mod_details import ModDetails
+from .mod_id import ModId
+from .nm_api.nxm_id import NxmModId
+from .provider_api import ProviderApi
+from .provider_manager import ProviderManager
+from .source import Source
+
+T = TypeVar("T", bound=ProviderApi)
+
+
+class TranslationProvider:
+    """
+    Unified class for available translation sources.
+    """
+
+    __provider_manager: ProviderManager
+
+    log: logging.Logger = logging.getLogger("TranslationProvider")
+
+    def __init__(self, user_config: UserConfig) -> None:
+        """
+        Args:
+            user_config (UserConfig): User configuration.
+        """
+
+        self.__provider_manager = ProviderManager(user_config)
+
+    def get_provider(self, provider_type: type[T]) -> T:
+        """
+        Gets a configured provider by its implementation type.
+
+        Args:
+            provider_type (type[T]): Provider implementation type.
+
+        Returns:
+            T: The configured provider.
+        """
+
+        return self.__provider_manager.get_provider(provider_type)
+
+    @property
+    def is_available(self) -> bool:
+        """
+        Checks whether at least one translation provider is available.
+
+        Returns:
+            bool: Whether at least one provider is available.
+        """
+
+        return self.__provider_manager.has_providers
+
+    def is_source_available(self, source: Source) -> bool:
+        """
+        Checks whether a translation provider is available for a source.
+
+        Args:
+            source (Source): Source to check.
+
+        Returns:
+            bool: Whether a provider for the source is available.
+        """
+
+        return self.__provider_manager.is_source_available(source)
+
+    def direct_downloads_possible(self, source: Optional[Source] = None) -> bool:
+        """
+        Checks if direct downloads are possible for Nexus Mods API.
+
+        Args:
+            source (Optional[Source], optional): Source. Defaults to preferred.
+
+        Returns:
+            bool: `True` if direct downloads are possible, `False` otherwise
+        """
+
+        if source is None:
+            return self.__provider_manager.get_default_provider().is_direct_download_possible()
+
+        else:
+            return self.__provider_manager.get_provider_by_source(
+                source
+            ).is_direct_download_possible()
+
+    def get_remaining_requests(self) -> tuple[int, int]:
+        """
+        Returns remaining API requests for Nexus Mods and -1 for Confrérie.
+
+        Returns: `(rem_hreq, rem_dreq)`
+        """
+
+        return self.__provider_manager.get_default_provider().get_remaining_requests()
+
+    def get_details(self, mod_id: ModId, source: Optional[Source] = None) -> ModDetails:
+        """
+        Returns the details for a mod.
+
+        Args:
+            mod_id (int): Mod identifier
+            source (Optional[Source], optional): Source. Defaults to preferred.
+
+        Raises:
+            ValueError: when the Source is specified as `Source.Local`
+            ModNotFoundError: when the requested mod could not be found
+
+        Returns:
+            ModDetails: Mod details
+        """
+
+        if source is None:
+            return self.__provider_manager.get_default_provider().get_mod_details(mod_id)
+
+        else:
+            return self.__provider_manager.get_provider_by_source(
+                source
+            ).get_mod_details(mod_id)
+
+    def get_modpage_url(self, mod_id: ModId, source: Optional[Source] = None) -> str:
+        """
+        Gets modpage url for the specified mod.
+
+        Args:
+            mod_id (ModId): Mod identifier
+            source (Optional[Source], optional): Source. Defaults to preferred.
+
+        Raises:
+            ValueError: when the Source is specified as `Source.Local`
+            ModNotFoundError: when the requested mod could not be found
+
+        Returns:
+            str: Url to the modpage
+        """
+
+        if source is None:
+            return self.__provider_manager.get_default_provider().get_modpage_url(mod_id)
+
+        else:
+            return self.__provider_manager.get_provider_by_source(
+                source
+            ).get_modpage_url(mod_id)
+
+    def get_translations(
+        self,
+        mod_id: ModId,
+        file_name: str,
+        language: str,
+        masterlist: Masterlist,
+        author_blacklist: list[str],
+    ) -> dict[Source, list[ModId]]:
+        """
+        Gets available translations for the specified file from all available providers.
+
+        Args:
+            mod_id (ModId): Mod identifier
+            file_name (str): Name of file that requires a translation.
+            language (str): Language to filter for
+            masterlist (Masterlist): Masterlist to use
+            author_blacklist (list[str]): List of authors to ignore
+
+        Returns:
+            dict[Source, list[ModId]]: Map of sources and available translations
+        """
+
+        available_translations: dict[Source, list[ModId]] = {}
+        author_blacklist = [author.lower().strip() for author in author_blacklist]
+
+        for provider in self.__provider_manager.providers:
+            try:
+                translation_ids: list[ModId] = provider.get_translations(
+                    mod_id, file_name, language
+                )
+            except Exception as ex:
+                source: Source = provider.get_source()
+                self.log.error(
+                    f"Failed to find translations at '{source}': {ex}", exc_info=ex
+                )
+                continue
+
+            for translation_id in translation_ids:
+                translation_details: ModDetails = provider.get_mod_details(
+                    translation_id
+                )
+
+                if (
+                    translation_details.author
+                    and translation_details.author.lower() in author_blacklist
+                ):
+                    self.log.debug(
+                        f"Skipped translation by author '{translation_details.author}' "
+                        "due to configured blacklist."
+                    )
+                    continue
+                elif (
+                    translation_details.uploader
+                    and translation_details.uploader.lower() in author_blacklist
+                ):
+                    self.log.debug(
+                        f"Skipped translation by uploader "
+                        f"'{translation_details.uploader}' due to configured blacklist."
+                    )
+                    continue
+
+                available_translations.setdefault(provider.get_source(), []).append(
+                    translation_id
+                )
+
+        masterlist_entry: Optional[MasterlistEntry] = masterlist.entries.get(
+            file_name.lower()
+        )
+        if masterlist_entry is not None and (
+            masterlist_entry.type == MasterlistEntry.Type.Route
+            and masterlist_entry.targets
+        ):
+            for target in masterlist_entry.targets:
+                masterlist_mod_id: int = target.mod_id
+                masterlist_file_id: Optional[int] = target.file_id
+                masterlist_source: Source = target.source
+
+                available_translations.setdefault(masterlist_source, []).append(
+                    NxmModId(mod_id=masterlist_mod_id, file_id=masterlist_file_id)
+                )
+
+        return available_translations
+
+    def request_download(self, mod_id: ModId, source: Optional[Source] = None) -> str:
+        """
+        Requests a download url for a mod file from a specified source.
+
+        Args:
+            mod_id (int): Nexus Mods mod id.
+            source (Optional[Source], optional): Source. Defaults to preferred.
+
+        Raises:
+            ValueError: when the Source is specified as `Source.Local`
+            ModNotFoundError: when the mod is not found on the source.
+
+        Returns:
+            str: Download url
+        """
+
+        if source is None:
+            return self.__provider_manager.get_default_provider().request_download(
+                mod_id
+            )
+
+        else:
+            return self.__provider_manager.get_provider_by_source(
+                source
+            ).request_download(mod_id)
+
+    def is_mod_id_valid(self, mod_id: ModId, check_online: bool = True) -> bool:
+        """
+        Checks if the mod id is valid by attempting to get its details if `check_online` is True.
+
+        Args:
+            mod_id (ModId): Mod identifier
+            check_online (bool, optional):
+                Whether to check by attempting to get the mod details. Defaults to True.
+
+        Returns:
+            bool: Whether the mod id is valid
+        """
+
+        if mod_id.mod_id < 0 or (isinstance(mod_id, NxmModId) and mod_id.file_id == 0):
+            return False
+
+        if check_online:
+            provider_api: ProviderApi = self.__provider_manager.get_provider_by_source(
+                mod_id.source
+            )
+
+            try:
+                provider_api.get_mod_details(mod_id)
+            except ModNotFoundError:
+                return False
+
+        return True
+
+    @property
+    def user_agent(self) -> str:
+        """
+        The user agent of the default provider.
+        """
+
+        return self.__provider_manager.get_default_provider().user_agent

@@ -1,0 +1,106 @@
+"""
+Copyright (c) Cutleast
+"""
+
+import logging
+from typing import Optional
+
+from lingua import Language, LanguageDetector, LanguageDetectorBuilder
+
+from core.string.types import StringList
+
+
+class LangDetector:
+    """
+    Language detector class.
+    """
+
+    __detector: LanguageDetector
+    __confidence: float
+    __desired_lang: Language
+
+    log: logging.Logger = logging.getLogger("Utilities.LangDetector")
+
+    def __init__(self, confidence: float, desired_lang: Language) -> None:
+        """
+        Args:
+            confidence (float): Confidence threshold for language detection.
+            desired_lang (Language): Desired language to compare against.
+        """
+
+        self.__confidence = confidence
+        self.__desired_lang = desired_lang
+
+        builder: LanguageDetectorBuilder = LanguageDetectorBuilder.from_languages(
+            Language.ENGLISH, desired_lang
+        )
+        builder.with_minimum_relative_distance(self.__confidence)
+        self.__detector = builder.build()
+
+    @staticmethod
+    def get_available_langs() -> list[Language]:
+        """
+        Gets a list of all available languages.
+
+        Returns:
+            list[Language]: List of languages.
+        """
+
+        langs: list[Language] = list(Language.all())
+        langs.sort(key=lambda lang: lang.name)
+
+        return langs
+
+    def requires_translation(
+        self, strings: StringList, max_string_count: int = 40
+    ) -> bool:
+        """
+        Checks if a mod file requires a translation.
+
+        Args:
+            strings (StringList): List of strings to check.
+            max_string_count (int, optional):
+                Maximum number of strings to check. Defaults to 40.
+
+        Returns:
+            bool: True if a translation is required, False otherwise.
+        """
+
+        if not len(strings):
+            return False
+
+        # Number of strings to combine for more precise detection
+        treshold: int = max_string_count - 1
+
+        detection_string: str = ""
+        c: int = 0
+        for string_data in strings:
+            if string_data.original not in detection_string:
+                detection_string += string_data.original + "\n"
+                c += 1
+                if c == treshold:
+                    break
+        else:
+            self.log.debug(
+                f"Detection threshold not reached: mod file has only {c} "
+                "different string(s)."
+            )
+
+        detected_lang: Optional[Language] = self.detect_lang(detection_string)
+        translation_required: bool = detected_lang != self.__desired_lang
+        self.log.debug(f"Translation required: {translation_required}")
+
+        return translation_required
+
+    def detect_lang(self, string: str) -> Optional[Language]:
+        """
+        Attempts to detect the language of a string.
+
+        Args:
+            string (str): String to detect language of.
+
+        Returns:
+            Optional[Language]: Detected language or None if unknown.
+        """
+
+        return self.__detector.detect_language_of(string)

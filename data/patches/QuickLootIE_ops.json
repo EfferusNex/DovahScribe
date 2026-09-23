@@ -1,0 +1,1124 @@
+[
+  {
+    "formid": "MCM:$qlie_GeneralPage",
+    "field_path": "$qlie_GeneralPage",
+    "value": "Общие сведения",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_DisplayPage",
+    "field_path": "$qlie_DisplayPage",
+    "value": "Отображение",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortingPage",
+    "field_path": "$qlie_SortingPage",
+    "value": "Сортировка",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsPage",
+    "field_path": "$qlie_ControlsPage",
+    "value": "Элементы управления",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_CompatibilityPage",
+    "field_path": "$qlie_CompatibilityPage",
+    "value": "Совместимость",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_NotificationProfileUnsupported",
+    "field_path": "$qlie_NotificationProfileUnsupported",
+    "value": "QuickLoot IE: PapyrusUtil устарел, загрузка настроек по умолчанию",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_NotificationProfileMissing",
+    "field_path": "$qlie_NotificationProfileMissing",
+    "value": "QuickLoot IE: Профиль не найден, загрузка настроек по умолчанию",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_NotificationProfileCorrupt",
+    "field_path": "$qlie_NotificationProfileCorrupt",
+    "value": "QuickLoot IE: Профиль поврежден, загрузка настроек по умолчанию",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_NotificationProfileImported",
+    "field_path": "$qlie_NotificationProfileImported",
+    "value": "QuickLoot IE: Профиль успешно загружен из файла",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ConfirmY",
+    "field_path": "$qlie_ConfirmY",
+    "value": "Хорошо",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ConfirmN",
+    "field_path": "$qlie_ConfirmN",
+    "value": "Отменить",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_Enabled",
+    "field_path": "$qlie_Enabled",
+    "value": "Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_Disabled",
+    "field_path": "$qlie_Disabled",
+    "value": "С ограниченными возможностями",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_NotInstalled",
+    "field_path": "$qlie_NotInstalled",
+    "value": "<font color='#6A0404'>Не установлено</font>",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModInformationHeader",
+    "field_path": "$qlie_ModInformationHeader",
+    "value": "Информация о модификации",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModName",
+    "field_path": "$qlie_ModName",
+    "value": "<font color='#00B04D'>QuickLoot для IE</font>",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_Author1",
+    "field_path": "$qlie_Author1",
+    "value": "Автор: <font color='#f7AC00'>Мисс Коррупция</font>",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModVersion{}",
+    "field_path": "$qlie_ModVersion{}",
+    "value": "Версия мода: {}",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_DllVersion{}",
+    "field_path": "$qlie_DllVersion{}",
+    "value": "Версия DLL: {}",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SwfVersion{}",
+    "field_path": "$qlie_SwfVersion{}",
+    "value": "Версия SWF: {}",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileActionsHeader",
+    "field_path": "$qlie_ProfileActionsHeader",
+    "value": "Действия с профилем",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileReset_text",
+    "field_path": "$qlie_ProfileReset_text",
+    "value": "Восстановить настройки по умолчанию",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileReset_inprogress",
+    "field_path": "$qlie_ProfileReset_inprogress",
+    "value": "Восстановление настроек по умолчанию...",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileSave_text",
+    "field_path": "$qlie_ProfileSave_text",
+    "value": "Сохранить профиль",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileSave_unavailable",
+    "field_path": "$qlie_ProfileSave_unavailable",
+    "value": "Сохранение недоступно",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileSave_unsupported",
+    "field_path": "$qlie_ProfileSave_unsupported",
+    "value": "Не удалось сохранить настройки в файл, так как PapyrusUtil не обновлен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileSave_inprogress",
+    "field_path": "$qlie_ProfileSave_inprogress",
+    "value": "Сохранение профиля...",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileSave_success",
+    "field_path": "$qlie_ProfileSave_success",
+    "value": "Настройки успешно сохранены в файл.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_text",
+    "field_path": "$qlie_ProfileLoad_text",
+    "value": "Профиль нагрузки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_info",
+    "field_path": "$qlie_ProfileLoad_info",
+    "value": "Загрузите сохраненные настройки из меню «Данные» &gt; «SKSE» &gt; «Плагины» &gt; «QuicklootIE» &gt; «DefaultConfig.json»\\nТребуется PapyrusUtil.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_unavailable",
+    "field_path": "$qlie_ProfileLoad_unavailable",
+    "value": "Загрузка недоступна",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_unsupported",
+    "field_path": "$qlie_ProfileLoad_unsupported",
+    "value": "Не удалось загрузить настройки из файла, так как PapyrusUtil не обновлен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_inprogress",
+    "field_path": "$qlie_ProfileLoad_inprogress",
+    "value": "Загрузка профиля...",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_success",
+    "field_path": "$qlie_ProfileLoad_success",
+    "value": "Настройки успешно загружены из файла.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_missing",
+    "field_path": "$qlie_ProfileLoad_missing",
+    "value": "Файл профиля не найден",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ProfileLoad_corrupt{}",
+    "field_path": "$qlie_ProfileLoad_corrupt{}",
+    "value": "Похоже, файл конфигурации повреждён или не соответствует требованиям.\\n{}",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_BehaviorSettingsHeader",
+    "field_path": "$qlie_BehaviorSettingsHeader",
+    "value": "Настройки поведения",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowInCombat_text",
+    "field_path": "$qlie_ShowInCombat_text",
+    "value": "Показать в бою",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowInCombat_info",
+    "field_path": "$qlie_ShowInCombat_info",
+    "value": "Можно ли открывать меню добычи, когда игрок находится в бою.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowWhenEmpty_text",
+    "field_path": "$qlie_ShowWhenEmpty_text",
+    "value": "Показывать, когда контейнер пуст",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowWhenEmpty_info",
+    "field_path": "$qlie_ShowWhenEmpty_info",
+    "value": "Остается ли меню с добычей открытым, когда контейнер пуст.\\nПо умолчанию: отключено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowWhenUnlocked_text",
+    "field_path": "$qlie_ShowWhenUnlocked_text",
+    "value": "Показывать, когда контейнер разблокирован",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowWhenUnlocked_info",
+    "field_path": "$qlie_ShowWhenUnlocked_info",
+    "value": "Предотвращает открытие полноэкранного инвентаря при разблокировке контейнера и вместо этого отображает меню добычи.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowInThirdPerson_text",
+    "field_path": "$qlie_ShowInThirdPerson_text",
+    "value": "Рассказ от третьего лица",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowInThirdPerson_info",
+    "field_path": "$qlie_ShowInThirdPerson_info",
+    "value": "Открывать ли меню добычи в режиме третьего лица.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowWhenMounted_text",
+    "field_path": "$qlie_ShowWhenMounted_text",
+    "value": "Показывать при подключении",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowWhenMounted_info",
+    "field_path": "$qlie_ShowWhenMounted_info",
+    "value": "Открывать ли меню добычи во время езды на лошади.\\nПо умолчанию: отключено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_EnableForCorpses_text",
+    "field_path": "$qlie_EnableForCorpses_text",
+    "value": "Включить отображение трупов",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_EnableForCorpses_info",
+    "field_path": "$qlie_EnableForCorpses_info",
+    "value": "Открывать ли меню с добычей при взгляде на мертвого человека или существо.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_EnableForAnimals_text",
+    "field_path": "$qlie_EnableForAnimals_text",
+    "value": "Включить для животных",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_EnableForAnimals_info",
+    "field_path": "$qlie_EnableForAnimals_info",
+    "value": "Открывается ли меню добычи при просмотре мёртвого животного.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_EnableForDragons_text",
+    "field_path": "$qlie_EnableForDragons_text",
+    "value": "Включить для драконов",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_EnableForDragons_info",
+    "field_path": "$qlie_EnableForDragons_info",
+    "value": "Открывается ли меню добычи при взгляде на мертвого дракона.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_BreakInvisibility_text",
+    "field_path": "$qlie_BreakInvisibility_text",
+    "value": "При использовании снимается невидимость",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_BreakInvisibility_info",
+    "field_path": "$qlie_BreakInvisibility_info",
+    "value": "Следует ли отключать эффекты невидимости при снятии предмета.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_PlayScrollSound_text",
+    "field_path": "$qlie_PlayScrollSound_text",
+    "value": "Воспроизвести звуки прокрутки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_PlayScrollSound_info",
+    "field_path": "$qlie_PlayScrollSound_info",
+    "value": "Воспроизводить ли звук «предмет выбран» при прокрутке меню добычи.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowSettingsHeader",
+    "field_path": "$qlie_WindowSettingsHeader",
+    "value": "Настройки окна",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOffsetX_text",
+    "field_path": "$qlie_WindowOffsetX_text",
+    "value": "Смещение окна по оси X",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOffsetX_info",
+    "field_path": "$qlie_WindowOffsetX_info",
+    "value": "Устанавливает горизонтальное смещение меню добычи относительно центра экрана.\\nПо умолчанию: 100",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOffsetY_text",
+    "field_path": "$qlie_WindowOffsetY_text",
+    "value": "Смещение окна по оси Y",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOffsetY_info",
+    "field_path": "$qlie_WindowOffsetY_info",
+    "value": "Устанавливает вертикальное смещение меню добычи относительно центра экрана.\\nПо умолчанию: -200",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowScale_text",
+    "field_path": "$qlie_WindowScale_text",
+    "value": "Масштаб окна",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowScale_info",
+    "field_path": "$qlie_WindowScale_info",
+    "value": "Устанавливает масштаб меню добычи.\\nПо умолчанию: 1,0",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_text",
+    "field_path": "$qlie_WindowAnchor_text",
+    "value": "Крепление для окна",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_info",
+    "field_path": "$qlie_WindowAnchor_info",
+    "value": "Определяет, какая опорная точка меню добычи будет расположена с учетом значений смещения.\\nПо умолчанию: верхний левый угол",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowMinLines_text",
+    "field_path": "$qlie_WindowMinLines_text",
+    "value": "Минимальное количество строк для отображения",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowMinLines_info",
+    "field_path": "$qlie_WindowMinLines_info",
+    "value": "Устанавливает минимальное количество строк, отображаемых в меню добычи.\\nПо умолчанию: 0",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowMaxLines_text",
+    "field_path": "$qlie_WindowMaxLines_text",
+    "value": "Максимальное количество строк для отображения",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowMaxLines_info",
+    "field_path": "$qlie_WindowMaxLines_info",
+    "value": "Устанавливает максимальное количество строк, отображаемых в меню добычи.\\nПо умолчанию: 7",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOpacityNormal_text",
+    "field_path": "$qlie_WindowOpacityNormal_text",
+    "value": "Прозрачность окна",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOpacityNormal_info",
+    "field_path": "$qlie_WindowOpacityNormal_info",
+    "value": "Устанавливает степень прозрачности окна в том случае, если контейнер не пуст.\\nПо умолчанию: 1,0",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOpacityEmpty_text",
+    "field_path": "$qlie_WindowOpacityEmpty_text",
+    "value": "Прозрачность окна, когда оно пустое",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowOpacityEmpty_info",
+    "field_path": "$qlie_WindowOpacityEmpty_info",
+    "value": "Устанавливает степень прозрачности окна, когда контейнер пуст.\\nПо умолчанию: 0,3",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name0",
+    "field_path": "$qlie_WindowAnchor_name0",
+    "value": "Вверху слева",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name1",
+    "field_path": "$qlie_WindowAnchor_name1",
+    "value": "Центр-левые",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name2",
+    "field_path": "$qlie_WindowAnchor_name2",
+    "value": "Внизу слева",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name3",
+    "field_path": "$qlie_WindowAnchor_name3",
+    "value": "Вверху по центру",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name4",
+    "field_path": "$qlie_WindowAnchor_name4",
+    "value": "Центр",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name5",
+    "field_path": "$qlie_WindowAnchor_name5",
+    "value": "Внизу по центру",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name6",
+    "field_path": "$qlie_WindowAnchor_name6",
+    "value": "Вверху справа",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name7",
+    "field_path": "$qlie_WindowAnchor_name7",
+    "value": "Правоцентристы",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_WindowAnchor_name8",
+    "field_path": "$qlie_WindowAnchor_name8",
+    "value": "Внизу справа",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_IconSettingsHeader",
+    "field_path": "$qlie_IconSettingsHeader",
+    "value": "Настройки значков",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconItem_text",
+    "field_path": "$qlie_ShowIconItem_text",
+    "value": "Показать значок элемента",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconItem_info",
+    "field_path": "$qlie_ShowIconItem_info",
+    "value": "Отображает значок, указывающий тип элемента.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconRead_text",
+    "field_path": "$qlie_ShowIconRead_text",
+    "value": "Показать значок «Прочитано»",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconRead_info",
+    "field_path": "$qlie_ShowIconRead_info",
+    "value": "Отображает значок, указывающий, что книга уже прочитана.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconStolen_text",
+    "field_path": "$qlie_ShowIconStolen_text",
+    "value": "Показать значок «Украдено»",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconStolen_info",
+    "field_path": "$qlie_ShowIconStolen_info",
+    "value": "Отображает значок, указывающий, что взятие этого предмета будет считаться кражей.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconEnchanted_text",
+    "field_path": "$qlie_ShowIconEnchanted_text",
+    "value": "Показать значок зачарованного предмета",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconEnchanted_info",
+    "field_path": "$qlie_ShowIconEnchanted_info",
+    "value": "Отображает значок, указывающий, что предмет зачарован.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconEnchantedKnown_text",
+    "field_path": "$qlie_ShowIconEnchantedKnown_text",
+    "value": "Показать значок известного зачарования",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconEnchantedKnown_info",
+    "field_path": "$qlie_ShowIconEnchantedKnown_info",
+    "value": "Отображает значок, указывающий, что предмет имеет зачарование, известное игроку.\\nПо умолчанию: Включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconEnchantedSpecial_text",
+    "field_path": "$qlie_ShowIconEnchantedSpecial_text",
+    "value": "Показать значок особого зачарования",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconEnchantedSpecial_info",
+    "field_path": "$qlie_ShowIconEnchantedSpecial_info",
+    "value": "Отображает значок, указывающий, что предмет имеет специальное зачарование и не подлежит разчарованию.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnLayoutHeader",
+    "field_path": "$qlie_InfoColumnLayoutHeader",
+    "value": "Макет информационной колонки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnPreset_text",
+    "field_path": "$qlie_InfoColumnPreset_text",
+    "value": "Предустановка макета",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnPreset_info",
+    "field_path": "$qlie_InfoColumnPreset_info",
+    "value": "Нажмите, чтобы загрузить одну из предустановленных схем оформления информационного столбца.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnString_text",
+    "field_path": "$qlie_InfoColumnString_text",
+    "value": "Пользовательская компоновка",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnString_button",
+    "field_path": "$qlie_InfoColumnString_button",
+    "value": "Редактировать...",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnPreset_v_vpw_w",
+    "field_path": "$qlie_InfoColumnPreset_v_vpw_w",
+    "value": "Вал, V/W, вес",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnPreset_v_w",
+    "field_path": "$qlie_InfoColumnPreset_v_w",
+    "value": "Вэл, Вес",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnPreset_none",
+    "field_path": "$qlie_InfoColumnPreset_none",
+    "value": "Нет",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_InfoColumnPreset_custom",
+    "field_path": "$qlie_InfoColumnPreset_custom",
+    "value": "Пользовательский",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortOptionsHeader",
+    "field_path": "$qlie_SortOptionsHeader",
+    "value": "Параметры сортировки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortInsert_text",
+    "field_path": "$qlie_SortInsert_text",
+    "value": "Вставить правило в конец",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortInsert_text{}",
+    "field_path": "$qlie_SortInsert_text{}",
+    "value": "Вставить правило перед «{}»",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortInsert_info",
+    "field_path": "$qlie_SortInsert_info",
+    "value": "Вставить новое правило в конец списка приоритетов правил.\\nЩелкните, чтобы выбрать вариант.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortInsert_info{}",
+    "field_path": "$qlie_SortInsert_info{}",
+    "value": "Вставьте новое правило перед «{}» в списке приоритетов правил.\\nНажмите, чтобы выбрать вариант.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRemove_text",
+    "field_path": "$qlie_SortRemove_text",
+    "value": "Удалить выбранное правило",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRemove_text{}",
+    "field_path": "$qlie_SortRemove_text{}",
+    "value": "Удалить правило «{}»",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRemove_info",
+    "field_path": "$qlie_SortRemove_info",
+    "value": "Удалите выбранное правило из списка приоритетов правил.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRemove_info{}",
+    "field_path": "$qlie_SortRemove_info{}",
+    "value": "Удалите правило «{}» из списка приоритетов правил.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortReset_text",
+    "field_path": "$qlie_SortReset_text",
+    "value": "Восстановить настройки по умолчанию",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortReset_info",
+    "field_path": "$qlie_SortReset_info",
+    "value": "Восстанавливает список приоритетов сортировки до значений по умолчанию.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetsHeader",
+    "field_path": "$qlie_SortPresetsHeader",
+    "value": "Предустановленные правила сортировки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetSave_text",
+    "field_path": "$qlie_SortPresetSave_text",
+    "value": "Сохранить пресет",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetSave_info",
+    "field_path": "$qlie_SortPresetSave_info",
+    "value": "Нажмите здесь, чтобы сохранить текущие правила сортировки в виде именованной предустановки.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetSave_success",
+    "field_path": "$qlie_SortPresetSave_success",
+    "value": "Пресет успешно сохранен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetSave_unsupported",
+    "field_path": "$qlie_SortPresetSave_unsupported",
+    "value": "Не удалось сохранить настройки сортировки в файл, поскольку PapyrusUtil не обновлен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetLoad_text",
+    "field_path": "$qlie_SortPresetLoad_text",
+    "value": "Загрузить предустановку",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetLoad_info",
+    "field_path": "$qlie_SortPresetLoad_info",
+    "value": "Нажмите здесь, чтобы загрузить ранее сохраненную настройку или одну из встроенных.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortPresetLoad_unsupported",
+    "field_path": "$qlie_SortPresetLoad_unsupported",
+    "value": "Не удалось сохранить настройки сортировки в файл, поскольку PapyrusUtil не обновлен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRulesHeader",
+    "field_path": "$qlie_SortRulesHeader",
+    "value": "Текущие правила сортировки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_info",
+    "field_path": "$qlie_SortRule_info",
+    "value": "Нажмите, чтобы выбрать или отменить выбор этого правила.\\nПосле этого вы сможете вставить другое правило выше него или удалить его с помощью кнопок справа.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_selected{}",
+    "field_path": "$qlie_SortRule_selected{}",
+    "value": "<font color='#13A81C'>{}</font>",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Gold",
+    "field_path": "$qlie_SortRule_Gold",
+    "value": "Золото",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Gems",
+    "field_path": "$qlie_SortRule_Gems",
+    "value": "Драгоценные камни",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_SoulGems",
+    "field_path": "$qlie_SortRule_SoulGems",
+    "value": "Душевные драгоценные камни",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Lockpicks",
+    "field_path": "$qlie_SortRule_Lockpicks",
+    "value": "Отмычки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Ingots",
+    "field_path": "$qlie_SortRule_Ingots",
+    "value": "Слитки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Ores",
+    "field_path": "$qlie_SortRule_Ores",
+    "value": "Руд",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Potions",
+    "field_path": "$qlie_SortRule_Potions",
+    "value": "Зелья",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_FoodDrinks",
+    "field_path": "$qlie_SortRule_FoodDrinks",
+    "value": "Еда и напитки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Books",
+    "field_path": "$qlie_SortRule_Books",
+    "value": "Книги",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Notes",
+    "field_path": "$qlie_SortRule_Notes",
+    "value": "Примечания",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Scrolls",
+    "field_path": "$qlie_SortRule_Scrolls",
+    "value": "Свитки",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_ArrowsBolts",
+    "field_path": "$qlie_SortRule_ArrowsBolts",
+    "value": "Стрелы и болты",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Jewelry",
+    "field_path": "$qlie_SortRule_Jewelry",
+    "value": "Ювелирные изделия",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Weapons",
+    "field_path": "$qlie_SortRule_Weapons",
+    "value": "Оружие",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Armors",
+    "field_path": "$qlie_SortRule_Armors",
+    "value": "Броня",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Clothes",
+    "field_path": "$qlie_SortRule_Clothes",
+    "value": "Одежда",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_Weightless",
+    "field_path": "$qlie_SortRule_Weightless",
+    "value": "Предметы, не имеющие веса",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_ByWeight",
+    "field_path": "$qlie_SortRule_ByWeight",
+    "value": "По весу товара",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_ByValue",
+    "field_path": "$qlie_SortRule_ByValue",
+    "value": "По значению элемента",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_ByName",
+    "field_path": "$qlie_SortRule_ByName",
+    "value": "По названию товара",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_LOTDNeeded",
+    "field_path": "$qlie_SortRule_LOTDNeeded",
+    "value": "Нужен LOTD",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_SortRule_CompletionistNeeded",
+    "field_path": "$qlie_SortRule_CompletionistNeeded",
+    "value": "Требуется специалист по прохождению игр до конца",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_KeybindingsHeader",
+    "field_path": "$qlie_KeybindingsHeader",
+    "value": "Сочетания клавиш",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsModifier_text",
+    "field_path": "$qlie_ControlsModifier_text",
+    "value": "Модификатор",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsModifier_info",
+    "field_path": "$qlie_ControlsModifier_info",
+    "value": "Выберите, какую клавишу-модификатор необходимо нажать, чтобы эта комбинация клавиш сработала. Выберите «игнорировать», если комбинация должна срабатывать независимо от того, какие клавиши-модификаторы нажаты.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsTake_text",
+    "field_path": "$qlie_ControlsTake_text",
+    "value": "Возьмите",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsTake_info",
+    "field_path": "$qlie_ControlsTake_info",
+    "value": "Нажатие этой клавиши приведет к взятию выбранного стека предметов.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsTakeAll_text",
+    "field_path": "$qlie_ControlsTakeAll_text",
+    "value": "Взять всё",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsTakeAll_info",
+    "field_path": "$qlie_ControlsTakeAll_info",
+    "value": "Нажатие этой клавиши приведёт к извлечению всех предметов из контейнера.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsTransfer_text",
+    "field_path": "$qlie_ControlsTransfer_text",
+    "value": "Поиск",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsTransfer_info",
+    "field_path": "$qlie_ControlsTransfer_info",
+    "value": "Нажатие этой клавиши приведёт к открытию стандартного полноэкранного инвентаря.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsDisable_text",
+    "field_path": "$qlie_ControlsDisable_text",
+    "value": "Отключить меню добычи",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsDisable_info",
+    "field_path": "$qlie_ControlsDisable_info",
+    "value": "Нажатие этой клавиши отключит меню добычи на время текущего игрового сеанса.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsEnable_text",
+    "field_path": "$qlie_ControlsEnable_text",
+    "value": "Включить меню добычи",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlsEnable_info",
+    "field_path": "$qlie_ControlsEnable_info",
+    "value": "Нажатие этой клавиши приведёт к повторному включению меню добычи, если оно было ранее отключено.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModifierKey_ignore",
+    "field_path": "$qlie_ModifierKey_ignore",
+    "value": "Игнорировать",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModifierKey_none",
+    "field_path": "$qlie_ModifierKey_none",
+    "value": "Нет",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModifierKey_shift",
+    "field_path": "$qlie_ModifierKey_shift",
+    "value": "Смена",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModifierKey_control",
+    "field_path": "$qlie_ModifierKey_control",
+    "value": "Управление",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ModifierKey_alt",
+    "field_path": "$qlie_ModifierKey_alt",
+    "value": "Alt",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetsHeader",
+    "field_path": "$qlie_ControlPresetsHeader",
+    "value": "Предустановки управления",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlReset_text",
+    "field_path": "$qlie_ControlReset_text",
+    "value": "Восстановить настройки по умолчанию",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlReset_info",
+    "field_path": "$qlie_ControlReset_info",
+    "value": "Сбрасывает все назначения клавиш к значениям по умолчанию.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetSave_text",
+    "field_path": "$qlie_ControlPresetSave_text",
+    "value": "Сохранить пресет",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetSave_info",
+    "field_path": "$qlie_ControlPresetSave_info",
+    "value": "Нажмите здесь, чтобы сохранить текущие комбинации клавиш в качестве пресета с заданным именем.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetSave_success",
+    "field_path": "$qlie_ControlPresetSave_success",
+    "value": "Пресет успешно сохранен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetSave_unsupported",
+    "field_path": "$qlie_ControlPresetSave_unsupported",
+    "value": "Не удалось сохранить настройки управления в файл, так как PapyrusUtil не обновлен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetLoad_text",
+    "field_path": "$qlie_ControlPresetLoad_text",
+    "value": "Загрузить предустановку",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetLoad_info",
+    "field_path": "$qlie_ControlPresetLoad_info",
+    "value": "Нажмите здесь, чтобы загрузить ранее сохраненную настройку или одну из встроенных.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ControlPresetLoad_unsupported",
+    "field_path": "$qlie_ControlPresetLoad_unsupported",
+    "value": "Не удалось сохранить настройки управления в файл, так как PapyrusUtil не обновлен.",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ArtifactIconsHeader",
+    "field_path": "$qlie_ArtifactIconsHeader",
+    "value": "Значки артефактов",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconArtifactNew_text",
+    "field_path": "$qlie_ShowIconArtifactNew_text",
+    "value": "Показать значок нового артефакта",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconArtifactNew_info",
+    "field_path": "$qlie_ShowIconArtifactNew_info",
+    "value": "Отображает значок, указывающий, что данный экспонат необходим для музея.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconArtifactCarried_text",
+    "field_path": "$qlie_ShowIconArtifactCarried_text",
+    "value": "Показать значок перенесённого артефакта",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconArtifactCarried_info",
+    "field_path": "$qlie_ShowIconArtifactCarried_info",
+    "value": "Отображает значок, указывающий, что этот предмет необходим для музея и находится у игрока.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconArtifactDisplayed_text",
+    "field_path": "$qlie_ShowIconArtifactDisplayed_text",
+    "value": "Показать значок отображаемого артефакта",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconArtifactDisplayed_info",
+    "field_path": "$qlie_ShowIconArtifactDisplayed_info",
+    "value": "Отображает значок, указывающий, что экспонат выставлен в музее.\\nПо умолчанию: включено",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_CompletionistIconsHeader",
+    "field_path": "$qlie_CompletionistIconsHeader",
+    "value": "Значки «Завершитель»",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconCompletionistNeeded_text",
+    "field_path": "$qlie_ShowIconCompletionistNeeded_text",
+    "value": "Показать значок нужного элемента",
+    "op": "Set"
+  },
+  {
+    "formid": "MCM:$qlie_ShowIconCompletionistCollected_text",
+    "field_path": "$qlie_ShowIconCompletionistCollected_text",
+    "value": "Показать значок добавленного в избранное",
+    "op": "Set"
+  }
+]

@@ -1,0 +1,937 @@
+{
+  "metadata": {
+    "mod_name": "Rafaela",
+    "created_at": "2026-09-22T15:32:02.557782",
+    "updated_at": "2026-09-22T16:58:04.413841",
+    "total_entries": 103
+  },
+  "entries": {
+    "Armor:Name:Angel Lesser Wings": {
+      "original": "Angel Lesser Wings",
+      "translated": "Малые ангельские крылья",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000803:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526531"
+    },
+    "Armor:Name:Angelic Set": {
+      "original": "Angelic Set",
+      "translated": "Ангельский комплект",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000804:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526844"
+    },
+    "Armor:Name:Casual Dress Set": {
+      "original": "Casual Dress Set",
+      "translated": "Комплект повседневного платья",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000805:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526852"
+    },
+    "Armor:Description:특수 이펙트 효과": {
+      "original": "특수 이펙트 효과",
+      "translated": "Особый визуальный эффект",
+      "record_type": "Armor",
+      "field": "Description",
+      "formid": "000806:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526866"
+    },
+    "Armor:Name:Peace Gem Simple": {
+      "original": "Peace Gem Simple",
+      "translated": "Простой самоцвет мира",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000806:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526870"
+    },
+    "Armor:Name:Angel Amulet": {
+      "original": "Angel Amulet",
+      "translated": "Ангельский амулет",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "00080B:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526873"
+    },
+    "Armor:Name:Angel Hair": {
+      "original": "Angel Hair",
+      "translated": "Ангельская прическа",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "00080F:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526876"
+    },
+    "Armor:Name:Heavenly Seal": {
+      "original": "Heavenly Seal",
+      "translated": "Небесная печать",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000810:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526880"
+    },
+    "Armor:Name:Angel Gauntlets": {
+      "original": "Angel Gauntlets",
+      "translated": "Ангельские перчатки",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000817:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526884"
+    },
+    "Armor:Name:Angel Skirt": {
+      "original": "Angel Skirt",
+      "translated": "Ангельская юбка",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000819:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526887"
+    },
+    "Armor:Name:Angel Helmet": {
+      "original": "Angel Helmet",
+      "translated": "Ангельский шлем",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "00081A:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526890"
+    },
+    "Armor:Name:Angel Halo": {
+      "original": "Angel Halo",
+      "translated": "Ангельский нимб",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "00081D:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526893"
+    },
+    "Armor:Description:Bless the worthy ones with armor sent from heavens.": {
+      "original": "Bless the worthy ones with armor sent from heavens.",
+      "translated": "Благословляет достойных доспехами, ниспосланными с небес.",
+      "record_type": "Armor",
+      "field": "Description",
+      "formid": "00081E:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526897"
+    },
+    "Armor:Name:Ring of Divine Protection": {
+      "original": "Ring of Divine Protection",
+      "translated": "Кольцо божественной защиты",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "00081E:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526899"
+    },
+    "Armor:Name:Rafi's Wings": {
+      "original": "Rafi's Wings",
+      "translated": "Крылья Рафи",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000820:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526902"
+    },
+    "Armor:Name:Rafi's White Wig": {
+      "original": "Rafi's White Wig",
+      "translated": "Белый парик Рафи",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000839:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526906"
+    },
+    "Armor:Name:Angel Wings": {
+      "original": "Angel Wings",
+      "translated": "Ангельские крылья",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "0008A0:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526909"
+    },
+    "Armor:Name:Angelic Seals": {
+      "original": "Angelic Seals",
+      "translated": "Ангельские печати",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "0008F0:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526912"
+    },
+    "Armor:Name:Angel Inner Skirt": {
+      "original": "Angel Inner Skirt",
+      "translated": "Нижняя ангельская юбка",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000D63:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526915"
+    },
+    "Armor:Name:Angel Pauldron": {
+      "original": "Angel Pauldron",
+      "translated": "Ангельский наплечник",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000D69:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526918"
+    },
+    "Armor:Name:Angel Arm Guard": {
+      "original": "Angel Arm Guard",
+      "translated": "Ангельские наручи",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000D6B:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526921"
+    },
+    "Armor:Name:Angel Boots": {
+      "original": "Angel Boots",
+      "translated": "Ангельские сапоги",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "000D6D:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526924"
+    },
+    "Armor:Name:CF_NakedArmor": {
+      "original": "CF_NakedArmor",
+      "translated": "CF_NakedArmor",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "00573F:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526928"
+    },
+    "Armor:Description:Handsewn by the famous artist 5chars.": {
+      "original": "Handsewn by the famous artist 5chars.",
+      "translated": "Сшито вручную знаменитым мастером 5chars.",
+      "record_type": "Armor",
+      "field": "Description",
+      "formid": "013BA3:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526931"
+    },
+    "Armor:Name:Casual Summer Dress": {
+      "original": "Casual Summer Dress",
+      "translated": "Повседневное летнее платье",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "013BA3:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526934"
+    },
+    "Armor:Description:Hand crafted by the famous artist 5chars.": {
+      "original": "Hand crafted by the famous artist 5chars.",
+      "translated": "Создано вручную знаменитым мастером 5chars.",
+      "record_type": "Armor",
+      "field": "Description",
+      "formid": "013BB8:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526954"
+    },
+    "Armor:Name:Casual Straw Hat": {
+      "original": "Casual Straw Hat",
+      "translated": "Повседневная соломенная шляпа",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "013BA6:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526940"
+    },
+    "Armor:Name:Casual Necklace": {
+      "original": "Casual Necklace",
+      "translated": "Повседневное ожерелье",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "013BA7:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526946"
+    },
+    "Armor:Name:Casual Sandals": {
+      "original": "Casual Sandals",
+      "translated": "Повседневные сандалии",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "013BA9:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526951"
+    },
+    "Armor:Name:Casual Bracelet": {
+      "original": "Casual Bracelet",
+      "translated": "Повседневный браслет",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "013BB8:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526956"
+    },
+    "Armor:Description:Imbues the worthy in heavenly light": {
+      "original": "Imbues the worthy in heavenly light",
+      "translated": "Озаряет достойного небесным светом",
+      "record_type": "Armor",
+      "field": "Description",
+      "formid": "034A28:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526959"
+    },
+    "Armor:Name:Blessed Hairpin": {
+      "original": "Blessed Hairpin",
+      "translated": "Благословенная шпилька",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "034A28:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526962"
+    },
+    "Armor:Name:Ring Of Facelight": {
+      "original": "Ring Of Facelight",
+      "translated": "Кольцо подсветки лица",
+      "record_type": "Armor",
+      "field": "Name",
+      "formid": "202CBD:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526964"
+    },
+    "Weapon:Name:Angel Giant Greatsword": {
+      "original": "Angel Giant Greatsword",
+      "translated": "Исполинский ангельский двуручный меч",
+      "record_type": "Weapon",
+      "field": "Name",
+      "formid": "000814:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526967"
+    },
+    "Weapon:Name:Summoned Angel's Greatsword": {
+      "original": "Summoned Angel's Greatsword",
+      "translated": "Призванный ангельский двуручный меч",
+      "record_type": "Weapon",
+      "field": "Name",
+      "formid": "000870:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526970"
+    },
+    "Weapon:Name:Angelic Greatsword": {
+      "original": "Angelic Greatsword",
+      "translated": "Ангельский двуручный меч",
+      "record_type": "Weapon",
+      "field": "Name",
+      "formid": "000898:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526973"
+    },
+    "Book:BookText:<font face'$HandwrittenFont'><font size='40'><p align='center'>Summons an Angel": {
+      "original": "<font face'$HandwrittenFont'><font size='40'><p align='center'>Summons an Angel",
+      "translated": "<font face'$HandwrittenFont'><font size='40'><p align='center'>Призывает ангела",
+      "record_type": "Book",
+      "field": "BookText",
+      "formid": "00086E:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526976"
+    },
+    "Book:Name:Spell : Summon Angel": {
+      "original": "Spell : Summon Angel",
+      "translated": "Заклинание: Призыв ангела",
+      "record_type": "Book",
+      "field": "Name",
+      "formid": "00086E:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526978"
+    },
+    "Book:BookText:<font face'$HandwrittenFont'><font size='40'><p align='center'>Holy Light to smite the unworthy": {
+      "original": "<font face'$HandwrittenFont'><font size='40'><p align='center'>Holy Light to smite the unworthy",
+      "translated": "<font face'$HandwrittenFont'><font size='40'><p align='center'>Священный свет для сокрушения недостойных",
+      "record_type": "Book",
+      "field": "BookText",
+      "formid": "00D8F1:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526982"
+    },
+    "Book:Name:Spell Tome: Holy Light": {
+      "original": "Spell Tome: Holy Light",
+      "translated": "Том заклинаний: Священный свет",
+      "record_type": "Book",
+      "field": "Name",
+      "formid": "00D8F1:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526984"
+    },
+    "Book:BookText:<font face'$HandwrittenFont'><font size='40'><p align='center'>\nWrath of Heavens smite the unworthy": {
+      "original": "<font face'$HandwrittenFont'><font size='40'><p align='center'>\r\nWrath of Heavens smite the unworthy",
+      "translated": "<font face'$HandwrittenFont'><font size='40'><p align='center'>\r\nГнев небес сокрушает недостойных",
+      "record_type": "Book",
+      "field": "BookText",
+      "formid": "00D8F2:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526989"
+    },
+    "Book:Name:Spell Tome: Wrath of Heavens": {
+      "original": "Spell Tome: Wrath of Heavens",
+      "translated": "Том заклинаний: Гнев небес",
+      "record_type": "Book",
+      "field": "Name",
+      "formid": "00D8F2:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526992"
+    },
+    "Npc:Name:Summoned Angel": {
+      "original": "Summoned Angel",
+      "translated": "Призванный ангел",
+      "record_type": "Npc",
+      "field": "Name",
+      "formid": "000869:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526995"
+    },
+    "Npc:ShortName:Summoned Angel": {
+      "original": "Summoned Angel",
+      "translated": "Призванный ангел",
+      "record_type": "Npc",
+      "field": "ShortName",
+      "formid": "000869:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.526998"
+    },
+    "Npc:Name:Rafaela": {
+      "original": "Rafaela",
+      "translated": "Рафаэла",
+      "record_type": "Npc",
+      "field": "Name",
+      "formid": "002F99:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527000"
+    },
+    "Npc:ShortName:Rafaela": {
+      "original": "Rafaela",
+      "translated": "Рафаэла",
+      "record_type": "Npc",
+      "field": "ShortName",
+      "formid": "002F99:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527003"
+    },
+    "DialogResponses:Prompt:Could you show that pretty little body of yours?": {
+      "original": "Could you show that pretty little body of yours?",
+      "translated": "Не покажешь ли ты свое прелестное тело?",
+      "record_type": "DialogResponses",
+      "field": "Prompt",
+      "formid": "005958:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527006"
+    },
+    "DialogResponses:Responses[0].Text:Let me think about it...": {
+      "original": "Let me think about it...",
+      "translated": "Дай мне подумать об этом...",
+      "record_type": "DialogResponses",
+      "field": "Responses[0].Text",
+      "formid": "005958:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527009"
+    },
+    "DialogResponses:Prompt:Could you show that heavenly body of yours?": {
+      "original": "Could you show that heavenly body of yours?",
+      "translated": "Не покажешь ли ты свое божественное тело?",
+      "record_type": "DialogResponses",
+      "field": "Prompt",
+      "formid": "00AA5D:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527013"
+    },
+    "DialogResponses:Responses[0].Text:Really? So... can I turn back into my true form?": {
+      "original": "Really? So... can I turn back into my true form?",
+      "translated": "Правда? Значит... я могу вернуться в свой истинный облик?",
+      "record_type": "DialogResponses",
+      "field": "Responses[0].Text",
+      "formid": "00AA5D:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527015"
+    },
+    "DialogResponses:Prompt:Dress like a normal kid, but be ready for battle.": {
+      "original": "Dress like a normal kid, but be ready for battle.",
+      "translated": "Оденься как обычный ребенок, но будь готова к битве.",
+      "record_type": "DialogResponses",
+      "field": "Prompt",
+      "formid": "00AA60:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527018"
+    },
+    "DialogResponses:Responses[0].Text:Wow! This armor is really cool!": {
+      "original": "Wow! This armor is really cool!",
+      "translated": "Ого! Эти доспехи просто класс!",
+      "record_type": "DialogResponses",
+      "field": "Responses[0].Text",
+      "formid": "00AA60:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527022"
+    },
+    "Shout:Name:Rafaela Shout": {
+      "original": "Rafaela Shout",
+      "translated": "Крик Рафаэлы",
+      "record_type": "Shout",
+      "field": "Name",
+      "formid": "025C18:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527025"
+    },
+    "Shout:Description:You receive Keiko's healing touch.": {
+      "original": "You receive Keiko's healing touch.",
+      "translated": "Вы получаете исцеляющее прикосновение Кейко.",
+      "record_type": "Shout",
+      "field": "Description",
+      "formid": "20000E:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527028"
+    },
+    "Shout:Name:Rafi's Healing": {
+      "original": "Rafi's Healing",
+      "translated": "Исцеление Рафи",
+      "record_type": "Shout",
+      "field": "Name",
+      "formid": "20000E:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527032"
+    },
+    "Shout:Description:Keiko's voice is raw power, pushing aside anything - or anyone - who stands in her path.": {
+      "original": "Keiko's voice is raw power, pushing aside anything - or anyone - who stands in her path.",
+      "translated": "Голос Кейко — первозданная мощь, сметающая все и вся на её пути.",
+      "record_type": "Shout",
+      "field": "Description",
+      "formid": "200010:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527036"
+    },
+    "Shout:Name:Force Push": {
+      "original": "Force Push",
+      "translated": "Силовой толчок",
+      "record_type": "Shout",
+      "field": "Name",
+      "formid": "200010:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527039"
+    },
+    "Shout:Description:Summons an Angel from heavens.": {
+      "original": "Summons an Angel from heavens.",
+      "translated": "Призывает ангела с небес.",
+      "record_type": "Shout",
+      "field": "Description",
+      "formid": "200014:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527042"
+    },
+    "Shout:Name:Summon Angel": {
+      "original": "Summon Angel",
+      "translated": "Призыв ангела",
+      "record_type": "Shout",
+      "field": "Name",
+      "formid": "200014:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527045"
+    },
+    "MagicEffect:Name:outfitEffect01A": {
+      "original": "outfitEffect01A",
+      "translated": "Эффект наряда 01A",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "000801:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527048"
+    },
+    "MagicEffect:Name:Peace Silencer FX": {
+      "original": "Peace Silencer FX",
+      "translated": "Эффект усмирения",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "000808:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527051"
+    },
+    "MagicEffect:Description:Heavenly seal protect the wearer.": {
+      "original": "Heavenly seal protect the wearer.",
+      "translated": "Небесная печать защищает носителя.",
+      "record_type": "MagicEffect",
+      "field": "Description",
+      "formid": "000813:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527055"
+    },
+    "MagicEffect:Name:Angel Circle": {
+      "original": "Angel Circle",
+      "translated": "Ангельский круг",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "000813:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527057"
+    },
+    "MagicEffect:Name:outfitEffect01B": {
+      "original": "outfitEffect01B",
+      "translated": "Эффект наряда 01B",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "00081F:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527060"
+    },
+    "MagicEffect:Description:Summons an Angel from heavens to smite evil for<dur>seconds": {
+      "original": "Summons an Angel from heavens to smite evil for<dur>seconds",
+      "translated": "Призывает ангела с небес для сокрушения зла на <dur> сек.",
+      "record_type": "MagicEffect",
+      "field": "Description",
+      "formid": "00086C:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527063"
+    },
+    "MagicEffect:Name:Summon Angel": {
+      "original": "Summon Angel",
+      "translated": "Призыв ангела",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "00086C:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527066"
+    },
+    "MagicEffect:Description:Angelic seals protect the wearer.": {
+      "original": "Angelic seals protect the wearer.",
+      "translated": "Ангельские печати защищают носителя.",
+      "record_type": "MagicEffect",
+      "field": "Description",
+      "formid": "0008EE:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527069"
+    },
+    "MagicEffect:Name:Angel Tri Circle": {
+      "original": "Angel Tri Circle",
+      "translated": "Тройной ангельский круг",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "0008EE:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527072"
+    },
+    "MagicEffect:Description:Divine energy focused on a ray inflicts inflicts <mag> points of damage per second.": {
+      "original": "Divine energy focused on a ray inflicts inflicts <mag> points of damage per second.",
+      "translated": "Божественная энергия, сфокусированная в луч, наносит <mag> ед. урона в секунду.",
+      "record_type": "MagicEffect",
+      "field": "Description",
+      "formid": "00D8EB:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527075"
+    },
+    "MagicEffect:Name:Holy Light Effect": {
+      "original": "Holy Light Effect",
+      "translated": "Эффект священного света",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "00D8EB:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527078"
+    },
+    "MagicEffect:Description:Divine energy explodes on impact, dealing <mag> points of damage in a 10 foot radius.": {
+      "original": "Divine energy explodes on impact, dealing <mag> points of damage in a 10 foot radius.",
+      "translated": "Божественная энергия взрывается при попадании, нанося <mag> ед. урона в радиусе 10 футов.",
+      "record_type": "MagicEffect",
+      "field": "Description",
+      "formid": "00D8EC:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527081"
+    },
+    "MagicEffect:Name:Wrath of Heavens Effect": {
+      "original": "Wrath of Heavens Effect",
+      "translated": "Эффект гнева небес",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "00D8EC:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527084"
+    },
+    "MagicEffect:Name:aaAlicesshouteffect": {
+      "original": "aaAlicesshouteffect",
+      "translated": "Эффект крика Рафаэлы",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "025C1F:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527098"
+    },
+    "MagicEffect:Name:aaAlicesshouteffect2": {
+      "original": "aaAlicesshouteffect2",
+      "translated": "Эффект крика Рафаэлы II",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "025C20:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527100"
+    },
+    "MagicEffect:Name:aaAlicesshouteffect3": {
+      "original": "aaAlicesshouteffect3",
+      "translated": "Эффект крика Рафаэлы III",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "025C21:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527103"
+    },
+    "MagicEffect:Name:aaAlicesshouteffect4": {
+      "original": "aaAlicesshouteffect4",
+      "translated": "Эффект крика Рафаэлы IV",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "025C22:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527105"
+    },
+    "MagicEffect:Name:aaAlicesshouteffect5": {
+      "original": "aaAlicesshouteffect5",
+      "translated": "aaAlicesshouteffect5",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "039966:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527107"
+    },
+    "MagicEffect:Name:Rafaela's Force Push Effect": {
+      "original": "Rafaela's Force Push Effect",
+      "translated": "Эффект силового толчка Рафаэлы",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "200000:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527111"
+    },
+    "MagicEffect:Description:Summons a Familiar for <dur> seconds wherever the caster is pointing.": {
+      "original": "Summons a Familiar for <dur> seconds wherever the caster is pointing.",
+      "translated": "Призывает питомца на <dur> сек. в точку, куда указывает заклинатель.",
+      "record_type": "MagicEffect",
+      "field": "Description",
+      "formid": "202CB5:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527114"
+    },
+    "MagicEffect:Name:Summonable Angel Effect": {
+      "original": "Summonable Angel Effect",
+      "translated": "Эффект призываемого ангела",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "202CB5:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527118"
+    },
+    "MagicEffect:Description:Facelight": {
+      "original": "Facelight",
+      "translated": "Facelight",
+      "record_type": "MagicEffect",
+      "field": "Description",
+      "formid": "202CBB:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527120"
+    },
+    "MagicEffect:Name:Facelight": {
+      "original": "Facelight",
+      "translated": "Facelight",
+      "record_type": "MagicEffect",
+      "field": "Name",
+      "formid": "202CBB:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527123"
+    },
+    "Spell:Name:Summon Angel Spell": {
+      "original": "Summon Angel Spell",
+      "translated": "Заклинание призыва ангела",
+      "record_type": "Spell",
+      "field": "Name",
+      "formid": "00086D:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527126"
+    },
+    "Spell:Name:Holy Light": {
+      "original": "Holy Light",
+      "translated": "Священный свет",
+      "record_type": "Spell",
+      "field": "Name",
+      "formid": "00D8ED:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527128"
+    },
+    "Spell:Name:Wrath of Heavens": {
+      "original": "Wrath of Heavens",
+      "translated": "Гнев небес",
+      "record_type": "Spell",
+      "field": "Name",
+      "formid": "00D8EE:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527131"
+    },
+    "Spell:Name:aaCorshoutspell": {
+      "original": "aaCorshoutspell",
+      "translated": "aaCorshoutspell",
+      "record_type": "Spell",
+      "field": "Name",
+      "formid": "025C19:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527134"
+    },
+    "Spell:Name:Rafaela Heal Spell": {
+      "original": "Rafaela Heal Spell",
+      "translated": "Заклинание исцеления Рафаэлы",
+      "record_type": "Spell",
+      "field": "Name",
+      "formid": "025C1E:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527136"
+    },
+    "Spell:Name:Rafi's Healing Touch": {
+      "original": "Rafi's Healing Touch",
+      "translated": "Исцеляющее прикосновение Рафи",
+      "record_type": "Spell",
+      "field": "Name",
+      "formid": "20000F:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527139"
+    },
+    "Spell:Name:Force Push": {
+      "original": "Force Push",
+      "translated": "Силовой толчок",
+      "record_type": "Spell",
+      "field": "Name",
+      "formid": "200011:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527141"
+    },
+    "MiscItem:Name:Silencer": {
+      "original": "Silencer",
+      "translated": "Утишитель",
+      "record_type": "MiscItem",
+      "field": "Name",
+      "formid": "00080D:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527144"
+    },
+    "Perk:Description:Smite the undead dealing an extra 50% damage.": {
+      "original": "Smite the undead dealing an extra 50% damage.",
+      "translated": "Сокрушает нежить, нанося дополнительно 50% урона.",
+      "record_type": "Perk",
+      "field": "Description",
+      "formid": "034A23:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527147"
+    },
+    "Perk:Name:Rafaela Perk": {
+      "original": "Rafaela Perk",
+      "translated": "Способность Рафаэлы",
+      "record_type": "Perk",
+      "field": "Name",
+      "formid": "034A23:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527150"
+    },
+    "Race:Description:Summoned from heavens to smite evil.": {
+      "original": "Summoned from heavens to smite evil.",
+      "translated": "Призвана с небес для сокрушения зла.",
+      "record_type": "Race",
+      "field": "Description",
+      "formid": "00086F:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527154"
+    },
+    "Race:Name:Summoned Angel Race": {
+      "original": "Summoned Angel Race",
+      "translated": "Раса призванного ангела",
+      "record_type": "Race",
+      "field": "Name",
+      "formid": "00086F:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527157"
+    },
+    "Race:Description:Custom Race": {
+      "original": "Custom Race",
+      "translated": "Особая раса",
+      "record_type": "Race",
+      "field": "Description",
+      "formid": "005749:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527161"
+    },
+    "Race:Name:NordRace_CF": {
+      "original": "NordRace_CF",
+      "translated": "Норд (CF)",
+      "record_type": "Race",
+      "field": "Name",
+      "formid": "005749:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527164"
+    },
+    "Class:Name:RafaelaClass": {
+      "original": "RafaelaClass",
+      "translated": "Класс Рафаэлы",
+      "record_type": "Class",
+      "field": "Name",
+      "formid": "0283C5:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527167"
+    },
+    "Cell:Name:Temple of Kynareth": {
+      "original": "Temple of Kynareth",
+      "translated": "Храм Кинарет",
+      "record_type": "Cell",
+      "field": "Name",
+      "formid": "0165A7:Skyrim.esm",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527169"
+    },
+    "ObjectEffect:Name:TransformInAngel": {
+      "original": "TransformInAngel",
+      "translated": "Превращение в ангела",
+      "record_type": "ObjectEffect",
+      "field": "Name",
+      "formid": "000800:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527173"
+    },
+    "ObjectEffect:Name:Peace Simple Enchant": {
+      "original": "Peace Simple Enchant",
+      "translated": "Простое зачарование покоя",
+      "record_type": "ObjectEffect",
+      "field": "Name",
+      "formid": "000807:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527175"
+    },
+    "ObjectEffect:Name:Angelic Magic Circle": {
+      "original": "Angelic Magic Circle",
+      "translated": "Ангельский магический круг",
+      "record_type": "ObjectEffect",
+      "field": "Name",
+      "formid": "000812:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527178"
+    },
+    "ObjectEffect:Name:Angelic Magic Tri Circle": {
+      "original": "Angelic Magic Tri Circle",
+      "translated": "Тройной ангельский магический круг",
+      "record_type": "ObjectEffect",
+      "field": "Name",
+      "formid": "0008ED:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527181"
+    },
+    "ObjectEffect:Name:Ring Of Facelight": {
+      "original": "Ring Of Facelight",
+      "translated": "Кольцо подсветки лица",
+      "record_type": "ObjectEffect",
+      "field": "Name",
+      "formid": "202CBA:Rafaela.esp",
+      "source": "lain_agent",
+      "updated_at": "2026-09-22T16:04:59.527184"
+    }
+  }
+}

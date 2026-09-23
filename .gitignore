@@ -1,0 +1,54 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment files & secrets
+.env
+.env.local
+.env.*.local
+
+# Logs & temporary outputs
+logs/*.log
+*.log
+data/extracted_bsa/
+data/cache/
+data/raw_extracted/*.tmp.json
+data/ops/*.tmp.json
+
+# Local runtime & OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+settings.json
+
+# User temporary review sessions (keep repository clean)
+# To preserve specific example mods, add exception with !
+data/review/*_review.json
+!data/review/SexLabDefeat_review.json
+web/*_dashboard.html
+!web/cat_dashboard.html
+!web/SexLabDefeat_dashboard.html

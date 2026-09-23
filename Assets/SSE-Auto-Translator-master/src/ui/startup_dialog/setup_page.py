@@ -1,0 +1,133 @@
+"""
+Copyright (c) Cutleast
+"""
+
+from typing import Optional, override
+
+from cutleast_core_lib.ui.widgets.enum_placeholder_dropdown import (
+    EnumPlaceholderDropdown,
+)
+from PySide6.QtWidgets import QCheckBox, QGroupBox, QHBoxLayout, QLabel, QVBoxLayout
+
+from core.config.user_config import UserConfig
+from core.translation_provider.provider_preference import ProviderPreference
+from core.utilities.game_language import GameLanguage
+from core.utilities.localisation import LocalisationUtils
+from ui.widgets.api_setup import ApiSetup
+
+from .page import Page
+
+
+class SetupPage(Page):
+    """
+    Second page. For setting up game language and API Key.
+    """
+
+    __lang_dropdown: EnumPlaceholderDropdown[GameLanguage]
+    __source_label: QLabel
+    __source_dropdown: EnumPlaceholderDropdown[ProviderPreference]
+    __masterlist_box: QCheckBox
+    __api_setup: ApiSetup
+
+    @override
+    def _init_form(self) -> None:
+        translation_groupbox = QGroupBox(self.tr("Translations"))
+        self._vlayout.addWidget(translation_groupbox)
+        translation_vlayout = QVBoxLayout()
+        translation_groupbox.setLayout(translation_vlayout)
+
+        # Language
+        hlayout = QHBoxLayout()
+        translation_vlayout.addLayout(hlayout)
+
+        lang_label = QLabel(self.tr("Game language"))
+        hlayout.addWidget(lang_label)
+        self.__lang_dropdown = EnumPlaceholderDropdown(GameLanguage)
+        self.__lang_dropdown.installEventFilter(self)
+        hlayout.addWidget(self.__lang_dropdown)
+
+        # Source
+        hlayout = QHBoxLayout()
+        translation_vlayout.addLayout(hlayout)
+
+        self.__source_label = QLabel(self.tr("Translation source"))
+        self.__source_label.setDisabled(True)
+        hlayout.addWidget(self.__source_label)
+        self.__source_dropdown = EnumPlaceholderDropdown(
+            ProviderPreference, ProviderPreference.OnlyNexusMods
+        )
+        self.__source_dropdown.installEventFilter(self)
+        self.__source_dropdown.setDisabled(True)
+        self.__lang_dropdown.currentTextChanged.connect(self.__on_lang_change)
+        hlayout.addWidget(self.__source_dropdown)
+
+        # Masterlist
+        self.__masterlist_box = QCheckBox(
+            self.tr("Use global masterlist from GitHub repository (recommended)")
+        )
+        self.__masterlist_box.setChecked(True)
+        translation_vlayout.addWidget(self.__masterlist_box)
+
+        # API Setup Widget
+        api_groupbox = QGroupBox(self.tr("Nexus Mods API key"))
+        self._vlayout.addWidget(api_groupbox)
+        api_vlayout = QVBoxLayout()
+        api_groupbox.setLayout(api_vlayout)
+        self.__api_setup = ApiSetup()
+        api_vlayout.addWidget(self.__api_setup)
+
+        self._vlayout.addStretch()
+
+        self.__lang_dropdown.currentTextChanged.connect(lambda _: self._validate())
+        self.__api_setup.valid_signal.connect(lambda _: self._validate())
+
+        # Preselect system language if supported
+        system_lang: Optional[str] = LocalisationUtils.detect_preferred_lang()
+        if system_lang is not None:
+            self.__lang_dropdown.setCurrentText(system_lang.capitalize())
+
+    @override
+    def _get_title(self) -> str:
+        return self.tr("Initial Setup")
+
+    @override
+    def _get_description(self) -> str:
+        return self.tr(
+            "On this page you configure what translations to download from where for "
+            "which language."
+        )
+
+    def __on_lang_change(self, lang: str) -> None:
+        self.__source_label.setEnabled(lang == "French")
+        self.__source_dropdown.setEnabled(lang == "French")
+
+        if lang == "French":
+            self.__source_dropdown.setCurrentText(
+                ProviderPreference.PreferNexusMods.name
+            )
+        else:
+            self.__source_dropdown.setCurrentText(ProviderPreference.OnlyNexusMods.name)
+
+    @override
+    def _validate(self) -> None:
+        self.valid_signal.emit(
+            self.__lang_dropdown.getCurrentValue() is not None
+            and self.__source_dropdown.getCurrentValue() is not None
+            and self.__api_setup.is_valid
+        )
+
+    @override
+    def apply(self, config: UserConfig) -> None:
+        lang: Optional[GameLanguage] = self.__lang_dropdown.getCurrentValue()
+        source: Optional[ProviderPreference] = self.__source_dropdown.getCurrentValue()
+        if self.__api_setup.api_key is None:
+            raise ValueError("API key is required!")
+        elif lang is None:
+            raise ValueError("Language is required!")
+        elif source is None:
+            raise ValueError("Source is required!")
+
+        config.language = lang
+        config.provider_preference = source
+        config.api_key = self.__api_setup.api_key
+        config.use_masterlist = self.__masterlist_box.isChecked()

@@ -1,0 +1,10 @@
+# Core Desktop UI & Engine
+pywebview>=6.0.0
+
+# LLM Providers & AI Agent
+google-genai>=2.0.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# Text Processing & Utilities
+regex>=2024.0.0

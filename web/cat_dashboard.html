@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐾 Lain CAT Dashboard — Skyrim Mod Localization</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #e2e8f0;
+    }
+    code, pre, .font-mono {
+      font-family: 'Fira Code', monospace;
+    }
+    /* Кастомный скроллбар */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111827;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4b5563;
+    }
+    .tag-badge {
+      background: rgba(14, 165, 233, 0.15);
+      border: 1px solid rgba(14, 165, 233, 0.4);
+      color: #38bdf8;
+      border-radius: 4px;
+      padding: 0 4px;
+      font-size: 0.8em;
+    }
+    .leak-badge {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+    @keyframes highlight-flash {
+      0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); border-color: rgba(236, 72, 153, 1); }
+      50% { box-shadow: 0 0 25px 5px rgba(236, 72, 153, 0.7); border-color: rgba(236, 72, 153, 1); background-color: rgba(236, 72, 153, 0.15); }
+      100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+    }
+    .card-jump-flash {
+      animation: highlight-flash 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-pink-500 selection:text-white">
+
+  <!-- ВЕРХНЯЯ ПАНЕЛЬ / ШАПКА DOVAHSCRIBE (БЕЗ ЗАКРЕПЛЕНИЯ, С ВЫСОКИМ Z-INDEX) -->
+  <header class="border-b border-gray-800 bg-gray-900/60 backdrop-blur relative z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col gap-3">
+      <!-- Баннер DovahScribe во всю ширину -->
+      <div class="w-full rounded-2xl overflow-hidden border border-indigo-900/40 shadow-2xl shadow-indigo-950/40 bg-gray-950 relative">
+        <img src="dovahscribe_banner.jpg" alt="DovahScribe Localization Suite for Skyrim" class="w-full h-auto max-h-52 sm:max-h-60 object-cover object-center">
+        <div class="absolute bottom-2.5 right-3.5">
+          <span class="text-[11px] text-gray-300 font-mono px-2.5 py-1 rounded-lg bg-gray-950/80 backdrop-blur border border-indigo-800/40 shadow-lg flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse"></span>
+            DovahScribe Engine v1.0
+          </span>
+        </div>
+      </div>
+
+      <!-- Панель действий: статус мода слева + кнопки управления справа -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-0.5">
+        <!-- Блок информации о текущем моде -->
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gray-950/90 border border-pink-900/50 shadow-md shadow-pink-950/20">
+            <span class="text-sm">📦</span>
+            <span id="mod-title" class="text-xs sm:text-sm font-semibold text-pink-300 font-mono tracking-wide">Файл не загружен — выберите _review.json</span>
+          </div>
+        </div>
+        
+        <!-- Кнопки действий -->
+        <div class="flex flex-wrap items-center gap-2">
+          <input type="file" id="file-input" accept=".json" class="hidden">
+          
+          <!-- Кнопка 1: Открыть JSON -->
+          <div class="relative group">
+            <button onclick="onOpenFileClick()" class="px-3.5 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-sm font-medium border border-gray-700 transition flex items-center gap-2 shadow-sm">
+              📂 Открыть JSON
+            </button>
+            <div class="absolute right-0 top-full mt-2 hidden group-hover:flex flex-col w-64 p-2.5 bg-gray-950/95 border border-gray-700 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+              <span class="font-bold text-white flex items-center gap-1.5">📂 Загрузить файл ревью</span>
+              <p class="text-gray-400 text-[11px] mt-1 leading-snug">Загрузить локальный <code class="text-pink-400 font-mono">{mod}_review.json</code> для проверки, редактирования или перевода.</p>
+            </div>
+          </div>
+
+          <!-- Кнопка 2: Реестр ляпов (Anti-Trap) -->
+          <div class="relative group">
+            <button onclick="openFalseFriendsModal()" class="px-3.5 py-1.5 rounded-lg bg-pink-950/60 hover:bg-pink-900/80 text-pink-300 text-sm font-medium border border-pink-700/40 transition flex items-center gap-2 shadow-sm">
+              🚫 Реестр ляпов (Anti-Trap)
+            </button>
+            <div class="absolute right-0 top-full mt-2 hidden group-hover:flex flex-col w-72 p-2.5 bg-gray-950/95 border border-pink-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+              <span class="font-bold text-pink-300 flex items-center gap-1.5">🚫 Фильтр машинных ошибок</span>
+              <p class="text-gray-400 text-[11px] mt-1 leading-snug">Управление базой ложных друзей (<code class="text-emerald-400">гонка ➔ раса</code>, <code class="text-emerald-400">персонал ➔ посох</code>) и автоочистка мода в 1 клик.</p>
+            </div>
+          </div>
+
+          <!-- Кнопка 3: Сохранить Review JSON -->
+          <div class="relative group">
+            <button onclick="exportReviewJson()" id="btn-export-review" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-sm font-medium text-white transition flex items-center gap-2 shadow-lg shadow-indigo-600/20 disabled:opacity-50" disabled>
+              💾 Сохранить Review JSON
+            </button>
+            <div class="absolute right-0 top-full mt-2 hidden group-hover:flex flex-col w-72 p-2.5 bg-gray-950/95 border border-indigo-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+              <span class="font-bold text-indigo-300 flex items-center gap-1.5">💾 Сохранить проект перевода</span>
+              <p class="text-gray-400 text-[11px] mt-1 leading-snug">Экспортирует полный <code class="text-indigo-300 font-mono">{mod}_review.json</code> со всеми вашими правками, контекстом спикеров и статусами Quality Gate.</p>
+            </div>
+          </div>
+
+          <!-- Кнопка 4: Экспорт Ops Manifest -->
+          <div class="relative group">
+            <button onclick="exportOpsManifest()" id="btn-export-ops" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-sm font-medium text-white transition flex items-center gap-2 shadow-lg shadow-emerald-600/20 disabled:opacity-50" disabled>
+              ⚡ Экспорт Ops Manifest
+            </button>
+            <div class="absolute right-0 top-full mt-2 hidden group-hover:flex flex-col w-72 p-2.5 bg-gray-950/95 border border-emerald-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+              <span class="font-bold text-emerald-300 flex items-center gap-1.5">⚡ Экспорт команд houseCARL</span>
+              <p class="text-gray-400 text-[11px] mt-1 leading-snug">Генерирует чистый файл операций <code class="text-emerald-300 font-mono">{mod}_ops.json</code> для утилиты <code class="text-emerald-400">housecarl_apply</code> и прошивки в .esp.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- СТАТИСТИКА И ДАШБОРД QUALITY GATE (ИНТЕРАКТИВНЫЕ ФИЛЬТРЫ СТАТУСА) -->
+  <section class="bg-gray-900/50 border-b border-gray-800 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-sm">
+        <!-- 1. Все строки -->
+        <div class="relative group">
+          <button onclick="setStatusFilter('all')" id="card-status-all" class="w-full stat-card text-left bg-gray-800/60 p-3 rounded-xl border-2 border-indigo-500/80 bg-indigo-950/20 shadow-lg shadow-indigo-950/30 transition hover:scale-[1.02] flex flex-col cursor-pointer">
+            <span class="text-xs text-gray-300 font-medium flex items-center justify-between">
+              <span>Все строки</span>
+              <span class="text-[10px] bg-gray-700/80 text-gray-300 px-1.5 py-0.2 rounded font-mono">Status</span>
+            </span>
+            <span id="stat-total" class="text-xl font-bold text-white mt-1">0</span>
+          </button>
+          <div class="absolute left-0 bottom-full mb-2 hidden group-hover:flex flex-col w-56 p-2 bg-gray-950/95 border border-indigo-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+            <span class="font-bold text-indigo-300 flex items-center gap-1">📋 Полный обзор</span>
+            <p class="text-gray-400 text-[11px] mt-0.5 leading-tight">Показать абсолютно все записи мода без фильтрации по качеству.</p>
+          </div>
+        </div>
+
+        <!-- 2. Готово -->
+        <div class="relative group">
+          <button onclick="setStatusFilter('ok')" id="card-status-ok" class="w-full stat-card text-left bg-gray-800/60 p-3 rounded-xl border border-emerald-500/20 hover:border-emerald-500/60 hover:bg-emerald-950/20 transition hover:scale-[1.02] flex flex-col cursor-pointer">
+            <span class="text-xs text-emerald-400 flex items-center justify-between">
+              <span>✅ Одобрено</span>
+              <span class="text-[10px] text-emerald-500/60 font-mono">OK</span>
+            </span>
+            <span id="stat-ok" class="text-xl font-bold text-emerald-400 mt-1">0</span>
+          </button>
+          <div class="absolute left-0 bottom-full mb-2 hidden group-hover:flex flex-col w-56 p-2 bg-gray-950/95 border border-emerald-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+            <span class="font-bold text-emerald-300 flex items-center gap-1">✅ Чистый перевод</span>
+            <p class="text-gray-400 text-[11px] mt-0.5 leading-tight">Готовые строки, прошедшие проверку Quality Gate без ошибок.</p>
+          </div>
+        </div>
+
+        <!-- 3. Замечания -->
+        <div class="relative group">
+          <button onclick="setStatusFilter('warning')" id="card-status-warning" class="w-full stat-card text-left bg-gray-800/60 p-3 rounded-xl border border-amber-500/20 hover:border-amber-500/60 hover:bg-amber-950/20 transition hover:scale-[1.02] flex flex-col cursor-pointer">
+            <span class="text-xs text-amber-400 flex items-center justify-between">
+              <span>⚠️ Замечания</span>
+              <span class="text-[10px] text-amber-500/60 font-mono">Quality Gate</span>
+            </span>
+            <span id="stat-warning" class="text-xl font-bold text-amber-400 mt-1">0</span>
+          </button>
+          <div class="absolute left-0 bottom-full mb-2 hidden group-hover:flex flex-col w-60 p-2 bg-gray-950/95 border border-amber-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+            <span class="font-bold text-amber-300 flex items-center gap-1">⚠️ Требуют внимания</span>
+            <p class="text-gray-400 text-[11px] mt-0.5 leading-tight">Ложные друзья, спецсимволы, пустые строки или расхождения форматирования.</p>
+          </div>
+        </div>
+
+        <!-- 4. Ожидают перевода -->
+        <div class="relative group">
+          <button onclick="setStatusFilter('pending')" id="card-status-pending" class="w-full stat-card text-left bg-gray-800/60 p-3 rounded-xl border border-rose-500/20 hover:border-rose-500/60 hover:bg-rose-950/20 transition hover:scale-[1.02] flex flex-col cursor-pointer">
+            <span class="text-xs text-rose-400 flex items-center justify-between">
+              <span>⏳ Ожидают</span>
+              <span class="text-[10px] text-rose-500/60 font-mono">Pending</span>
+            </span>
+            <span id="stat-pending" class="text-xl font-bold text-rose-400 mt-1">0</span>
+          </button>
+          <div class="absolute left-0 bottom-full mb-2 hidden group-hover:flex flex-col w-56 p-2 bg-gray-950/95 border border-rose-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+            <span class="font-bold text-rose-300 flex items-center gap-1">⏳ В очереди</span>
+            <p class="text-gray-400 text-[11px] mt-0.5 leading-tight">Непереведённый текст оригинала, ожидающий локализации.</p>
+          </div>
+        </div>
+
+        <!-- 5. Прогресс -->
+        <div class="bg-gray-800/60 p-3 rounded-xl border border-indigo-500/20 flex flex-col justify-between col-span-2 sm:col-span-1">
+          <div class="flex justify-between items-center">
+            <span class="text-xs text-indigo-300 font-medium">Прогресс мода</span>
+            <span id="stat-percent" class="text-xs font-mono font-bold text-indigo-300">0%</span>
+          </div>
+          <div class="w-full bg-gray-950 h-2.5 rounded-full overflow-hidden mt-2 p-0.5 border border-gray-700/50">
+            <div id="progress-bar" class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 h-full w-0 rounded-full transition-all duration-300"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПАНЕЛЬ ПОИСКА, СОРТИРОВКИ И КАТЕГОРИЙ КОНТЕНТА -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 w-full flex flex-col gap-3">
+    <!-- Верхняя строка: Категории контента (Pills) -->
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-1.5 bg-gray-900/90 p-1 rounded-xl border border-gray-800 text-xs">
+        <span class="text-gray-500 font-semibold px-2 text-[11px] uppercase tracking-wider">Категория:</span>
+        <button onclick="setCategoryFilter('all')" data-cat="all" class="cat-btn px-3 py-1.5 rounded-lg bg-pink-600 text-white font-medium transition shadow-md shadow-pink-600/20">
+          Все (<span id="cnt-all">0</span>)
+        </button>
+        <button onclick="setCategoryFilter('items')" data-cat="items" class="cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition">
+          ⚔️ Предметы (<span id="cnt-items">0</span>)
+        </button>
+        <button onclick="setCategoryFilter('book')" data-cat="book" class="cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition">
+          📖 Книги (<span id="cnt-book">0</span>)
+        </button>
+        <button onclick="setCategoryFilter('magic')" data-cat="magic" class="cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition">
+          ✨ Магия (<span id="cnt-magic">0</span>)
+        </button>
+        <button onclick="setCategoryFilter('quest')" data-cat="quest" class="cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition">
+          📜 Квесты & Диалоги (<span id="cnt-quest">0</span>)
+        </button>
+        <button onclick="setCategoryFilter('mcm')" data-cat="mcm" class="cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition">
+          ⚙️ MCM (<span id="cnt-mcm">0</span>)
+        </button>
+      </div>
+
+      <!-- Сортировка -->
+      <div class="flex items-center gap-2 text-xs">
+        <label for="sort-select" class="text-gray-400 whitespace-nowrap">Сортировка:</label>
+        <select id="sort-select" onchange="onSortChange(this.value)" class="bg-gray-900 border border-gray-800 text-gray-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-pink-500">
+          <option value="default">📌 По порядку в моде</option>
+          <option value="warnings_first">⚠️ Сначала с замечаниями</option>
+          <option value="pending_first">⏳ Сначала непереведённые</option>
+          <option value="length_desc">🔤 Сначала длинный текст</option>
+          <option value="length_asc">🔤 Сначала короткий текст</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Нижняя строка: Быстрый поиск с кнопкой сброса -->
+    <div class="relative w-full">
+      <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-500 text-sm">🔍</span>
+      <input type="text" id="search-input" oninput="onSearchChange()" placeholder="Поиск по тексту оригинала / перевода, FormID (напр. 00103CE4), типу или теме..." class="w-full bg-gray-900/80 border border-gray-800 rounded-xl pl-10 pr-10 py-2.5 text-sm focus:outline-none focus:border-pink-500 text-gray-200 placeholder-gray-500 transition">
+      <button onclick="clearSearch()" id="btn-clear-search" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-500 hover:text-white hidden text-xs font-bold">✕</button>
+    </div>
+  </section>
+
+  <!-- ОСНОВНОЙ КОНТЕНТ: СПИСОК СТРОК -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex-1 w-full">
+    <!-- Дропзона при пустом состоянии -->
+    <div id="dropzone" class="border-2 border-dashed border-gray-800 rounded-2xl p-12 text-center my-8 bg-gray-900/30 hover:border-pink-500/50 transition cursor-pointer" onclick="document.getElementById('file-input').click()">
+      <div class="text-5xl mb-4">🐾</div>
+      <h3 class="text-lg font-semibold text-white">Перетащите сюда файл *_review.json</h3>
+      <p class="text-sm text-gray-400 mt-2 max-w-md mx-auto">Или нажмите для выбора файла из папки <code class="text-pink-400 bg-gray-800 px-1.5 py-0.5 rounded">data/review/</code></p>
+      <div class="mt-6 flex justify-center gap-3">
+        <button class="px-4 py-2 bg-gradient-to-r from-pink-600 to-indigo-600 hover:opacity-90 text-white rounded-xl text-sm font-medium transition shadow-lg shadow-pink-600/20">
+          Выбрать файл
+        </button>
+      </div>
+    </div>
+
+    <!-- Верхняя пагинация -->
+    <div id="pagination-top" class="mb-3.5 flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3 hidden text-xs text-gray-400">
+      <span id="page-info-top" class="font-medium text-gray-300">Показано 1–50 из 855</span>
+      <div class="flex items-center gap-1.5" id="page-controls-top">
+        <button onclick="prevPage()" id="btn-prev-top" class="px-2.5 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 disabled:opacity-40 transition flex items-center gap-1">← Назад</button>
+        <div id="page-numbers-top" class="flex items-center gap-1"></div>
+        <button onclick="nextPage()" id="btn-next-top" class="px-2.5 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 disabled:opacity-40 transition flex items-center gap-1">Вперед →</button>
+      </div>
+    </div>
+
+    <!-- Таблица записей -->
+    <div id="table-container" class="space-y-3 hidden"></div>
+
+    <!-- Нижняя пагинация -->
+    <div id="pagination-bottom" class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-gray-800 pt-4 hidden text-xs text-gray-400">
+      <span id="page-info-bottom" class="font-medium text-gray-300">Показано 1–50 из 855</span>
+      <div class="flex items-center gap-1.5" id="page-controls-bottom">
+        <button onclick="prevPage()" id="btn-prev-bottom" class="px-2.5 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 disabled:opacity-40 transition flex items-center gap-1">← Назад</button>
+        <div id="page-numbers-bottom" class="flex items-center gap-1"></div>
+        <button onclick="nextPage()" id="btn-next-bottom" class="px-2.5 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 disabled:opacity-40 transition flex items-center gap-1">Вперед →</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- СТАТУС БАР ВНИЗУ -->
+  <footer class="border-t border-gray-800 bg-gray-900 px-4 py-2 text-xs text-gray-500 flex justify-between items-center fixed bottom-0 left-0 right-0 z-40">
+    <div class="flex items-center gap-3">
+      <span>Горячие клавиши: <kbd class="bg-gray-800 px-1.5 py-0.5 rounded border border-gray-700 text-gray-300">Ctrl + S</kbd> сохранить</span>
+      <span>•</span>
+      <span><kbd class="bg-gray-800 px-1.5 py-0.5 rounded border border-gray-700 text-gray-300">Ctrl + Enter</kbd> подтвердить / следующая строка</span>
+      <span>•</span>
+      <span><kbd class="bg-gray-800 px-1.5 py-0.5 rounded border border-gray-700 text-gray-300">Ctrl + ← / →</kbd> страницы</span>
+      <span>•</span>
+      <span><kbd class="bg-gray-800 px-1.5 py-0.5 rounded border border-gray-700 text-gray-300">Alt + O</kbd> оригинал</span>
+      <span>•</span>
+      <span><kbd class="bg-gray-800 px-1.5 py-0.5 rounded border border-gray-700 text-gray-300">Alt + R</kbd> сброс ИИ</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span id="sync-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span id="sync-status">Готов к работе</span>
+    </div>
+  </footer>
+
+  <!-- Предзагруженные данные (инжектируются оркестратором) -->
+  <script id="preloaded-data" type="application/json"></script>
+
+  <!-- Скрипты клиентской логики и Quality Gate -->
+  <script>
+    let reviewData = null;
+    let entries = [];
+    let filteredEntries = [];
+    let currentStatusFilter = 'all';
+    let currentCategoryFilter = 'all';
+    let currentSort = 'default';
+    let searchQuery = '';
+    let currentPage = 1;
+    const pageSize = 50;
+
+    // Автозагрузка предзагруженных данных при старте
+    window.addEventListener('DOMContentLoaded', () => {
+      const scriptEl = document.getElementById('preloaded-data');
+      if (scriptEl && scriptEl.textContent && scriptEl.textContent.trim()) {
+        try {
+          const payload = JSON.parse(scriptEl.textContent);
+          const name = payload.metadata?.mod_name || 'mod';
+          loadReviewPayload(payload, `${name}_review.json`);
+        } catch (err) {
+          console.error("Ошибка чтения предзагруженных данных:", err);
+        }
+      }
+    });
+
+    // Белый список допустимых латинских терминов
+    const WHITELIST_WORDS = new Set([
+      "DPS", "FPS", "ID", "HP", "MP", "HUD", "MCM", "UI", "3D", "2D",
+      "FO4", "TES", "SKSE", "F4SE", "SSE", "VR", "XP", "SP",
+      "DLL", "SWF", "LOTD", "JSON", "IE", "EE", "SE", "AE", "BOM", "INI",
+      "PEX", "PSC", "NIF", "DDS", "BSA", "SKSE64", "SKYUI", "PAPYRUSUTIL", "PAPYRUS",
+      "DATA", "PLUGINS", "INTERFACE", "TRANSLATIONS", "SCRIPTS", "MESHES", "TEXTURES", "SOUND", "MUSIC", "STRINGS",
+      "DEFAULTCONFIG", "QUICKLOOT", "QUICKLOOTIE", "ATOMCRAFTY", "COMPLETIONIST",
+      "E", "R", "F", "C", "Z", "X", "V", "Q", "W", "A", "S", "D", "M1", "M2", "TAB", "SHIFT", "ALT", "CTRL"
+    ]);
+    const ROMAN_NUMERALS_REGEX = /\b(?=[MDCLXVI])M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})\b/gi;
+    const SYSTEM_TOKEN_REGEX = /^(\$[A-Za-z0-9_]+|(p|v|xxp|f|k|q|z|aaa|CF|vk)[A-Za-z0-9_]*|[A-Za-z0-9_]+(Script|Quest|Spell|Faction|Effect|Ability|Armor|Weapon))$/i;
+
+    // Drag & Drop
+    const dropzone = document.getElementById('dropzone');
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropzone.addEventListener(eventName, (e) => { e.preventDefault(); dropzone.classList.add('border-pink-500'); }, false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropzone.addEventListener(eventName, (e) => { e.preventDefault(); dropzone.classList.remove('border-pink-500'); }, false);
+    });
+    dropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length) handleFile(files[0]);
+    });
+
+    async function onOpenFileClick() {
+      if (window.pywebview && window.pywebview.api) {
+        try {
+          const res = await window.pywebview.api.open_file_dialog();
+          if (res && res.success && res.data) {
+            loadReviewPayload(res.data, res.filename);
+            const statusEl = document.getElementById('sync-status');
+            if (statusEl) statusEl.textContent = `📂 Загружен: ${res.filename}`;
+            return;
+          } else if (res && res.cancelled) {
+            return;
+          }
+        } catch (err) {
+          console.warn("PyWebView open dialog error:", err);
+        }
+      }
+      document.getElementById('file-input').click();
+    }
+
+    function handleFile(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const json = JSON.parse(e.target.result);
+          loadReviewPayload(json, file.name);
+        } catch (err) {
+          alert("Ошибка парсинга JSON: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function loadReviewPayload(payload, filename) {
+      reviewData = payload;
+      if (payload.entries && Array.isArray(payload.entries)) {
+        entries = payload.entries;
+      } else if (Array.isArray(payload)) {
+        entries = payload;
+        reviewData = { metadata: { mod_name: filename.replace("_review.json", "") }, entries: entries };
+      } else {
+        alert("Неизвестный формат файла ревью.");
+        return;
+      }
+
+      // Сохраняем исходные черновики перевода для возможности отката к ИИ
+      entries.forEach(entry => {
+        if (entry.initial_translated === undefined) {
+          entry.initial_translated = entry.translated || '';
+        }
+        if (entry.initial_source === undefined) {
+          entry.initial_source = entry.source || 'ai';
+        }
+      });
+
+      document.getElementById('mod-title').textContent = `Мод: ${reviewData.metadata?.mod_name || filename} (${entries.length} строк)`;
+      document.getElementById('dropzone').classList.add('hidden');
+      document.getElementById('table-container').classList.remove('hidden');
+      const pagTop = document.getElementById('pagination-top');
+      const pagBottom = document.getElementById('pagination-bottom');
+      if (pagTop) pagTop.classList.remove('hidden');
+      if (pagBottom) pagBottom.classList.remove('hidden');
+      document.getElementById('btn-export-review').disabled = false;
+      document.getElementById('btn-export-ops').disabled = false;
+
+      // Первичный аудит
+      runFullAudit();
+      applyFilters();
+    }
+
+    // Детектор утечек и валидатор в JS (Quality Gate)
+    function validateTranslation(original, translated, source) {
+      if (source === 'keep_original') {
+        return { ok: true, isKeepOriginal: true };
+      }
+      if (!translated || !translated.trim()) {
+        return { ok: false, type: 'empty', details: 'Перевод отсутствует' };
+      }
+      if (SYSTEM_TOKEN_REGEX.test(original.trim())) {
+        return { ok: true };
+      }
+      if (translated.trim() === original.trim()) {
+        const hasLeak = checkLatinLeak(translated, original);
+        if (hasLeak.length > 0) {
+          return { ok: false, type: 'untranslated', details: `Строка не переведена: ${hasLeak.join(', ')}` };
+        }
+      }
+
+      // Проверка на латинские утечки
+      const leaks = checkLatinLeak(translated, original);
+      if (leaks.length > 0) {
+        return { ok: false, type: 'leak', details: `Обнаружены английские слова: ${leaks.join(', ')}` };
+      }
+
+      // Проверка тегов
+      const tagCheck = checkTags(original, translated);
+      if (!tagCheck.ok) {
+        return tagCheck;
+      }
+
+      return { ok: true };
+    }
+
+    function checkLatinLeak(text, original) {
+      let cleaned = text
+        .replace(/<font[^>]*>/gi, ' ')
+        .replace(/<\/font>/gi, ' ')
+        .replace(/<alias=[^>]+>/gi, ' ')
+        .replace(/<[^>]+>/gi, ' ')
+        .replace(/\[pagebreak\]/gi, ' ')
+        .replace(/%[0-9\.\-+]*[sdfgixX%]/g, ' ')
+        .replace(/\\r|\\n|\\t/g, ' ')
+        .replace(/&[a-zA-Z]+;/g, ' ')
+        .replace(/(?:[A-Za-z0-9_\-]+\s*(?:>|\/|\\)\s*)+[A-Za-z0-9_\-\.]+/g, ' ')
+        .replace(/\$[A-Za-z0-9_]+/g, ' ')
+        .replace(/\b[A-Za-z0-9_\-]+\.(json|ini|txt|pex|psc|dll|swf|nif|dds|bsa|esp|esm|esl|xml|log|toml|yaml)\b/gi, ' ')
+        .replace(/\b[0-9]+[a-zA-Z]+\b|\b[a-zA-Z]+[0-9]+\b/g, ' ')
+        .replace(ROMAN_NUMERALS_REGEX, ' ');
+
+      const matches = cleaned.match(/[a-zA-Z]{2,}/g) || [];
+      const leaks = [];
+      const origLower = (original || '').toLowerCase();
+      for (const word of matches) {
+        const up = word.toUpperCase();
+        if (WHITELIST_WORDS.has(up)) continue;
+        if (SYSTEM_TOKEN_REGEX.test(word) && original.includes(word)) continue;
+        const wLow = word.toLowerCase();
+        if (origLower.includes(`'${wLow}'`) || origLower.includes(`"${wLow}"`) || origLower.includes(`\`${wLow}\``)) continue;
+        leaks.push(word);
+      }
+      return leaks;
+    }
+
+    function checkTags(orig, trans) {
+      const origAliases = (orig.match(/<alias=[^>]+>/gi) || []).sort();
+      const transAliases = (trans.match(/<alias=[^>]+>/gi) || []).sort();
+      if (JSON.stringify(origAliases) !== JSON.stringify(transAliases)) {
+        return { ok: false, type: 'tag', details: 'Несовпадение тегов <ALIAS=...>' };
+      }
+      const origSpec = (orig.match(/%[0-9\.\-+]*[sdfgixX]/g) || []).sort();
+      const transSpec = (trans.match(/%[0-9\.\-+]*[sdfgixX]/g) || []).sort();
+      if (JSON.stringify(origSpec) !== JSON.stringify(transSpec)) {
+        return { ok: false, type: 'tag', details: 'Несовпадение спецификаторов формата (%s/%d)' };
+      }
+      return { ok: true };
+    }
+
+    function runFullAudit() {
+      let okCount = 0;
+      let warnCount = 0;
+      let pendingCount = 0;
+
+      entries.forEach(entry => {
+        const orig = entry.original || entry.text || '';
+        const trans = entry.translated || '';
+        const validation = validateTranslation(orig, trans, entry.source);
+
+        if (entry.source === 'keep_original') {
+          entry.ui_status = 'ok';
+          entry.ui_issue = '';
+          okCount++;
+        } else if (!trans.trim() || entry.source === 'pending') {
+          entry.ui_status = 'pending';
+          entry.ui_issue = 'Ожидает перевода';
+          pendingCount++;
+        } else if (!validation.ok) {
+          entry.ui_status = 'warning';
+          entry.ui_issue = validation.details;
+          warnCount++;
+        } else {
+          entry.ui_status = 'ok';
+          entry.ui_issue = '';
+          okCount++;
+        }
+      });
+
+      document.getElementById('stat-total').textContent = entries.length;
+      document.getElementById('stat-ok').textContent = okCount;
+      document.getElementById('stat-warning').textContent = warnCount;
+      document.getElementById('stat-pending').textContent = pendingCount;
+
+      const percent = entries.length ? Math.round((okCount / entries.length) * 100) : 0;
+      document.getElementById('stat-percent').textContent = `${percent}%`;
+      document.getElementById('progress-bar').style.width = `${percent}%`;
+
+      // Счетчики на категориях контента
+      document.getElementById('cnt-all').textContent = entries.length;
+      document.getElementById('cnt-items').textContent = entries.filter(e => ['WEAP', 'ARMO', 'ALCH', 'AMMO', 'INGR', 'MISC', 'KEYM', 'SLGM', 'Armor', 'Weapon', 'Item'].includes(e.type)).length;
+      document.getElementById('cnt-book').textContent = entries.filter(e => ['BOOK', 'Book'].includes(e.type)).length;
+      document.getElementById('cnt-magic').textContent = entries.filter(e => ['SPEL', 'MGEF', 'PERK', 'AVIF', 'ENCH', 'SHOU', 'Spell', 'MagicEffect', 'Perk'].includes(e.type)).length;
+      document.getElementById('cnt-quest').textContent = entries.filter(e => ['QUST', 'MESG', 'INFO', 'DIAL', 'DialogResponses', 'ACTI', 'CONT', 'CELL', 'FACT', 'CLAS', 'Quest'].includes(e.type) || e.field === 'Prompt').length;
+      document.getElementById('cnt-mcm').textContent = entries.filter(e => e.type === 'MCM' || (e.formid && String(e.formid).startsWith('MCM:'))).length;
+    }
+
+    // 1. Управление фильтром статуса (верхние карточки)
+    function setStatusFilter(status) {
+      currentStatusFilter = status;
+      
+      const cards = {
+        'all': { id: 'card-status-all', active: 'border-2 border-indigo-500/80 bg-indigo-950/20 shadow-lg shadow-indigo-950/30' },
+        'ok': { id: 'card-status-ok', active: 'border-2 border-emerald-500/80 bg-emerald-950/30 shadow-lg shadow-emerald-950/30' },
+        'warning': { id: 'card-status-warning', active: 'border-2 border-amber-500/80 bg-amber-950/30 shadow-lg shadow-amber-950/30' },
+        'pending': { id: 'card-status-pending', active: 'border-2 border-rose-500/80 bg-rose-950/30 shadow-lg shadow-rose-950/30' }
+      };
+
+      Object.entries(cards).forEach(([key, cfg]) => {
+        const el = document.getElementById(cfg.id);
+        if (!el) return;
+        if (key === status) {
+          el.className = `w-full stat-card text-left p-3 rounded-xl transition flex flex-col cursor-pointer ${cfg.active}`;
+        } else {
+          el.className = `w-full stat-card text-left bg-gray-800/60 p-3 rounded-xl border border-gray-700/50 hover:border-gray-600 transition flex flex-col cursor-pointer`;
+        }
+      });
+
+      currentPage = 1;
+      applyFilters();
+    }
+
+    // 2. Управление фильтром категорий контента (пилюли)
+    function setCategoryFilter(cat) {
+      currentCategoryFilter = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'cat-btn px-3 py-1.5 rounded-lg bg-pink-600 text-white font-medium transition shadow-md shadow-pink-600/20';
+        } else {
+          btn.className = 'cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition';
+        }
+      });
+      currentPage = 1;
+      applyFilters();
+    }
+
+    // 3. Управление сортировкой
+    function onSortChange(sortVal) {
+      currentSort = sortVal;
+      applyFilters();
+    }
+
+    // 4. Управление поиском
+    function onSearchChange() {
+      const input = document.getElementById('search-input');
+      const clearBtn = document.getElementById('btn-clear-search');
+      searchQuery = input.value.toLowerCase().trim();
+      
+      if (searchQuery) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('search-input');
+      input.value = '';
+      document.getElementById('btn-clear-search').classList.add('hidden');
+      searchQuery = '';
+      currentPage = 1;
+      applyFilters();
+    }
+
+    // Комплексная 2-Tier фильтрация + сортировка
+    function applyFilters() {
+      filteredEntries = entries.filter(entry => {
+        // УРОВЕНЬ 1: Фильтр статуса Quality Gate
+        if (currentStatusFilter === 'ok') {
+          if (entry.ui_status !== 'ok' && entry.source !== 'keep_original') return false;
+        } else if (currentStatusFilter === 'warning') {
+          if (entry.ui_status !== 'warning' || entry.source === 'keep_original') return false;
+        } else if (currentStatusFilter === 'pending') {
+          if (entry.ui_status !== 'pending') return false;
+        }
+
+        // УРОВЕНЬ 2: Фильтр категории контента
+        if (currentCategoryFilter === 'dialog') {
+          if (!['INFO', 'DIAL', 'DialogResponses'].includes(entry.type) && entry.field !== 'Prompt') return false;
+        } else if (currentCategoryFilter === 'mcm') {
+          if (entry.type !== 'MCM' && !(entry.formid && String(entry.formid).startsWith('MCM:'))) return false;
+        } else if (currentCategoryFilter === 'book') {
+          if (!['BOOK', 'Book'].includes(entry.type)) return false;
+        } else if (currentCategoryFilter === 'items') {
+          if (!['WEAP', 'ARMO', 'ALCH', 'AMMO', 'INGR', 'MISC', 'KEYM', 'SLGM', 'Armor', 'Weapon'].includes(entry.type)) return false;
+        } else if (currentCategoryFilter === 'magic') {
+          if (!['SPEL', 'MGEF', 'PERK', 'AVIF', 'ENCH', 'SHOU', 'Spell', 'MagicEffect'].includes(entry.type)) return false;
+        } else if (currentCategoryFilter === 'quest') {
+          if (!['QUST', 'MESG', 'INFO', 'DIAL', 'DialogResponses', 'ACTI', 'CONT', 'CELL', 'FACT', 'CLAS', 'Quest'].includes(entry.type) && entry.field !== 'Prompt') return false;
+        }
+
+        // УРОВЕНЬ 3: Быстрый текстовый поиск
+        if (searchQuery) {
+          const orig = (entry.original || entry.text || '').toLowerCase();
+          const trans = (entry.translated || '').toLowerCase();
+          const formid = String(entry.formid || '').toLowerCase();
+          const type = (entry.type || '').toLowerCase();
+          const speaker = (entry.speaker || entry.speaker_context?.speaker_name || '').toLowerCase();
+          const topic = (entry.topic || '').toLowerCase();
+          const field = (entry.field || entry.path || '').toLowerCase();
+
+          return orig.includes(searchQuery) ||
+                 trans.includes(searchQuery) ||
+                 formid.includes(searchQuery) ||
+                 type.includes(searchQuery) ||
+                 speaker.includes(searchQuery) ||
+                 topic.includes(searchQuery) ||
+                 field.includes(searchQuery);
+        }
+
+        return true;
+      });
+
+      // УРОВЕНЬ 4: Сортировка записей
+      if (currentSort === 'warnings_first') {
+        filteredEntries.sort((a, b) => (b.ui_status === 'warning' ? 1 : 0) - (a.ui_status === 'warning' ? 1 : 0));
+      } else if (currentSort === 'pending_first') {
+        filteredEntries.sort((a, b) => (b.ui_status === 'pending' ? 1 : 0) - (a.ui_status === 'pending' ? 1 : 0));
+      } else if (currentSort === 'length_desc') {
+        filteredEntries.sort((a, b) => (b.original || '').length - (a.original || '').length);
+      } else if (currentSort === 'length_asc') {
+        filteredEntries.sort((a, b) => (a.original || '').length - (b.original || '').length);
+      } else {
+        // По умолчанию (по id)
+        filteredEntries.sort((a, b) => (a.id || 0) - (b.id || 0));
+      }
+
+      renderTable();
+    }
+
+    function renderTable() {
+      const container = document.getElementById('table-container');
+      container.innerHTML = '';
+
+      const total = filteredEntries.length;
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIdx = (currentPage - 1) * pageSize;
+      const endIdx = Math.min(startIdx + pageSize, total);
+      const pageItems = filteredEntries.slice(startIdx, endIdx);
+
+      const pageInfoText = total > 0 ? `Показано ${startIdx + 1}–${endIdx} из ${total} (Стр. ${currentPage}/${totalPages})` : 'Ничего не найдено';
+      
+      const topInfo = document.getElementById('page-info-top');
+      const bottomInfo = document.getElementById('page-info-bottom');
+      if (topInfo) topInfo.textContent = pageInfoText;
+      if (bottomInfo) bottomInfo.textContent = pageInfoText;
+
+      const btnPrevTop = document.getElementById('btn-prev-top');
+      const btnNextTop = document.getElementById('btn-next-top');
+      const btnPrevBottom = document.getElementById('btn-prev-bottom');
+      const btnNextBottom = document.getElementById('btn-next-bottom');
+
+      if (btnPrevTop) btnPrevTop.disabled = currentPage <= 1;
+      if (btnNextTop) btnNextTop.disabled = endIdx >= total;
+      if (btnPrevBottom) btnPrevBottom.disabled = currentPage <= 1;
+      if (btnNextBottom) btnNextBottom.disabled = endIdx >= total;
+
+      renderPaginationNumbers(totalPages);
+
+      pageItems.forEach((entry, idx) => {
+        const row = document.createElement('div');
+        row.className = `p-4 rounded-xl border transition flex flex-col md:flex-row gap-4 items-start ${
+          entry.source === 'keep_original'
+            ? 'bg-sky-950/10 border-sky-800/40'
+            : (entry.ui_status === 'warning' 
+                ? 'bg-amber-950/10 border-amber-500/30' 
+                : (entry.ui_status === 'pending' ? 'bg-gray-900/60 border-gray-800' : 'bg-gray-900/40 border-gray-800/80'))
+        }`;
+
+        // Левая колонка (Оригинал + Мета)
+        const leftCol = document.createElement('div');
+        leftCol.className = 'w-full md:w-1/2 space-y-2';
+
+        // Бейджи метаданных: компактные, с эмодзи и без дублирования текстов
+        const isMCM = entry.type === 'MCM' || String(entry.formid || '').startsWith('MCM:');
+        let badgesHtml = '';
+
+        if (isMCM) {
+          // Для MCM: компактная иконка и ключ (только если ключ короткий и не дублирует весь текст)
+          const rawKey = (entry.field || entry.path || entry.editorid || String(entry.formid || '').replace('MCM:', '')).trim();
+          const isFullSentence = rawKey.length > 25 || rawKey.replace('$', '').trim() === (entry.original || '').trim();
+          const keyBadge = (!isFullSentence && rawKey) ? `<span class="px-2 py-0.5 rounded bg-gray-800/90 text-pink-400 font-mono text-[11px] border border-pink-900/30">${escapeHtml(rawKey)}</span>` : '';
+          
+          badgesHtml = `
+            <div class="flex flex-wrap items-center gap-1.5 text-xs">
+              <span class="px-2 py-0.5 rounded bg-pink-950/80 text-pink-300 font-medium border border-pink-800/40 flex items-center gap-1">⚙️ SkyUI MCM</span>
+              ${keyBadge}
+            </div>
+          `;
+        } else {
+          // Для записей плагина: лаконичные иконки ролей, типов и топиков
+          const spkCtx = entry.speaker_context || {};
+          let roleBadge = '';
+          
+          if (entry.type === 'NPC_' || entry.type === 'Npc') {
+            if (spkCtx.gender === 'female') {
+              roleBadge = `<span class="px-2 py-0.5 rounded bg-rose-950/80 text-rose-300 font-semibold border border-rose-800/40">♀ Женский</span>`;
+            } else if (spkCtx.gender === 'male') {
+              roleBadge = `<span class="px-2 py-0.5 rounded bg-blue-950/80 text-blue-300 font-semibold border border-blue-800/40">♂ Мужской</span>`;
+            }
+          } else if (['INFO', 'DIAL', 'DialogResponses'].includes(entry.type) || entry.field === 'Prompt') {
+            if (spkCtx.role === 'player' || entry.field === 'Prompt') {
+              const targetGender = spkCtx.target_gender === 'female' ? '♀ ' : (spkCtx.target_gender === 'male' ? '♂ ' : '');
+              const targetName = spkCtx.addressing ? `${targetGender}${escapeHtml(spkCtx.addressing)}` : 'Собеседник';
+              roleBadge = `<span class="px-2 py-0.5 rounded bg-sky-950/80 text-sky-300 font-medium border border-sky-800/40">👤 Игрок ➔ ${targetName}</span>`;
+            } else if (spkCtx.speaker_name || entry.speaker) {
+              const spkGender = spkCtx.gender === 'female' ? '♀ ' : (spkCtx.gender === 'male' ? '♂ ' : '');
+              const spkName = escapeHtml(spkCtx.speaker_name || entry.speaker);
+              roleBadge = `<span class="px-2 py-0.5 rounded bg-pink-950/80 text-pink-300 font-medium border border-pink-800/40">🗣️ ${spkGender}${spkName}</span>`;
+            }
+          } else if (entry.speaker) {
+            roleBadge = `<span class="px-2 py-0.5 rounded bg-pink-950/60 text-pink-300 font-medium">🗣️ ${escapeHtml(entry.speaker)}</span>`;
+          }
+
+          const cleanFormId = String(entry.formid || '').split(':')[0];
+          const typeIcons = {
+            'INFO': '💬 INFO', 'DIAL': '💬 DIAL', 'BOOK': '📖 Книга', 'QUST': '📜 Квест',
+            'WEAP': '⚔️ Оружие', 'ARMO': '🛡️ Броня', 'SPEL': '✨ Заклинание', 'MGEF': '🔮 Эффект',
+            'PERK': '🌟 Перк', 'ALCH': '🧪 Зелье', 'MESG': '✉️ Сообщение'
+          };
+          const typeDisplay = typeIcons[entry.type] || entry.type || 'MISC';
+
+          let topicBadgeLeft = '';
+          if (entry.topic) {
+            const rawTopic = entry.topic.trim();
+            const isLong = rawTopic.length > 32;
+            const shortTopic = isLong ? rawTopic.substring(0, 30) + '...' : rawTopic;
+            topicBadgeLeft = `
+              <div class="relative group inline-block">
+                <button 
+                  type="button"
+                  onclick="jumpToTopic('${escapeJs(rawTopic)}')"
+                  class="px-2 py-0.5 rounded bg-purple-950/80 hover:bg-purple-900 text-purple-300 hover:text-purple-100 border border-purple-800/50 transition flex items-center gap-1 font-medium cursor-pointer shadow-sm">
+                  <span>💬</span>
+                  <span class="max-w-[200px] truncate">${escapeHtml(shortTopic)}</span>
+                </button>
+                <div class="absolute left-0 bottom-full mb-2 hidden group-hover:flex flex-col w-72 p-2.5 bg-gray-950/95 border border-purple-700/60 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+                  <span class="font-bold text-purple-300 flex items-center gap-1">💬 Тема диалога (Топик)</span>
+                  <p class="text-gray-200 text-[11px] mt-1 font-normal leading-snug bg-purple-950/40 p-1.5 rounded border border-purple-900/40">«${escapeHtml(rawTopic)}»</p>
+                  <span class="text-[10px] text-pink-400 mt-1.5 font-medium flex items-center gap-1">⚡ Кликните для перехода к родительской реплике</span>
+                </div>
+              </div>
+            `;
+          }
+
+          badgesHtml = `
+            <div class="flex flex-wrap items-center gap-1.5 text-xs">
+              <span class="px-2 py-0.5 rounded bg-gray-800/90 text-gray-300 font-mono text-[11px] border border-gray-700/50">${escapeHtml(cleanFormId || entry.formid || '')}</span>
+              <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 font-medium border border-indigo-900/40">${typeDisplay}</span>
+              ${roleBadge}
+              ${topicBadgeLeft}
+            </div>
+          `;
+        }
+
+        const origText = entry.original || entry.text || '';
+        const highlightedOrig = highlightTags(escapeHtml(origText));
+        
+        // Анализ тегов оригинала для интерактивной плашки тегов
+        const foundTags = [];
+        const aliasMatches = origText.match(/<alias=[^>]+>/gi) || [];
+        const specMatches = origText.match(/%[0-9\.\-+]*[sdfgixX]/g) || [];
+        const fontMatches = origText.match(/<font[^>]*>/gi) || [];
+        if (origText.includes('[pagebreak]')) foundTags.push('[pagebreak]');
+        aliasMatches.forEach(m => foundTags.push(m));
+        specMatches.forEach(m => foundTags.push(m));
+        fontMatches.forEach(m => foundTags.push(m));
+
+        let tagBarHtml = '';
+        if (foundTags.length > 0) {
+          tagBarHtml = `
+            <div id="tags-bar-${entry.id}" class="flex flex-wrap items-center gap-1.5 pt-1 text-[11px]">
+              <span class="text-gray-500 font-medium">Теги:</span>
+              ${foundTags.map(t => {
+                const isPresent = (entry.translated || '').includes(t);
+                const cls = isPresent ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/50' : 'bg-rose-950/80 text-rose-300 border-rose-700/50 animate-pulse';
+                return `<span class="px-1.5 py-0.5 rounded font-mono border ${cls}">${escapeHtml(t)}</span>`;
+              }).join('')}
+            </div>
+          `;
+        }
+
+        leftCol.innerHTML = `
+          <div class="mb-1">
+            ${badgesHtml}
+          </div>
+          <div class="text-sm text-gray-200 bg-gray-950/50 p-3 rounded-lg border border-gray-800/50 font-normal leading-relaxed select-text">
+            ${highlightedOrig}
+          </div>
+        `;
+
+        // Правая колонка (Редактируемый перевод)
+        const rightCol = document.createElement('div');
+        rightCol.className = 'w-full md:w-1/2 space-y-2';
+
+        let statusBadge = '';
+        if (entry.source === 'keep_original') {
+          statusBadge = `<span class="text-xs text-sky-400 flex items-center gap-1 font-medium bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/40">🔒 Оригинал (EN)</span>`;
+        } else if (entry.ui_status === 'warning') {
+          statusBadge = `<span class="text-xs text-amber-400 flex items-center gap-1">⚠️ ${escapeHtml(entry.ui_issue)}</span>`;
+        } else if (entry.ui_status === 'pending') {
+          statusBadge = `<span class="text-xs text-gray-500">⏳ Ожидает перевода</span>`;
+        } else {
+          statusBadge = `<span class="text-xs text-emerald-400 flex items-center gap-1">✅ Quality Gate OK</span>`;
+        }
+
+        // Поиск перевода родительского топика для правой колонки
+        let topicBadgeRight = '';
+        if (entry.topic) {
+          const rawTopic = entry.topic.trim();
+          const parentEntry = entries.find(e => (e.original || e.text || '').trim() === rawTopic);
+          if (parentEntry && parentEntry.translated && parentEntry.translated.trim()) {
+            const transTopic = parentEntry.translated.trim();
+            const isLong = transTopic.length > 32;
+            const shortTrans = isLong ? transTopic.substring(0, 30) + '...' : transTopic;
+            topicBadgeRight = `
+              <div class="relative group inline-block">
+                <button 
+                  type="button"
+                  onclick="jumpToTopic('${escapeJs(rawTopic)}')"
+                  class="px-2 py-0.5 rounded bg-pink-950/80 hover:bg-pink-900 text-pink-300 hover:text-pink-100 border border-pink-800/50 transition flex items-center gap-1 font-medium cursor-pointer shadow-sm text-xs">
+                  <span>💬</span>
+                  <span class="max-w-[200px] truncate">${escapeHtml(shortTrans)}</span>
+                </button>
+                <div class="absolute right-0 bottom-full mb-2 hidden group-hover:flex flex-col w-72 p-2.5 bg-gray-950/95 border border-pink-700/60 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+                  <span class="font-bold text-pink-300 flex items-center gap-1">💬 Перевод темы диалога</span>
+                  <p class="text-gray-200 text-[11px] mt-1 font-normal leading-snug bg-pink-950/40 p-1.5 rounded border border-pink-900/40">«${escapeHtml(transTopic)}»</p>
+                  <span class="text-[10px] text-purple-300 mt-1.5 font-medium flex items-center gap-1">⚡ Кликните для перехода к родительской строке</span>
+                </div>
+              </div>
+            `;
+          }
+        }
+
+        rightCol.innerHTML = `
+          <div class="flex flex-wrap justify-between items-center gap-1.5 mb-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-medium text-gray-400">Перевод (Русский)</span>
+              ${statusBadge}
+              ${topicBadgeRight}
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button 
+                type="button"
+                onclick="revertToOriginal(${entry.id})" 
+                title="Оставить оригинальный английский текст без перевода (Alt+O)"
+                class="px-2 py-1 text-xs rounded bg-gray-800 hover:bg-sky-900/60 text-gray-300 hover:text-sky-200 border border-gray-700/60 transition flex items-center gap-1">
+                <span>📑</span> <span class="hidden sm:inline">Оригинал</span> <kbd class="text-[10px] text-gray-500 bg-gray-900 px-1 rounded">Alt+O</kbd>
+              </button>
+              <button 
+                type="button"
+                onclick="resetToAIDraft(${entry.id})" 
+                title="Сбросить перевод к исходному варианту ИИ (Alt+R)"
+                class="px-2 py-1 text-xs rounded bg-gray-800 hover:bg-indigo-900/60 text-gray-300 hover:text-indigo-200 border border-gray-700/60 transition flex items-center gap-1">
+                <span>🤖</span> <span class="hidden sm:inline">Сброс ИИ</span> <kbd class="text-[10px] text-gray-500 bg-gray-900 px-1 rounded">Alt+R</kbd>
+              </button>
+            </div>
+          </div>
+          <textarea 
+            id="textarea-${entry.id}"
+            rows="${Math.max(2, Math.min(8, Math.ceil((entry.original || '').length / 45)))}" 
+            class="w-full bg-gray-950 border ${entry.ui_status === 'warning' ? 'border-amber-500/40 focus:border-amber-400' : (entry.source === 'keep_original' ? 'border-sky-800/60 focus:border-sky-500' : 'border-gray-800 focus:border-indigo-500')} rounded-lg p-3 text-sm text-white focus:outline-none transition resize-y font-normal"
+            oninput="onTranslationEdit(${entry.id}, this.value)"
+            onkeydown="onTextareaKeydown(event, ${entry.id})"
+          >${escapeHtml(entry.translated || '')}</textarea>
+          ${tagBarHtml}
+        `;
+
+        row.id = `entry-row-${entry.id}`;
+
+        row.appendChild(leftCol);
+        row.appendChild(rightCol);
+        container.appendChild(row);
+      });
+    }
+
+    function copyOriginalToInput(id) {
+      const item = entries.find(e => e.id === id);
+      if (!item) return;
+
+      const orig = item.original || item.text || '';
+      item.translated = orig;
+      item.source = 'user_edited';
+
+      const ta = document.getElementById(`textarea-${id}`);
+      if (ta) {
+        ta.value = orig;
+        ta.focus();
+      }
+      onTranslationEdit(id, orig);
+      document.getElementById('sync-status').textContent = `Текст оригинала скопирован в строку #${id}`;
+    }
+
+    function onTranslationEdit(id, newText) {
+      const item = entries.find(e => e.id === id);
+      if (!item) return;
+
+      item.translated = newText;
+      item.source = 'user_edited';
+
+      const validation = validateTranslation(item.original || item.text || '', newText, item.source);
+      if (!newText.trim()) {
+        item.ui_status = 'pending';
+        item.ui_issue = 'Перевод отсутствует';
+      } else if (!validation.ok) {
+        item.ui_status = 'warning';
+        item.ui_issue = validation.details;
+      } else {
+        item.ui_status = 'ok';
+        item.ui_issue = '';
+      }
+
+      runFullAudit();
+      updateTagBar(item);
+      document.getElementById('sync-status').textContent = `Изменено ID #${id}`;
+      triggerAutoSave();
+    }
+
+    function updateTagBar(item) {
+      const tagBar = document.getElementById(`tags-bar-${item.id}`);
+      if (!tagBar) return;
+      
+      const origText = item.original || item.text || '';
+      const foundTags = [];
+      const aliasMatches = origText.match(/<alias=[^>]+>/gi) || [];
+      const specMatches = origText.match(/%[0-9\.\-+]*[sdfgixX]/g) || [];
+      const fontMatches = origText.match(/<font[^>]*>/gi) || [];
+      if (origText.includes('[pagebreak]')) foundTags.push('[pagebreak]');
+      aliasMatches.forEach(m => foundTags.push(m));
+      specMatches.forEach(m => foundTags.push(m));
+      fontMatches.forEach(m => foundTags.push(m));
+
+      if (foundTags.length > 0) {
+        tagBar.innerHTML = `
+          <span class="text-gray-500 font-medium">Теги:</span>
+          ${foundTags.map(t => {
+            const isPresent = (item.translated || '').includes(t);
+            const cls = isPresent ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/50' : 'bg-rose-950/80 text-rose-300 border-rose-700/50 animate-pulse';
+            return `<span class="px-1.5 py-0.5 rounded font-mono border ${cls}">${escapeHtml(t)}</span>`;
+          }).join('')}
+        `;
+      }
+    }
+
+    function revertToOriginal(id) {
+      const item = entries.find(e => e.id === id);
+      if (!item) return;
+
+      const orig = item.original || item.text || '';
+      item.translated = orig;
+      item.source = 'keep_original';
+      item.ui_status = 'ok';
+      item.ui_issue = '';
+
+      const ta = document.getElementById(`textarea-${id}`);
+      if (ta) {
+        ta.value = orig;
+      }
+      runFullAudit();
+      renderTable();
+      document.getElementById('sync-status').textContent = `Строка #${id} возвращена к оригиналу`;
+      triggerAutoSave();
+    }
+
+    function resetToAIDraft(id) {
+      const item = entries.find(e => e.id === id);
+      if (!item) return;
+
+      const aiDraft = item.initial_translated !== undefined ? item.initial_translated : (item.original || '');
+      item.translated = aiDraft;
+      item.source = item.initial_source || 'ai';
+
+      const validation = validateTranslation(item.original || item.text || '', aiDraft, item.source);
+      if (!aiDraft.trim()) {
+        item.ui_status = 'pending';
+        item.ui_issue = 'Перевод отсутствует';
+      } else if (!validation.ok) {
+        item.ui_status = 'warning';
+        item.ui_issue = validation.details;
+      } else {
+        item.ui_status = 'ok';
+        item.ui_issue = '';
+      }
+
+      const ta = document.getElementById(`textarea-${id}`);
+      if (ta) {
+        ta.value = aiDraft;
+      }
+      runFullAudit();
+      renderTable();
+      document.getElementById('sync-status').textContent = `Строка #${id} сброшена к ИИ-черновику`;
+      triggerAutoSave();
+    }
+
+    function onTextareaKeydown(event, id) {
+      if (event.altKey && (event.key === 'o' || event.key === 'O' || event.key === 'щ' || event.key === 'Щ')) {
+        event.preventDefault();
+        revertToOriginal(id);
+      } else if (event.altKey && (event.key === 'r' || event.key === 'R' || event.key === 'к' || event.key === 'К')) {
+        event.preventDefault();
+        resetToAIDraft(id);
+      } else if (event.ctrlKey && event.key === 'Enter') {
+        event.preventDefault();
+        // Перейти к следующему текстовому полю
+        const textareas = Array.from(document.querySelectorAll('textarea'));
+        const currentIndex = textareas.indexOf(event.target);
+        if (currentIndex !== -1 && currentIndex + 1 < textareas.length) {
+          textareas[currentIndex + 1].focus();
+          textareas[currentIndex + 1].select();
+        } else {
+          // Если последняя строка на странице — переходим на следующую страницу
+          nextPage();
+          setTimeout(() => {
+            const nextList = Array.from(document.querySelectorAll('textarea'));
+            if (nextList.length > 0) {
+              nextList[0].focus();
+              nextList[0].select();
+            }
+          }, 80);
+        }
+      }
+    }
+
+    let autoSaveTimer = null;
+
+    function triggerAutoSave() {
+      if (autoSaveTimer) clearTimeout(autoSaveTimer);
+      
+      const dot = document.getElementById('sync-dot');
+      if (dot) {
+        dot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-ping';
+      }
+
+      autoSaveTimer = setTimeout(async () => {
+        await silentSaveReview();
+      }, 2500); // автосохранение через 2.5 сек после окончания ввода
+    }
+
+    async function silentSaveReview() {
+      if (!reviewData || !entries.length) return;
+      const modName = reviewData.metadata?.mod_name || 'mod';
+      const cleanEntries = entries.map(e => ({
+        id: e.id,
+        formid: e.formid,
+        type: e.type,
+        field: e.field || e.path || 'Name',
+        speaker: e.speaker || '',
+        topic: e.topic || '',
+        speaker_context: e.speaker_context,
+        original: e.original || e.text || '',
+        translated: e.translated || '',
+        initial_translated: e.initial_translated,
+        source: e.source || 'user_edited',
+        quality_status: e.source === 'keep_original' ? 'ok' : (e.ui_status === 'warning' ? 'warning' : 'ok'),
+        quality_issue: e.source === 'keep_original' ? undefined : (e.ui_issue || undefined)
+      }));
+
+      const payload = {
+        metadata: {
+          ...reviewData.metadata,
+          exported_at: new Date().toISOString(),
+          total_strings: cleanEntries.length,
+          ready_count: cleanEntries.filter(e => e.translated && e.quality_status === 'ok').length
+        },
+        instructions: "Сэмпай, ты можешь свободно редактировать поле 'translated'. После сохранения запусти сборку патча!",
+        entries: cleanEntries
+      };
+
+      const filename = `${modName}_review.json`;
+      const content = JSON.stringify(payload, null, 2);
+
+      if (window.pywebview && window.pywebview.api) {
+        try {
+          const res = await window.pywebview.api.save_review_file(filename, content);
+          if (res && res.success) {
+            const statusEl = document.getElementById('sync-status');
+            const dot = document.getElementById('sync-dot');
+            if (statusEl) statusEl.textContent = `💾 Автосохранено на диск (${new Date().toLocaleTimeString()})`;
+            if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
+            return;
+          }
+        } catch (err) {
+          console.warn("Auto-save error via PyWebView:", err);
+        }
+      }
+
+      // В обычном браузере просто показываем статус готовности данных
+      const statusEl = document.getElementById('sync-status');
+      const dot = document.getElementById('sync-dot');
+      if (statusEl) statusEl.textContent = `✨ Изменения в памяти (нажмите «Сохранить» для скачивания)`;
+      if (dot) dot.className = 'w-2 h-2 rounded-full bg-indigo-400';
+    }
+
+    // Глобальные хоткеи: Ctrl + S / Ы, пагинация Ctrl + ArrowLeft / Ctrl + ArrowRight
+    document.addEventListener('keydown', async (e) => {
+      // 1. Быстрое сохранение Ctrl + S (или русская Ы)
+      if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'ы' || e.key === 'Ы')) {
+        e.preventDefault();
+        if (autoSaveTimer) clearTimeout(autoSaveTimer);
+        const statusEl = document.getElementById('sync-status');
+        if (statusEl) statusEl.textContent = `💾 Сохранение...`;
+        await silentSaveReview();
+        return;
+      }
+
+      // 2. Пагинация
+      if (e.ctrlKey && e.key === 'ArrowRight' && !['TEXTAREA', 'INPUT'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        nextPage();
+      } else if (e.ctrlKey && e.key === 'ArrowLeft' && !['TEXTAREA', 'INPUT'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        prevPage();
+      }
+    });
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+        window.scrollTo({ top: 180, behavior: 'smooth' });
+      }
+    }
+
+    function nextPage() {
+      const total = filteredEntries.length;
+      if (currentPage * pageSize < total) {
+        currentPage++;
+        renderTable();
+        window.scrollTo({ top: 180, behavior: 'smooth' });
+      }
+    }
+
+    function goToPage(page) {
+      const total = filteredEntries.length;
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      if (page >= 1 && page <= totalPages && page !== currentPage) {
+        currentPage = page;
+        renderTable();
+        window.scrollTo({ top: 180, behavior: 'smooth' });
+      }
+    }
+
+    function renderPaginationNumbers(totalPages) {
+      const containers = [
+        document.getElementById('page-numbers-top'),
+        document.getElementById('page-numbers-bottom')
+      ];
+
+      containers.forEach(container => {
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (totalPages <= 1) return;
+
+        // Генерация диапазона страниц с многоточием
+        const pages = [];
+        const delta = 2; // сколько страниц показывать вокруг текущей
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (
+            i === 1 || 
+            i === totalPages || 
+            (i >= currentPage - delta && i <= currentPage + delta)
+          ) {
+            pages.push(i);
+          } else if (
+            i === currentPage - delta - 1 || 
+            i === currentPage + delta + 1
+          ) {
+            pages.push('...');
+          }
+        }
+
+        // Рендерим кнопки страниц
+        pages.forEach((p, idx) => {
+          if (p === '...') {
+            const dots = document.createElement('span');
+            dots.className = 'px-1.5 text-gray-500 font-mono text-xs select-none';
+            dots.textContent = '...';
+            container.appendChild(dots);
+          } else {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.onclick = () => goToPage(p);
+            btn.textContent = p;
+            if (p === currentPage) {
+              btn.className = 'px-2.5 py-1 rounded-lg bg-pink-600 text-white font-bold text-xs shadow-md shadow-pink-600/30 transition';
+            } else {
+              btn.className = 'px-2.5 py-1 rounded-lg bg-gray-800/80 hover:bg-gray-700 text-gray-300 font-medium text-xs transition border border-gray-700/50';
+            }
+            container.appendChild(btn);
+          }
+        });
+      });
+    }
+
+    function highlightTags(text) {
+      return text
+        .replace(/(&lt;font[^&]*&gt;)/gi, '<span class="tag-badge">$1</span>')
+        .replace(/(&lt;\/font&gt;)/gi, '<span class="tag-badge">$1</span>')
+        .replace(/(&lt;alias=[^&]+&gt;)/gi, '<span class="tag-badge font-bold">$1</span>')
+        .replace(/(\[pagebreak\])/gi, '<span class="tag-badge bg-purple-950/40 text-purple-300 border-purple-500/30">$1</span>')
+        .replace(/(%[0-9\.\-+]*[sdfgixX])/g, '<span class="tag-badge bg-emerald-950/40 text-emerald-300 border-emerald-500/30">$1</span>');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeJs(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '\\r');
+    }
+
+    // Переход к родительской реплике / топику
+    function jumpToTopic(topicText) {
+      if (!topicText) return;
+      const cleanTarget = topicText.trim().toLowerCase();
+      
+      // Ищем запись, где оригинал равен теме диалога
+      let targetIndex = filteredEntries.findIndex(e => (e.original || e.text || '').trim().toLowerCase() === cleanTarget);
+      
+      // Если запись не найдена в текущем фильтре — сбрасываем фильтры на "Все" и повторяем
+      if (targetIndex === -1) {
+        currentCategoryFilter = 'all';
+        currentStatusFilter = 'all';
+        searchQuery = '';
+        const searchInp = document.getElementById('search-input');
+        if (searchInp) searchInp.value = '';
+        const clearBtn = document.getElementById('btn-clear-search');
+        if (clearBtn) clearBtn.classList.add('hidden');
+        
+        // Сброс активных кнопок фильтрации
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+          if (btn.getAttribute('data-cat') === 'all') {
+            btn.className = 'cat-btn px-3 py-1.5 rounded-lg bg-pink-600 text-white font-medium transition shadow-md shadow-pink-600/20';
+          } else {
+            btn.className = 'cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition';
+          }
+        });
+        setStatusFilter('all');
+        applyFilters();
+
+        targetIndex = filteredEntries.findIndex(e => (e.original || e.text || '').trim().toLowerCase() === cleanTarget);
+      }
+
+      if (targetIndex === -1) {
+        const statusEl = document.getElementById('sync-status');
+        if (statusEl) statusEl.textContent = `⚠️ Реплика топика не найдена в базе мода`;
+        return;
+      }
+
+      const targetEntry = filteredEntries[targetIndex];
+      const targetPage = Math.floor(targetIndex / pageSize) + 1;
+
+      if (currentPage !== targetPage) {
+        currentPage = targetPage;
+        renderTable();
+      }
+
+      setTimeout(() => {
+        const rowEl = document.getElementById(`entry-row-${targetEntry.id}`);
+        if (rowEl) {
+          rowEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          rowEl.classList.remove('card-jump-flash');
+          // Форсируем перерисовку анимации
+          void rowEl.offsetWidth;
+          rowEl.classList.add('card-jump-flash');
+          
+          const ta = document.getElementById(`textarea-${targetEntry.id}`);
+          if (ta) ta.focus();
+          
+          const statusEl = document.getElementById('sync-status');
+          if (statusEl) statusEl.textContent = `🎯 Переход к реплике #${targetEntry.id}`;
+        }
+      }, 100);
+    }
+
+    // Экспорт обновленного Review JSON
+    async function exportReviewJson() {
+      if (!reviewData) return;
+      const modName = reviewData.metadata?.mod_name || 'mod';
+      const cleanEntries = entries.map(e => ({
+        id: e.id,
+        formid: e.formid,
+        type: e.type,
+        field: e.field || e.path || 'Name',
+        speaker: e.speaker || '',
+        topic: e.topic || '',
+        speaker_context: e.speaker_context,
+        original: e.original || e.text || '',
+        translated: e.translated || '',
+        initial_translated: e.initial_translated,
+        source: e.source || 'user_edited',
+        quality_status: e.source === 'keep_original' ? 'ok' : (e.ui_status === 'warning' ? 'warning' : 'ok'),
+        quality_issue: e.source === 'keep_original' ? undefined : (e.ui_issue || undefined)
+      }));
+
+      const payload = {
+        metadata: {
+          ...reviewData.metadata,
+          exported_at: new Date().toISOString(),
+          total_strings: cleanEntries.length,
+          ready_count: cleanEntries.filter(e => e.translated && e.quality_status === 'ok').length
+        },
+        instructions: "Сэмпай, ты можешь свободно редактировать поле 'translated'. После сохранения запусти сборку патча!",
+        entries: cleanEntries
+      };
+
+      await downloadFile(`${modName}_review.json`, JSON.stringify(payload, null, 2));
+    }
+
+    // Экспорт манифеста ops для housecarl_apply
+    async function exportOpsManifest() {
+      if (!entries.length) return;
+      const modName = reviewData?.metadata?.mod_name || 'mod';
+      const ops = [];
+
+      entries.forEach(e => {
+        if (e.translated && e.translated.trim() && e.formid) {
+          ops.push({
+            formid: e.formid,
+            field_path: e.field || e.path || 'Name',
+            value: e.translated.trim(),
+            op: 'Set'
+          });
+        }
+      });
+
+      await downloadFile(`${modName}_ops.json`, JSON.stringify(ops, null, 2));
+    }
+
+    async function downloadFile(filename, content) {
+      // 1. Проверяем, запущено ли в нативном приложении PyWebView
+      if (window.pywebview && window.pywebview.api) {
+        try {
+          let res;
+          if (filename.endsWith('_ops.json')) {
+            res = await window.pywebview.api.save_ops_manifest(filename, content);
+          } else {
+            res = await window.pywebview.api.save_review_file(filename, content);
+          }
+          if (res && res.success) {
+            const statusEl = document.getElementById('sync-status');
+            if (statusEl) statusEl.textContent = res.message || `💾 Сохранено на диск: ${filename}`;
+            return;
+          } else if (res && res.error) {
+            console.error("PyWebView save error returned:", res.error);
+            const statusEl = document.getElementById('sync-status');
+            if (statusEl) statusEl.textContent = `❌ Ошибка сохранения: ${res.error}`;
+            return;
+          }
+        } catch (err) {
+          console.error("PyWebView save bridge exception:", err);
+          const statusEl = document.getElementById('sync-status');
+          if (statusEl) statusEl.textContent = `⚠️ Ошибка нативного сохранения: ${err.message || err}`;
+          return;
+        }
+      }
+
+      // 2. Стандартный веб-фоллбэк через скачивание в браузере
+      try {
+        const blob = new Blob([content], { type: 'application/json;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        const statusEl = document.getElementById('sync-status');
+        if (statusEl) statusEl.textContent = `Скачан файл: ${filename}`;
+      } catch (err) {
+        console.error("Browser download fallback failed:", err);
+      }
+    }
+
+    // ==========================================================
+    // РЕЕСТР ЛЯПОВ И ЛОЖНЫХ ДРУЗЕЙ (ANTI-TRAP MODAL & ENGINE)
+    // ==========================================================
+    let falseFriendsRules = [
+      { id: 'race_not_gonka', trigger_en: ['race', 'races'], bad_ru: 'гонк*', correct_ru: 'рас*', desc: "Race -> Раса (не 'гонка')" },
+      { id: 'staff_not_personal', trigger_en: ['staff', 'staffs'], bad_ru: 'персонал*', correct_ru: 'посох*', desc: "Staff -> Посох (не 'персонал')" },
+      { id: 'follower_not_subscriber', trigger_en: ['follower', 'followers'], bad_ru: 'подписчик*', correct_ru: 'спутник*', desc: "Follower -> Спутник (не 'подписчик')" },
+      { id: 'hostile_not_hostel', trigger_en: ['hostile'], bad_ru: 'хостел*', correct_ru: 'враждебн*', desc: "Hostile -> Враждебный (не 'хостел')" },
+      { id: 'cast_not_gips', trigger_en: ['cast', 'casting'], bad_ru: 'гипс*', correct_ru: 'сотворение*', desc: "Cast -> Сотворение (не 'гипс')" },
+      { id: 'chest_not_body', trigger_en: ['chest', 'chests'], bad_ru: 'грудь*', correct_ru: 'сундук*', desc: "Chest -> Сундук (не 'грудь')" }
+    ];
+
+    function openFalseFriendsModal() {
+      renderFalseFriendsList();
+      document.getElementById('modal-false-friends').classList.remove('hidden');
+    }
+
+    function closeFalseFriendsModal() {
+      document.getElementById('modal-false-friends').classList.add('hidden');
+    }
+
+    function renderFalseFriendsList() {
+      const listContainer = document.getElementById('ff-rules-list');
+      if (!listContainer) return;
+      listContainer.innerHTML = '';
+
+      falseFriendsRules.forEach((rule, idx) => {
+        const item = document.createElement('div');
+        item.className = 'p-3 bg-gray-900/80 rounded-lg border border-gray-800 flex items-center justify-between gap-3 text-xs';
+        const triggers = Array.isArray(rule.trigger_en) ? rule.trigger_en.join(', ') : rule.trigger_en;
+        item.innerHTML = `
+          <div>
+            <div class="flex items-center gap-2 font-mono">
+              <span class="px-1.5 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800">${escapeHtml(triggers)}</span>
+              <span class="text-gray-400">➔</span>
+              <span class="px-1.5 py-0.5 rounded bg-rose-950 text-rose-400 line-through border border-rose-900">${escapeHtml(Array.isArray(rule.bad_ru) ? rule.bad_ru.join('/') : rule.bad_ru)}</span>
+              <span class="text-gray-400">➔</span>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 font-bold border border-emerald-800">${escapeHtml(rule.correct_ru)}</span>
+            </div>
+            <p class="text-gray-400 text-[11px] mt-1">${escapeHtml(rule.desc || '')}</p>
+          </div>
+          <button onclick="removeFalseFriendRule(${idx})" class="text-rose-400 hover:text-rose-300 px-2 py-1 bg-rose-950/40 rounded border border-rose-900/50">Удалить</button>
+        `;
+        listContainer.appendChild(item);
+      });
+    }
+
+    function addFalseFriendRuleFromForm() {
+      const en = document.getElementById('ff-input-en').value.trim();
+      const bad = document.getElementById('ff-input-bad').value.trim();
+      const good = document.getElementById('ff-input-good').value.trim();
+      const desc = document.getElementById('ff-input-desc').value.trim();
+
+      if (!en || !bad || !good) {
+        alert('Заполните обязательные поля: EN триггер, Неверный перевод и Правильный перевод!');
+        return;
+      }
+
+      falseFriendsRules.push({
+        id: `custom_${Date.now()}`,
+        trigger_en: [en.toLowerCase()],
+        bad_ru: bad.toLowerCase(),
+        correct_ru: good.toLowerCase(),
+        desc: desc || `Замена ${bad} -> ${good} при триггере ${en}`
+      });
+
+      document.getElementById('ff-input-en').value = '';
+      document.getElementById('ff-input-bad').value = '';
+      document.getElementById('ff-input-good').value = '';
+      document.getElementById('ff-input-desc').value = '';
+
+      renderFalseFriendsList();
+      applyFalseFriendsSanitization();
+    }
+
+    function removeFalseFriendRule(idx) {
+      falseFriendsRules.splice(idx, 1);
+      renderFalseFriendsList();
+    }
+
+    // 1-Click Санитизация всего загруженного мода
+    function applyFalseFriendsSanitization() {
+      if (!entries.length) return;
+      let fixedCount = 0;
+
+      entries.forEach(e => {
+        const orig = (e.original || e.text || '').toLowerCase();
+        let trans = e.translated || '';
+        if (!trans || !orig) return;
+
+        falseFriendsRules.forEach(rule => {
+          const triggers = Array.isArray(rule.trigger_en) ? rule.trigger_en : [rule.trigger_en];
+          const hasTrigger = triggers.some(t => orig.includes(t.toLowerCase()));
+
+          if (hasTrigger) {
+            let badPattern = rule.bad_ru;
+            let goodWord = rule.correct_ru;
+
+            if (typeof badPattern === 'string' && badPattern.endsWith('*')) {
+              const stem = badPattern.slice(0, -1);
+              const goodStem = goodWord.endsWith('*') ? goodWord.slice(0, -1) : goodWord;
+              const regex = new RegExp(`\\b${stem}([а-яёА-ЯЁ]*)\\b`, 'gi');
+              if (regex.test(trans)) {
+                trans = trans.replace(regex, (match, suffix) => {
+                  fixedCount++;
+                  return match[0] === match[0].toUpperCase()
+                    ? (goodStem.charAt(0).toUpperCase() + goodStem.slice(1) + suffix)
+                    : (goodStem + suffix);
+                });
+              }
+            } else if (typeof badPattern === 'string') {
+              const regex = new RegExp(`\\b${badPattern}\\b`, 'gi');
+              if (regex.test(trans)) {
+                trans = trans.replace(regex, goodWord);
+                fixedCount++;
+              }
+            }
+          }
+        });
+
+        if (trans !== e.translated) {
+          e.translated = trans;
+        }
+      });
+
+      renderEntries();
+      updateStats();
+      const statusEl = document.getElementById('sync-status');
+      if (statusEl) statusEl.textContent = `✨ Очищено от ляпов: ${fixedCount} вхождений!`;
+      closeFalseFriendsModal();
+    }
+
+    function exportFalseFriendsJson() {
+      downloadFile('false_friends.json', JSON.stringify(falseFriendsRules, null, 2));
+    }
+  </script>
+
+  <!-- МОДАЛЬНОЕ ОКНО РЕЕСТРА ЛЯПОВ (ANTI-TRAP) -->
+  <div id="modal-false-friends" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-gray-950 border border-pink-700/50 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl shadow-pink-950/50">
+      <div class="p-4 border-b border-gray-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🚫</span>
+          <h2 class="font-bold text-white text-base">Динамический реестр ляпов (Anti-Trap)</h2>
+        </div>
+        <button onclick="closeFalseFriendsModal()" class="text-gray-400 hover:text-white text-xl px-2">&times;</button>
+      </div>
+
+      <div class="p-4 overflow-y-auto flex-1 space-y-4 text-sm">
+        <!-- Форма добавления нового правила -->
+        <div class="p-3 bg-gray-900 rounded-xl border border-gray-800 space-y-3">
+          <h3 class="font-semibold text-xs text-pink-400 uppercase tracking-wide">➕ Добавить новое правило</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div>
+              <label class="text-[11px] text-gray-400">Триггер в EN оригинале</label>
+              <input id="ff-input-en" type="text" placeholder="например: race" class="w-full bg-gray-950 border border-gray-700 rounded p-1.5 text-xs text-white">
+            </div>
+            <div>
+              <label class="text-[11px] text-gray-400">Ошибочный перевод RU</label>
+              <input id="ff-input-bad" type="text" placeholder="например: гонк*" class="w-full bg-gray-950 border border-gray-700 rounded p-1.5 text-xs text-rose-300">
+            </div>
+            <div>
+              <label class="text-[11px] text-gray-400">Правильный канон RU</label>
+              <input id="ff-input-good" type="text" placeholder="например: рас*" class="w-full bg-gray-950 border border-gray-700 rounded p-1.5 text-xs text-emerald-300">
+            </div>
+          </div>
+          <div>
+            <label class="text-[11px] text-gray-400">Описание / Контекст (опционально)</label>
+            <input id="ff-input-desc" type="text" placeholder="например: Понятие рас в TES V" class="w-full bg-gray-950 border border-gray-700 rounded p-1.5 text-xs text-gray-300">
+          </div>
+          <div class="flex justify-end">
+            <button onclick="addFalseFriendRuleFromForm()" class="px-3 py-1.5 rounded bg-pink-600 hover:bg-pink-500 text-xs font-semibold text-white transition">
+              ➕ Добавить правило и применить
+            </button>
+          </div>
+        </div>
+
+        <!-- Список активных правил -->
+        <div class="space-y-2">
+          <h3 class="font-semibold text-xs text-gray-400 uppercase tracking-wide">Активные правила санитизации</h3>
+          <div id="ff-rules-list" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-gray-800 bg-gray-900/50 flex items-center justify-between">
+        <button onclick="exportFalseFriendsJson()" class="text-xs text-indigo-400 hover:text-indigo-300 underline">
+          📥 Скачать false_friends.json
+        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="applyFalseFriendsSanitization()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow-lg shadow-emerald-900/30 transition">
+            ⚡ Применить ко всем строкам мода
+          </button>
+          <button onclick="closeFalseFriendsModal()" class="px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 transition">
+            Закрыть
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

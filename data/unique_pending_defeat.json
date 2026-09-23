@@ -1,0 +1,2906 @@
+{
+  "Take what you want and let me go.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm sorry, I souldn't have done this. Just let me go please. (Persuade)": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Is that what you want? (<BribeCost>) gold": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "W.. What?! fuck you!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "... fine.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What do you want? Just let me go.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I guess I have no other choice...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Are you crazy? Fuck you!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No please... no more...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Go fuck yourself!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Yes...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What? Why?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Don't you want to fuck <Alias.ShortName=CollaVic> here instead? (Persuade)": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What? Never, you pervert!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What do you want then?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "... Never!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "All right... just don't hurt me ok?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "How so?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok... <Alias=CollaVic>, take off your clothes...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No... take me instead. (Persuade)": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What?!... All right...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Don't move while I put this on you. [Tie up]": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I want you to remove your clothes.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Do it, or I gut you like a pig!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let me see what you have there...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No, go fuck yourself!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Nice body you have there... now don't move while I fuck you.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "It's time for another round.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No... no more!": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm taking you with me. (Paradise Halls capture)": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "You see that person there...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Do you want to fuck <Alias.PronounObj=LastInSack>?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Not so fast, it will cost you <Global=DefeatSOValuePimp> gold.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "<Alias.Pronoun=LastInSack>'s a criminal, I heard there were rewards for them?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fine, <Alias.Pronoun=LastInSack>'s all yours.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I've changed my mind, sorry.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hey, do you want to fuck me?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Come over here...": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Not so fast, it will be <Global=DefeatSOValuePimp> gold for you.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Will you let me fuck you?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "<Global=DefeatSOValuePimp> gold?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Forget about it.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I have a wedding gift for you. Do you want to try it?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Go ahead.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let me join you.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "A gift for you.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "(Follower) Do you want to fuck my friend over there?": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You would have to pay <Global=DefeatSOValuePimp> gold.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You would have to pay <Global=DefeatSOValuePimp2> gold. And I'm in too.": {
+    "type": "DialogTopic",
+    "path": "Name",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "So, what do we have here...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hehe, mind if I take this?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hey you...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Drop your weapon.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Oh? You surrender?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I am indeed going to take what I want!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Why dont you give me all your gold then?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Then give me all your gold.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Like I need your permission!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Stay still now!": {
+    "type": "DialogResponses",
+    "path": "Responses[1].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I think I'll just take your life then!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I don't want anything from you... but your friend could take off her clothes...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I don't want anything from you... but your friend could take off his clothes...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I don't need anything from you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Well...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "No...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "No, it's you that's going to be fucked!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Great, come here.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Then I'll have to take it from you, along with using your body!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Then I'll have to take it from your dead body!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Good...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 3
+  },
+  "Good! We are going to have so much fun together.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No... you don't get it...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You are the one who is going to be fucked!": {
+    "type": "DialogResponses",
+    "path": "Responses[1].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "It's not that simple... you'll have to make me forgive you now.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Well... I guess.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok, just get lost.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "We are going to have some fun...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Then I'll take what I want by force!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Keep still now!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Come here.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You just can't get enough, eh?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Foolish woman, you came back for more?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Foolish man, you came back for more?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "All right, so what now?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "So how do you plan to make me forgive you?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I guess it's okay this time...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You're not going anywhere!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What do you think you're doing?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Whatever...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Well it seems you didn't understand the last time, maybe this time you will.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Don't worry beautiful, I'm going to take good care of you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Don't worry big boy, I'm going to take good care of you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hehe... they never learn.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No... it's you who's getting fucked.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Oh, so you loved it didn't you?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Because she's hot!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Because he's hot!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "So, don't move...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "There you go.": {
+    "type": "DialogResponses",
+    "path": "Responses[1].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok, maybe I will let you go if you suck my dick good.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok, maybe I will let you go if you lick my pussy good.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Okay, but you're a real looker... Why don't you show me what's under those clothes?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "All right... but since you are flaunting that sexy body...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fine, but that girl over there is not going anywhere...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fine, but that guy over there is not going anywhere...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fine by me but you'll have to convince my friend here too...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "All right,but next time I won't be so nice...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Get lost before I change my mind...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Do you really think I am going to let you go that easily?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Maybe if your friend here does something for me I'll forgive you...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Removing her clothes for starters.": {
+    "type": "DialogResponses",
+    "path": "Responses[1].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Removing his clothes for starters.": {
+    "type": "DialogResponses",
+    "path": "Responses[1].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Shut up! Give me all your gold and maybe I'll let you go.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "But maybe if you make my friend here happy...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "I don't think so!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Ridiculous, just get out of my sight.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You can go.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "All right... but that's not enough, give me all you have.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Thanks, now I want your friend here to remove her clothes.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Thanks, now I want your friend here to remove his clothes.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Thanks but that's not enough, I'm not going to let you go that easily...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Give me all the gold you have.": {
+    "type": "DialogResponses",
+    "path": "Responses[1].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "That's a start... but I want more.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Thanks, but you'll have to convince my friend here too...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Thanks,  but you'll have to convince my friend here too...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "All right, now get lost before I change my mind.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What don't you give me all your gold instead?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You could use your sexy body instead...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let's take a look at it, remove your clothes.": {
+    "type": "DialogResponses",
+    "path": "Responses[1].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm more interested your naked body...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm more interested in your naked friend over there...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "That's not what I want.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Why don't you let my friend here some have fun with you instead?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Why don't you let my friend here have some fun with you instead?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What the hell... I don't want your money... just don't do it again.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Now remove your clothes...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hm... since you are showing me that nice body you might as well pay me in kind...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Your pretty girlfriend there... I want her to remove her clothes.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Your handsome friend there... I want him to remove his clothes.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You'll have to convince my friend here too...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Die now!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok, now get lost before I change my mind.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hmm, I guess we have a deal.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Haha, look at you trying to sell out your friend, I'm going to punish you for that.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "It's not over yet.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You got a pretty nice body, so now you are going to fuck me, it can be the gentle way or the hard way, you choose.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "No problem, I'll just rip your clothes off myself!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Do it or I'll kill you on the spot!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I want her!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I want him!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You're naked, can't you guess what's next?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Oh? Do you really think you're in a position to refuse?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You asked for it!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "We'll see.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "By removing your clothes for a start...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "By staying still and not trying anything.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Heh...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 3
+  },
+  "Oh? Well if you insist...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "It's not you I want.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Just remove your damned clothes!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Just give me your damned gold!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Be good now...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I yield... what do you want?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I yield... don't hurt me.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What now?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let me go please...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What do you want?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You came back for me, thank you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You like it, huh?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "gods no": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok my turn now.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm next!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Move, I'll show you how to do it properly...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You're begging for more?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You're beginning to like it, aren't you?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You just can't get enough of me can you?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hey, my favorite slut! You came back for more? Fine by me!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You really like being raped, don't you!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Why did you do that? I have to punish you now.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You know what? I think you deserve some punishment!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm going to teach you some respect!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "... you forced me to do this!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "We are going to have some fun you and I!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I win, let me get my prize!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "We got ourselves a nice piece of ass!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm going to show you what happens to women like you around here!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Heh, it's been a while since I fucked an elf!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Heh, I'm going to cuddle you alright!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "That hot pussy is mine!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Argonian huh? Well I fucked worse.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Don't do this again...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What were you thinking?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "That's enough.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Alright that's enough, I win.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You've had enough?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Damn, what is happening there, can I join? Hehe...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Can I have some of that ass too?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Can I have some of that pussy too?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Can I have some of that dick too?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You bitch!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You fucker!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No, stop please...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What the...?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Tch...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 4
+  },
+  "I'm not the whore here, bitch!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fuck you, you disgusting pervert!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Alright just... don't kill me.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "W... what? Alright...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No, please...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Don't use this as an excuse to fondle me you fucker.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You bitch you'll pay for this.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok just don't hurt me.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Yeah yeah...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fine...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What the hell, I'll do as I want!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Oh? Not a problem, you both are going to get raped anyway!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What? well I won't resist but...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Didn't you had enough already you freaky nympho?!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Please... No more...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Stop...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Okay then, rough time!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Wha...?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Mmmh!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Urgh...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "*Pant*": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ahhh!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Hey! stop!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Yes?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Let my wife go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let my husband go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let my daughter go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let my son go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let my father go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let my mother go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let my brother go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let my sister go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let her go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Let him go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What?! Let her go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You should really let her go...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What?! Let him go!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You should really let him go...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "That's tempting, but not in front of everyone...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "One more time? sure!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Again? Yeah why not...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Well yeah sure!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Oh, can I?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "What?! Are you insane?! Back off!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 3
+  },
+  "All right, then.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 3
+  },
+  "Alright.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Silver hand eh?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Stormcloak eh?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Imperial eh?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Vampire eh?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Thank you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Want some more huh?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I can't get enough of this slut!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I can't get enough of this boy!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "It's not over yet pretty girl.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "It's not over yet big boy.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fucking werewolf bitch, I'll teach you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fucking werewolf, I'll teach you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fucking vampire bitch, I'll teach you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Fucking vampire, I'll teach you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm going to show you what happens to a defeated Shield Maiden!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm going to show you what happens to a defeated Warrior!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I know some magic too, I can make your clothes dissapear!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm going to show you some real magic!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You sneaky bitch, I'll teach you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "You sneaky bastard, I'll teach you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm gonna take care of this pretty girl here...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm gonna take care of this pretty boy here...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm going to taste this one.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "I love forcing myself on strong men like you.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I'm gonna rape you good you dark elf slut!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Finally, Aela, you are mine!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Guards!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I will kill you!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Help!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Here's my offer.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "This is crowded in here...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "I don't think it's in my contract but yeah, sure!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Right know? We are not alone dear...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 4
+  },
+  "Of course my husband.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Of course my wife.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "I guess it's a part of my job! but let's go somewhere calm first.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "I guess it's a part of my job!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "If this is what you want my thane... but it's too crowded in here.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "If this is what you want my thane...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Yeah right, in front of everyone...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "I would love that but not in front of everyone...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Again? sure.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I don't know, I mean... right here?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "I surely do!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Huh? No... that's not going to happen.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Sure!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Oh, I need to pay... I'm not interested then.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Oh, I need to pay... All right then.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No problem!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I don't think it's in my contract... but if you add a little extra maybe...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I don't think it's in my contract...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Again? Sure.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Ok.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "There are people watching!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What? I don't want this...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Nice!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "Even better!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "People are watching...": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "No thanks.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "I might as well enjoy it now then.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "What if I do?": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 1
+  },
+  "That's tempting but it's crowded here.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Sold!": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Of course I would... I'm not interested, go away.": {
+    "type": "DialogResponses",
+    "path": "Responses[0].Text",
+    "speaker": "🗣️ NPC",
+    "count": 2
+  },
+  "Defeated": {
+    "type": "Quest",
+    "path": "Name",
+    "speaker": "",
+    "count": 2
+  },
+  "Left For Dead": {
+    "type": "Quest",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "Robbed": {
+    "type": "Quest",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "Get your belongings back before it's too late.": {
+    "type": "Quest",
+    "path": "Objectives[0].DisplayText",
+    "speaker": "",
+    "count": 1
+  },
+  "Kidnapping": {
+    "type": "Quest",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "(Optional) Kill <Alias=Boss> and get <Alias=Victim> belongings.": {
+    "type": "Quest",
+    "path": "Objectives[0].DisplayText",
+    "speaker": "",
+    "count": 1
+  },
+  "Rescue <Alias=Victim> from <Alias=Lair>": {
+    "type": "Quest",
+    "path": "Objectives[1].DisplayText",
+    "speaker": "",
+    "count": 1
+  },
+  "Sex Crime": {
+    "type": "Quest",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "[Knocked down]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Cancel": {
+    "type": "Message",
+    "path": "MenuButtons[0].Text",
+    "speaker": "",
+    "count": 18
+  },
+  "Inventory": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 6
+  },
+  "Tie up": {
+    "type": "Message",
+    "path": "MenuButtons[2].Text",
+    "speaker": "",
+    "count": 6
+  },
+  "Undress": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 12
+  },
+  "Kill": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 10
+  },
+  "Rape": {
+    "type": "Message",
+    "path": "MenuButtons[5].Text",
+    "speaker": "",
+    "count": 11
+  },
+  "Rape with player (Used for companion)": {
+    "type": "Message",
+    "path": "MenuButtons[6].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Feed": {
+    "type": "Message",
+    "path": "MenuButtons[7].Text",
+    "speaker": "",
+    "count": 8
+  },
+  "Revive": {
+    "type": "Message",
+    "path": "MenuButtons[8].Text",
+    "speaker": "",
+    "count": 8
+  },
+  "[Tied]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Rape with player (Used for followers)": {
+    "type": "Message",
+    "path": "MenuButtons[5].Text",
+    "speaker": "",
+    "count": 3
+  },
+  "Tie options": {
+    "type": "Message",
+    "path": "MenuButtons[6].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Put in a sack": {
+    "type": "Message",
+    "path": "MenuButtons[8].Text",
+    "speaker": "",
+    "count": 4
+  },
+  "Untie": {
+    "type": "Message",
+    "path": "MenuButtons[9].Text",
+    "speaker": "",
+    "count": 2
+  },
+  "[Knocked down]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Inventory (Not used)": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 4
+  },
+  "Rape with player": {
+    "type": "Message",
+    "path": "MenuButtons[6].Text",
+    "speaker": "",
+    "count": 5
+  },
+  "[Tied]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Tie options (Not Used)": {
+    "type": "Message",
+    "path": "MenuButtons[6].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Put in a sack (Not Used)": {
+    "type": "Message",
+    "path": "MenuButtons[8].Text",
+    "speaker": "",
+    "count": 2
+  },
+  "[Undress]\r\nWhat do you want to remove?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 2
+  },
+  "Back": {
+    "type": "Message",
+    "path": "MenuButtons[0].Text",
+    "speaker": "",
+    "count": 9
+  },
+  "Armor": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 2
+  },
+  "Head": {
+    "type": "Message",
+    "path": "MenuButtons[2].Text",
+    "speaker": "",
+    "count": 3
+  },
+  "Hands": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 3
+  },
+  "Feet": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 3
+  },
+  "[Undress]\r\nWhat do you want <Alias=CommandFollower> to remove?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Command - <Alias=CommandFollower>\r\nMarked - <Alias=CommandTarget>": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Clean up": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 2
+  },
+  "Tools": {
+    "type": "Message",
+    "path": "MenuButtons[2].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Enable Player Aggressor": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Disable Player Aggressor": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Enable Player Victim": {
+    "type": "Message",
+    "path": "MenuButtons[5].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Disable Player Victim": {
+    "type": "Message",
+    "path": "MenuButtons[6].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Enable NPC vs NPC": {
+    "type": "Message",
+    "path": "MenuButtons[7].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Disable NPC vs NPC": {
+    "type": "Message",
+    "path": "MenuButtons[8].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Command <Alias=CommandFollower> to knock down <Alias=CommandTarget>": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Command <Alias=CommandFollower>": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Masturbate?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "No": {
+    "type": "Message",
+    "path": "MenuButtons[0].Text",
+    "speaker": "",
+    "count": 3
+  },
+  "Yes": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 3
+  },
+  "[Trauma]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Dead]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Necrophilia": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 2
+  },
+  "[Dead]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Put in a sack (Not used)": {
+    "type": "Message",
+    "path": "MenuButtons[2].Text",
+    "speaker": "",
+    "count": 2
+  },
+  "[Sleeping]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Rape with player (Not used)": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "[Sleeping]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Hold down [Strafe Left] or [Strafe Right] to resist!": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Hold down [Left Attack/Block] or [Right Attack/Block] to resist!": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Command <Alias=CommandFollower> to kill <Alias=CommandTarget>": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "<Alias=CommandTarget> Marked": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Trauma]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Knocked out]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Wake and yield": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Wake and tie": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "[Sack]\r\nWhat do you want to do?\r\n\r\nIn the sack : <Alias=Burlap Sack Victim>": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Release": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "[Knocked out]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Wake and yield (Not used)": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Are you sure?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Proceed": {
+    "type": "Message",
+    "path": "MenuButtons[0].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "[Tie options]\r\nPose - Change the pose (Zaz Animation Pack & UIExtensions are needed).\r\nDevice - Change the device & resume the tied up state duration if not permanent.\r\nTighten links - Resume the tied up state duration if not permanent.\r\nPermanently tie - The victim will not be able to free by themself and the poses will change.\r\nLoosen links - The victim will not be permanently tied anymore.": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Pose": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Gag/Ungag": {
+    "type": "Message",
+    "path": "MenuButtons[2].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Device": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Tighten links": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Permanently tie": {
+    "type": "Message",
+    "path": "MenuButtons[5].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Loosen links": {
+    "type": "Message",
+    "path": "MenuButtons[6].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "[Escape]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Appease": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 2
+  },
+  "[Escape]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Exhausted]\r\nWhat do you want to do?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Exhausted]\r\nWhat do you want <Alias=CommandFollower> to do to <Alias=CommandTarget>?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Device]\r\nChange the set of animations corresponding to the device.\r\n\r\n(Special) - Permanently tie the NPC and special interactions can be performed on the victim:\r\nPillory - If Rape option is chosen it will use the pillory zaz animations on the victim (Zaz Animation Pack required and Zaz animations must be registered in its MCM)": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Ropes": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "(Special) Pillory": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "The victim will not be permanently tied anymore.\r\nDo you want to do that ayway?": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Clean up menu]\r\n\r\nClean up - Make any Defeat affected NPC in the same room as you clean. - EXCEPT tied & knocked out npcs.\r\nClean tie up - Make any tied NPC free. - EXCEPT those who are in the same room as you.\r\nClean knockout - Make any knocked out NPC awake. - EXCEPT those who are in the same room as you.": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Clean tie up": {
+    "type": "Message",
+    "path": "MenuButtons[2].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Clean knockout": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "What do you want to do?\r\n\r\n=> Bound Rape - Will play bound tagged animations only. (NSAP & Zaz animations)\r\n=> Rape - Play normal aggressives animations.\r\n=> Untie & Rape - Untie then rape the target.": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Bound Rape": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Untie & Rape": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "You follower is asking you if you want to join the sexual assault.": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "[Clean up menu]\r\n\r\nTP to tieups: Show a list of tie up people you can teleport to. (UIExtension)\r\nTP to knockouts: Show a list of knocked out people you can teleport to. (UIExtension)\r\nDisplay struggle bar: Display struggle bar for 5 seconds for testing purposes.": {
+    "type": "Message",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "TP to tieups": {
+    "type": "Message",
+    "path": "MenuButtons[1].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "TP to knockouts": {
+    "type": "Message",
+    "path": "MenuButtons[2].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Display struggle bar": {
+    "type": "Message",
+    "path": "MenuButtons[3].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "Market value": {
+    "type": "Message",
+    "path": "MenuButtons[4].Text",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatCityHideout": {
+    "type": "Cell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatStuff": {
+    "type": "Cell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "Stops Health regeneration.\r\nMagicka and Stamina regenerates <50>% more slowly.": {
+    "type": "Spell",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Raped": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "Health, Magicka and Stamina do not regenerate.": {
+    "type": "Spell",
+    "path": "Description",
+    "speaker": "",
+    "count": 1
+  },
+  "Being Raped": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTKnockDownSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTTrueCalmSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatHKActionSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatHKActionFollowerSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "TEST CLOAK EFFECT SPELL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatNVNAssaultSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 2
+  },
+  "DefeatDebuffSpeedSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatCalmAOESPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatImmunitySPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSatisfiedSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTTraumaSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatHKMuffleFollowerSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTEscapeSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSexCrimeSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTYieldSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTExhaustedSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTSurrenderSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatCalmSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatDisarmSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatComeOverHereSPL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "TEST CLOAK SPELL": {
+    "type": "Spell",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTTrueCalmEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "Weakened": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 2
+  },
+  "DefeatSTKnockDownEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "TEST CLOAK": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "Assault": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_Archery": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_DestFire": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_ConjFire": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_Alchemy": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_Alteration": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_DestFrost": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_DestShock": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_Sneak": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_ConjFrost": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_ConjShock": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatHKActionFollowerEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatNVNAssaultEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatDebuffMagickaEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatDebuffSpeedEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatCalmAOEEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatImmunityEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatDebuffStaminaEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSatisfiedEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTTraumaEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatHKMuffleFollowerEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTEscapeEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSexCrimeEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTYieldEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTExhaustedEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatSTSurrenderEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatCollateralSafetyEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatCalmEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "DefeatDisarmEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "ComeOverHereEFF": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "TEST CLOAK EFFECT": {
+    "type": "MagicEffect",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "AssaultPRK": {
+    "type": "Perk",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_DefeatGaggedFaction": {
+    "type": "Faction",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_DefeatFaction": {
+    "type": "Faction",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_AggFaction": {
+    "type": "Faction",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_TieUpFaction": {
+    "type": "Faction",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  },
+  "NT_KnockOutFaction": {
+    "type": "Faction",
+    "path": "Name",
+    "speaker": "",
+    "count": 1
+  }
+}

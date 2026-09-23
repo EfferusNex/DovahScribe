@@ -1,0 +1,338 @@
+[
+  {
+    "formid": "000849:Damsels in Distress.esp",
+    "type": "Armor",
+    "editorid": "damsel0_FalmerSkirt",
+    "path": "Name",
+    "text": "Falmer Slave Skirt",
+    "parent_context": {}
+  },
+  {
+    "formid": "000AD8:Damsels in Distress.esp",
+    "type": "Armor",
+    "editorid": "damsel0_EyesGlow",
+    "path": "Name",
+    "text": "Veil's Eye Glow",
+    "parent_context": {}
+  },
+  {
+    "formid": "000847:Damsels in Distress.esp",
+    "type": "Book",
+    "editorid": "damsel0_VeilNote",
+    "path": "BookText",
+    "text": "<font face='$HandwrittenFont'><font size='18'>\r\nI've told you repeatedly to hand that vampire wench back over. Stop using the excuse that she's \"For Research\". I know what you do to that thing. Everybody staying in the nearby rooms can hear what you do to her. She's too dangerous, and if you don't stop I'll put both of you up for target practice with the rest of the specimens.\r\n\r\n- The Caller\r\n</font>\r\n\r\n",
+    "parent_context": {}
+  },
+  {
+    "formid": "000847:Damsels in Distress.esp",
+    "type": "Book",
+    "editorid": "damsel0_VeilNote",
+    "path": "Name",
+    "text": "Last Warning",
+    "parent_context": {}
+  },
+  {
+    "formid": "0B2D35:Skyrim.esm",
+    "type": "Npc",
+    "editorid": "dunBlackreachLVLFalmerServant",
+    "path": "Name",
+    "text": "Falmer Servant",
+    "parent_context": {}
+  },
+  {
+    "formid": "000800:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Luna",
+    "path": "Name",
+    "text": "Luna",
+    "parent_context": {}
+  },
+  {
+    "formid": "000800:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Luna",
+    "path": "ShortName",
+    "text": "Luna",
+    "parent_context": {}
+  },
+  {
+    "formid": "000801:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Amber",
+    "path": "Name",
+    "text": "Amber",
+    "parent_context": {}
+  },
+  {
+    "formid": "000801:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Amber",
+    "path": "ShortName",
+    "text": "Amber",
+    "parent_context": {}
+  },
+  {
+    "formid": "000802:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Nova",
+    "path": "Name",
+    "text": "Nova",
+    "parent_context": {}
+  },
+  {
+    "formid": "000802:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Nova",
+    "path": "ShortName",
+    "text": "Nova",
+    "parent_context": {}
+  },
+  {
+    "formid": "000803:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Siri",
+    "path": "Name",
+    "text": "Siri",
+    "parent_context": {}
+  },
+  {
+    "formid": "000803:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Siri",
+    "path": "ShortName",
+    "text": "Siri",
+    "parent_context": {}
+  },
+  {
+    "formid": "000804:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Opal",
+    "path": "Name",
+    "text": "Opal",
+    "parent_context": {}
+  },
+  {
+    "formid": "000804:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Opal",
+    "path": "ShortName",
+    "text": "Opal",
+    "parent_context": {}
+  },
+  {
+    "formid": "000805:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Kepa",
+    "path": "Name",
+    "text": "Kepa",
+    "parent_context": {}
+  },
+  {
+    "formid": "000805:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Kepa",
+    "path": "ShortName",
+    "text": "Kepa",
+    "parent_context": {}
+  },
+  {
+    "formid": "000806:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Eren",
+    "path": "Name",
+    "text": "Eren",
+    "parent_context": {}
+  },
+  {
+    "formid": "000806:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Eren",
+    "path": "ShortName",
+    "text": "Eren",
+    "parent_context": {}
+  },
+  {
+    "formid": "000808:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Navi",
+    "path": "Name",
+    "text": "Navi",
+    "parent_context": {}
+  },
+  {
+    "formid": "000808:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Navi",
+    "path": "ShortName",
+    "text": "Navi",
+    "parent_context": {}
+  },
+  {
+    "formid": "000809:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Anka",
+    "path": "Name",
+    "text": "Anka",
+    "parent_context": {}
+  },
+  {
+    "formid": "000809:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Anka",
+    "path": "ShortName",
+    "text": "Anka",
+    "parent_context": {}
+  },
+  {
+    "formid": "00080A:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Veil",
+    "path": "Name",
+    "text": "Veil",
+    "parent_context": {}
+  },
+  {
+    "formid": "00080A:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Veil",
+    "path": "ShortName",
+    "text": "Veil",
+    "parent_context": {}
+  },
+  {
+    "formid": "00080B:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Frost",
+    "path": "Name",
+    "text": "Frost",
+    "parent_context": {}
+  },
+  {
+    "formid": "00080B:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Frost",
+    "path": "ShortName",
+    "text": "Fost",
+    "parent_context": {}
+  },
+  {
+    "formid": "00080C:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Malo",
+    "path": "Name",
+    "text": "Malo",
+    "parent_context": {}
+  },
+  {
+    "formid": "00080C:Damsels in Distress.esp",
+    "type": "Npc",
+    "editorid": "damsel0_Malo",
+    "path": "ShortName",
+    "text": "Malo",
+    "parent_context": {}
+  },
+  {
+    "formid": "000906:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_LunaBranch01Topic",
+    "path": "Name",
+    "text": "Are you alright?",
+    "parent_context": {}
+  },
+  {
+    "formid": "000908:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_LunaBranch01b",
+    "path": "Name",
+    "text": "Yes. Let's get you to safety.",
+    "parent_context": {}
+  },
+  {
+    "formid": "00090A:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_LunaBranch02Topic",
+    "path": "Name",
+    "text": "How did you end up here?",
+    "parent_context": {}
+  },
+  {
+    "formid": "00090C:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_LunaBranch02b",
+    "path": "Name",
+    "text": "You can stay with me if you like.",
+    "parent_context": {}
+  },
+  {
+    "formid": "00090E:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_LunaBranch02c",
+    "path": "Name",
+    "text": "I'm sorry to hear that.",
+    "parent_context": {}
+  },
+  {
+    "formid": "000910:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_LunaBranch03Topic",
+    "path": "Name",
+    "text": "You'll be safe here.",
+    "parent_context": {}
+  },
+  {
+    "formid": "000916:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_AmberBranch01Topic",
+    "path": "Name",
+    "text": "Are you alright?",
+    "parent_context": {}
+  },
+  {
+    "formid": "000918:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_AmberBranch01b",
+    "path": "Name",
+    "text": "Yes. I'm real and the Falmer are gone.",
+    "parent_context": {}
+  },
+  {
+    "formid": "00091A:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_AmberBranch01c",
+    "path": "Name",
+    "text": "We need to go, it's not safe here.",
+    "parent_context": {}
+  },
+  {
+    "formid": "00091C:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_AmberBranch02Topic",
+    "path": "Name",
+    "text": "How did you end up here?",
+    "parent_context": {}
+  },
+  {
+    "formid": "00091E:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_AmberBranch03Topic",
+    "path": "Name",
+    "text": "You should be safe here.",
+    "parent_context": {}
+  },
+  {
+    "formid": "000922:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_NovaBranch01Topic",
+    "path": "Name",
+    "text": "Are you alright?",
+    "parent_context": {}
+  },
+  {
+    "formid": "000924:Damsels in Distress.esp",
+    "type": "DialogTopic",
+    "editorid": "damsel0_QuestRescue_NovaBranch01b",
+    "path": "Name",
+    "text": "Yes, I'm here to save you.",
+    "parent_context": {}
+  }
+]

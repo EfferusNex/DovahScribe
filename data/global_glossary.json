@@ -1,0 +1,743 @@
+{
+  "metadata": {
+    "total_terms": 122,
+    "description": "Единый глобальный глоссарий терминов TES V: Skyrim и модов"
+  },
+  "terms": {
+    "Alteration": {
+      "en": "Alteration",
+      "ru": "Изменение",
+      "category": "School",
+      "source_mod": "TES_Canon"
+    },
+    "Conjuration": {
+      "en": "Conjuration",
+      "ru": "Колдовство",
+      "category": "School",
+      "source_mod": "TES_Canon"
+    },
+    "Destruction": {
+      "en": "Destruction",
+      "ru": "Разрушение",
+      "category": "School",
+      "source_mod": "TES_Canon"
+    },
+    "Illusion": {
+      "en": "Illusion",
+      "ru": "Иллюзия",
+      "category": "School",
+      "source_mod": "TES_Canon"
+    },
+    "Restoration": {
+      "en": "Restoration",
+      "ru": "Восстановление",
+      "category": "School",
+      "source_mod": "TES_Canon"
+    },
+    "Enchanting": {
+      "en": "Enchanting",
+      "ru": "Зачарование",
+      "category": "School",
+      "source_mod": "TES_Canon"
+    },
+    "Alchemy": {
+      "en": "Alchemy",
+      "ru": "Алхимия",
+      "category": "School",
+      "source_mod": "TES_Canon"
+    },
+    "Iron": {
+      "en": "Iron",
+      "ru": "Железный",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Steel": {
+      "en": "Steel",
+      "ru": "Стальной",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Silver": {
+      "en": "Silver",
+      "ru": "Серебряный",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Elven": {
+      "en": "Elven",
+      "ru": "Эльфийский",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Dwarven": {
+      "en": "Dwarven",
+      "ru": "Двемерский",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Orcish": {
+      "en": "Orcish",
+      "ru": "Орочий",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Ebony": {
+      "en": "Ebony",
+      "ru": "Эбонитовый",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Glass": {
+      "en": "Glass",
+      "ru": "Стеклянный",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Dragonplate": {
+      "en": "Dragonplate",
+      "ru": "Драконий панцирный",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Dragonscale": {
+      "en": "Dragonscale",
+      "ru": "Драконий чешуйчатый",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Daedric": {
+      "en": "Daedric",
+      "ru": "Даэдрический",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Stalhrim": {
+      "en": "Stalhrim",
+      "ru": "Сталгримовый",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Nordic": {
+      "en": "Nordic",
+      "ru": "Нордский",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Chitin": {
+      "en": "Chitin",
+      "ru": "Хитиновый",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Bonemold": {
+      "en": "Bonemold",
+      "ru": "Костяной",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Leather": {
+      "en": "Leather",
+      "ru": "Кожаный",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Hide": {
+      "en": "Hide",
+      "ru": "Сыромятный",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Fur": {
+      "en": "Fur",
+      "ru": "Меховой",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Scaled": {
+      "en": "Scaled",
+      "ru": "Пластинчатый",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Corundum": {
+      "en": "Corundum",
+      "ru": "Корунд",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Malachite": {
+      "en": "Malachite",
+      "ru": "Малахит",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Moonstone": {
+      "en": "Moonstone",
+      "ru": "Лунный камень",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Orichalcum": {
+      "en": "Orichalcum",
+      "ru": "Орихалк",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Quicksilver": {
+      "en": "Quicksilver",
+      "ru": "Ртуть",
+      "category": "Material",
+      "source_mod": "TES_Canon"
+    },
+    "Azura": {
+      "en": "Azura",
+      "ru": "Азура",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Boethiah": {
+      "en": "Boethiah",
+      "ru": "Боэтия",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Clavicus Vile": {
+      "en": "Clavicus Vile",
+      "ru": "Клавикус Вайл",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Hermaeus Mora": {
+      "en": "Hermaeus Mora",
+      "ru": "Хермеус Мора",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Hircine": {
+      "en": "Hircine",
+      "ru": "Хирсин",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Malacath": {
+      "en": "Malacath",
+      "ru": "Малакат",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Mehrunes Dagon": {
+      "en": "Mehrunes Dagon",
+      "ru": "Мерунес Дагон",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Mephala": {
+      "en": "Mephala",
+      "ru": "Мефала",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Meridia": {
+      "en": "Meridia",
+      "ru": "Меридия",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Molag Bal": {
+      "en": "Molag Bal",
+      "ru": "Молаг Бал",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Namira": {
+      "en": "Namira",
+      "ru": "Намира",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Nocturnal": {
+      "en": "Nocturnal",
+      "ru": "Ноктюрнал",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Peryite": {
+      "en": "Peryite",
+      "ru": "Периайт",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Sanguine": {
+      "en": "Sanguine",
+      "ru": "Сангвин",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Sheogorath": {
+      "en": "Sheogorath",
+      "ru": "Шеогорат",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Vaermina": {
+      "en": "Vaermina",
+      "ru": "Вермина",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Jyggalag": {
+      "en": "Jyggalag",
+      "ru": "Джиггалаг",
+      "category": "Daedra",
+      "source_mod": "TES_Canon"
+    },
+    "Akatosh": {
+      "en": "Akatosh",
+      "ru": "Акатош",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Arkay": {
+      "en": "Arkay",
+      "ru": "Аркей",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Dibella": {
+      "en": "Dibella",
+      "ru": "Дибелла",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Julianos": {
+      "en": "Julianos",
+      "ru": "Джулианос",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Kynareth": {
+      "en": "Kynareth",
+      "ru": "Кинарет",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Mara": {
+      "en": "Mara",
+      "ru": "Мара",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Stendarr": {
+      "en": "Stendarr",
+      "ru": "Стендарр",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Talos": {
+      "en": "Talos",
+      "ru": "Талос",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Zenithar": {
+      "en": "Zenithar",
+      "ru": "Зенитар",
+      "category": "Divine",
+      "source_mod": "TES_Canon"
+    },
+    "Altmer": {
+      "en": "Altmer",
+      "ru": "Альтмер",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Bosmer": {
+      "en": "Bosmer",
+      "ru": "Босмер",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Dunmer": {
+      "en": "Dunmer",
+      "ru": "Данмер",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Falmer": {
+      "en": "Falmer",
+      "ru": "Фалмер",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Orsimer": {
+      "en": "Orsimer",
+      "ru": "Орсимер",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Argonian": {
+      "en": "Argonian",
+      "ru": "Аргонианин",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Khajiit": {
+      "en": "Khajiit",
+      "ru": "Каджит",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Breton": {
+      "en": "Breton",
+      "ru": "Бретонец",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Nord": {
+      "en": "Nord",
+      "ru": "Норд",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Imperial": {
+      "en": "Imperial",
+      "ru": "Имперец",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Redguard": {
+      "en": "Redguard",
+      "ru": "Редгард",
+      "category": "Race",
+      "source_mod": "TES_Canon"
+    },
+    "Whiterun": {
+      "en": "Whiterun",
+      "ru": "Вайтран",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Solitude": {
+      "en": "Solitude",
+      "ru": "Солитьюд",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Windhelm": {
+      "en": "Windhelm",
+      "ru": "Виндхельм",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Riften": {
+      "en": "Riften",
+      "ru": "Рифтен",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Markarth": {
+      "en": "Markarth",
+      "ru": "Маркарт",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Falkreath": {
+      "en": "Falkreath",
+      "ru": "Фолкрит",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Morthal": {
+      "en": "Morthal",
+      "ru": "Морфал",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Dawnstar": {
+      "en": "Dawnstar",
+      "ru": "Данстар",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Winterhold": {
+      "en": "Winterhold",
+      "ru": "Винтерхолд",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Riverwood": {
+      "en": "Riverwood",
+      "ru": "Ривервуд",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Rorikstead": {
+      "en": "Rorikstead",
+      "ru": "Рорикстед",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Ivarstead": {
+      "en": "Ivarstead",
+      "ru": "Айварстед",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Dragon Bridge": {
+      "en": "Dragon Bridge",
+      "ru": "Драконий Мост",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Helgen": {
+      "en": "Helgen",
+      "ru": "Хелген",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "High Hrothgar": {
+      "en": "High Hrothgar",
+      "ru": "Высокий Хротгар",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Throat of the World": {
+      "en": "Throat of the World",
+      "ru": "Глотка Мира",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Bleak Falls Barrow": {
+      "en": "Bleak Falls Barrow",
+      "ru": "Ветреный пик",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Sovngarde": {
+      "en": "Sovngarde",
+      "ru": "Совнгард",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Soul Cairn": {
+      "en": "Soul Cairn",
+      "ru": "Каирн Душ",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Apocrypha": {
+      "en": "Apocrypha",
+      "ru": "Апокриф",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Blackreach": {
+      "en": "Blackreach",
+      "ru": "Черный Предел",
+      "category": "Location",
+      "source_mod": "TES_Canon"
+    },
+    "Companions": {
+      "en": "Companions",
+      "ru": "Соратники",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "College of Winterhold": {
+      "en": "College of Winterhold",
+      "ru": "Коллегия Винтерхолда",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Thieves Guild": {
+      "en": "Thieves Guild",
+      "ru": "Гильдия воров",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Dark Brotherhood": {
+      "en": "Dark Brotherhood",
+      "ru": "Темное Братство",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Imperial Legion": {
+      "en": "Imperial Legion",
+      "ru": "Имперский легион",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Stormcloaks": {
+      "en": "Stormcloaks",
+      "ru": "Братья Бури",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Greybeards": {
+      "en": "Greybeards",
+      "ru": "Седобородые",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Blades": {
+      "en": "Blades",
+      "ru": "Клинки",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Dawnguard": {
+      "en": "Dawnguard",
+      "ru": "Стражи Рассвета",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Volkihar Clan": {
+      "en": "Volkihar Clan",
+      "ru": "Клан Волкихар",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Forsworn": {
+      "en": "Forsworn",
+      "ru": "Изгои",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Silver Hand": {
+      "en": "Silver Hand",
+      "ru": "Серебряная Рука",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Vigilants of Stendarr": {
+      "en": "Vigilants of Stendarr",
+      "ru": "Дозорные Стендарра",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Thalmor": {
+      "en": "Thalmor",
+      "ru": "Талмор",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Nightingales": {
+      "en": "Nightingales",
+      "ru": "Соловьи",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Bards College": {
+      "en": "Bards College",
+      "ru": "Коллегия бардов",
+      "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Dragonborn": {
+      "en": "Dragonborn",
+      "ru": "Драконорождённый",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Dovahkiin": {
+      "en": "Dovahkiin",
+      "ru": "Довакин",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Thu'um": {
+      "en": "Thu'um",
+      "ru": "Ту'ум",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Shout": {
+      "en": "Shout",
+      "ru": "Крик",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Word of Power": {
+      "en": "Word of Power",
+      "ru": "Слово Силы",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Magicka": {
+      "en": "Magicka",
+      "ru": "Магия",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Stamina": {
+      "en": "Stamina",
+      "ru": "Запас сил",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Health": {
+      "en": "Health",
+      "ru": "Здоровье",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Soul Gem": {
+      "en": "Soul Gem",
+      "ru": "Камень душ",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Black Soul Gem": {
+      "en": "Black Soul Gem",
+      "ru": "Черный камень душ",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Elder Scroll": {
+      "en": "Elder Scroll",
+      "ru": "Древний свиток",
+      "category": "Mechanic",
+      "source_mod": "TES_Canon"
+    },
+    "Jarl": {
+      "en": "Jarl",
+      "ru": "Ярл",
+      "category": "Title",
+      "source_mod": "TES_Canon"
+    },
+    "Thane": {
+      "en": "Thane",
+      "ru": "Тан",
+      "category": "Title",
+      "source_mod": "TES_Canon"
+    },
+    "Housecarl": {
+      "en": "Housecarl",
+      "ru": "Хускарл",
+      "category": "Title",
+      "source_mod": "TES_Canon"
+    },
+    "Phantom Shroud": {
+      "en": "Phantom Shroud",
+      "ru": "Призрачный покров",
+      "category": "SPEL",
+      "source_mod": "test_mod",
+      "formid": ""
+    },
+    "Arcane Volley": {
+      "en": "Arcane Volley",
+      "ru": "Тайный залп",
+      "category": "SPEL",
+      "source_mod": "SampleMod",
+      "formid": "01001A"
+    },
+    "Pyromancer": {
+      "en": "Pyromancer",
+      "ru": "Пиромант",
+      "category": "PERK",
+      "source_mod": "SampleMod",
+      "formid": "01001B"
+    }
+  }
+}
