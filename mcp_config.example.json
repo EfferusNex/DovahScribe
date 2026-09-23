@@ -1,0 +1,13 @@
+{
+  "_comment": "Configuration example for third-party AI agents (Gemini, Claude, Cursor, Windsurf, Cline). Housecarl repo: https://github.com/Avick3110/houseCARL (GPL-3.0-only)",
+  "mcpServers": {
+    "housecarl": {
+      "command": "housecarl",
+      "args": [],
+      "description": "Housecarl MCP Server for Bethesda Skyrim modding, plugin record extraction and binary patching (https://github.com/Avick3110/houseCARL)",
+      "env": {
+        "SKYRIM_MODS_DIR": "C:/Games/Skyrim SE/MO2/mods"
+      }
+    }
+  }
+}

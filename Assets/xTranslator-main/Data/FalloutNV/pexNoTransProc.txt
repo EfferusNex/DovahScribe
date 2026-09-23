@@ -1,3 +1,0 @@
-#list of papyrus vanilla/Skse commands known to use non-translatable vars string as params
-#names must be in lowercase.
-#please report if you find more of this kind of procedures

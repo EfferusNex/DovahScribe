@@ -200,11 +200,10 @@ class BSAManager:
         # Автопоиск в каталогах MO2 (из .env, settings.json или стандартных путей)
         mo2_candidates = [
             os.environ.get("MO2_BASE_PATH"),
-            Path("D:/Games/Flappy/Flappy"),
-            Path("D:/Games/Skyrim SE/MO2"),
             Path("C:/Modding/MO2"),
             Path(os.path.expandvars("%LOCALAPPDATA%/ModOrganizer/Skyrim Special Edition")),
         ]
+
         for cand in mo2_candidates:
             if not cand:
                 continue

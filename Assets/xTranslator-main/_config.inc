@@ -1,4 +1,0 @@
-//define
-{$DEFINE UNICODE}
-{$DEFINE TES4FORMAT}
-

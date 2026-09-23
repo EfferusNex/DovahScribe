@@ -30,11 +30,10 @@ class MO2Deployer:
 
     # Стандартные пути для авто-поиска MO2
     DEFAULT_CANDIDATE_PATHS = [
-        Path("D:/Games/Flappy/Flappy"),
-        Path("D:/Games/Skyrim SE/MO2"),
         Path("C:/Modding/MO2"),
         Path(os.path.expandvars("%LOCALAPPDATA%/ModOrganizer/Skyrim Special Edition")),
     ]
+
 
     def __init__(self, mo2_base_path: Optional[Path] = None):
         self.mo2_base = self._resolve_mo2_base(mo2_base_path)

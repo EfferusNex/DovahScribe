@@ -1,4 +1,10 @@
-# Python bytecode & cache
+# ==============================================================================
+# 🐾 DovahScribe — Comprehensive Whitelist .gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Python Bytecode, Caches & Environments
+# ------------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
@@ -19,36 +25,70 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-
-# Virtual environments
 .venv/
 venv/
 ENV/
 env/
+.ruff_cache/
+.pytest_cache/
 
-# Environment files & secrets
+# ------------------------------------------------------------------------------
+# 2. Environment Files, Secrets & Local Settings
+# ------------------------------------------------------------------------------
 .env
 .env.local
 .env.*.local
-
-# Logs & temporary outputs
-logs/*.log
+settings.json
+TODO.md
+TODO*.md
+*_TODO.md
 *.log
-data/extracted_bsa/
-data/cache/
-data/raw_extracted/*.tmp.json
-data/ops/*.tmp.json
+logs/
 
-# Local runtime & OS files
+# ------------------------------------------------------------------------------
+# 3. OS & IDE Metadata
+# ------------------------------------------------------------------------------
 .DS_Store
 Thumbs.db
 desktop.ini
-settings.json
+.idea/
+.vscode/
 
-# User temporary review sessions (keep repository clean)
-# To preserve specific example mods, add exception with !
-data/review/*_review.json
-!data/review/SexLabDefeat_review.json
+# ------------------------------------------------------------------------------
+# 4. Third-Party Binary Assets & External Tools
+# ------------------------------------------------------------------------------
+Assets/
+Interface/
+
+# ------------------------------------------------------------------------------
+# 5. DATA DIRECTORY: Strict Whitelist (Block ALL except Core Dictionaries)
+# ------------------------------------------------------------------------------
+# Block everything inside data/ by default:
+data/*
+
+# Whitelist: ALLOW ONLY canonical TES dictionaries & immutable glossaries
+!data/Strings/
+!data/Strings/**
+!data/global_glossary.json
+!data/false_friends.json
+!data/vanilla_dictionary.json
+
+# ------------------------------------------------------------------------------
+# 6. WEB DIRECTORY: Strict Whitelist (Block generated mod dashboards)
+# ------------------------------------------------------------------------------
+# Block generated per-mod dashboard HTML files & backup images
 web/*_dashboard.html
+web/*_backup.*
+
+# Whitelist: ALLOW Master Template & Brand Banner
 !web/cat_dashboard.html
-!web/SexLabDefeat_dashboard.html
+!web/dovahscribe_banner.jpg
+
+# ------------------------------------------------------------------------------
+# 7. SCRIPTS: Root & Source temporary one-off scratch scripts
+# ------------------------------------------------------------------------------
+translate_*.py
+!translate.py
+src/apply_*.py
+src/translate_*.py
+

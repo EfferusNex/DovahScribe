@@ -21,12 +21,10 @@ if not defined PYTHONW_EXE (
     set "PYTHONW_EXE=python"
 )
 
-:: 2. Определение мода
+:: 2. Бесшумный запуск дашборда
 if "%~1"=="" (
-    set "MOD_NAME=SexLabDefeat"
+    start "" "!PYTHONW_EXE!" "app.py"
 ) else (
-    set "MOD_NAME=%~1"
+    start "" "!PYTHONW_EXE!" "app.py" "%~1"
 )
 
-:: 3. Бесшумный запуск дашборда
-start "" "!PYTHONW_EXE!" "app.py" "!MOD_NAME!"

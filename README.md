@@ -80,13 +80,14 @@ cp .env.example .env
 ```cmd
 run_dovahscribe.bat [ModName]
 ```
-*Например:* `run_dovahscribe.bat SexLabDefeat`
+*Например:* `run_dovahscribe.bat MyCustomMod` или кликом по `DovahScribe.exe`.
 
 ### 3. Режим отладки (DevTools)
 Если требуется инспектировать элементы интерфейса или консоль JS:
 ```cmd
-python app.py SexLabDefeat --debug
+python app.py MyCustomMod --debug
 ```
+
 
 ---
 
