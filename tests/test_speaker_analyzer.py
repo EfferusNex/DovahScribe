@@ -151,7 +151,7 @@ class TestSpeakerAnalyzer(unittest.TestCase):
         packages = buffer.build_contextual_packages(items)
         prompt = buffer.format_prompt_for_packages(packages)
 
-        self.assertIn("ИНСТРУКЦИИ ПО ПЕРЕВОДУ И ГРАММАТИКЕ РОДА", prompt)
+        self.assertIn("ИНСТРУКЦИИ ПО ПЕРЕВОДУ, ГРАММАТИКЕ И СТИЛИСТИКЕ:", prompt)
         self.assertIn("ЖЕНСКИЙ РОД СПИКЕРА", prompt)
         self.assertIn("ОБРАЩЕНИЕ К ЖЕНЩИНЕ", prompt)
 

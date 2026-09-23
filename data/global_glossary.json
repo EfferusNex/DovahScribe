@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "total_terms": 122,
+    "total_terms": 127,
     "description": "Единый глобальный глоссарий терминов TES V: Skyrim и модов"
   },
   "terms": {
@@ -632,6 +632,36 @@
       "en": "Bards College",
       "ru": "Коллегия бардов",
       "category": "Faction",
+      "source_mod": "TES_Canon"
+    },
+    "Race": {
+      "en": "Race",
+      "ru": "Раса",
+      "category": "Concept",
+      "source_mod": "TES_Canon"
+    },
+    "Races": {
+      "en": "Races",
+      "ru": "Расы",
+      "category": "Concept",
+      "source_mod": "TES_Canon"
+    },
+    "Staff": {
+      "en": "Staff",
+      "ru": "Посох",
+      "category": "Item",
+      "source_mod": "TES_Canon"
+    },
+    "Follower": {
+      "en": "Follower",
+      "ru": "Спутник",
+      "category": "Concept",
+      "source_mod": "TES_Canon"
+    },
+    "Hostile": {
+      "en": "Hostile",
+      "ru": "Враждебный",
+      "category": "Concept",
       "source_mod": "TES_Canon"
     },
     "Dragonborn": {
