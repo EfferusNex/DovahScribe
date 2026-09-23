@@ -20,11 +20,20 @@ This document is designed for AI coding agents (Gemini, Claude Code, Cursor, Cli
 
 ---
 
-## 🏰 HouseCARL MCP Integration
+## 🏰 HouseCARL MCP Server (Prerequisites & Setup)
 
-- The `housecarl` MCP server connects directly to the user's active Mod Organizer 2 instance and Skyrim game directory.
-- **Paths are resolved automatically:** The agent does NOT need to manually configure or hardcode game directories or MO2 mod folders.
-- If the user needs help picking an installed mod, invoke `housecarl_load_order_status` to list available active plugins and present the list for the user to choose from.
+DovahScribe relies on the **houseCARL MCP Server** for low-level interaction with Bethesda plugins (`.esp`, `.esm`, `.esl`), record parsing, and binary patching.
+
+### 1. Verify HouseCARL MCP Availability:
+- The agent should check if `housecarl_*` tools (e.g. `housecarl_records`, `housecarl_apply`, `housecarl_load_order_status`) are present in its active MCP tool list.
+- **If available:** Proceed directly with the workflow. The MCP server automatically detects the user's active Mod Organizer 2 profile and Skyrim installation — **no manual path configuration is required**.
+- **If NOT available:** 
+  - Install and register the HouseCARL MCP server in your AI client environment (Antigravity, Gemini, Claude Desktop, Cursor, Cline, Windsurf).
+  - Refer to `mcp_config.example.json` in the root of this repository.
+  - Official Repository: [Avick3110/houseCARL (GitHub)](https://github.com/Avick3110/houseCARL).
+
+### 2. Autonomous Load Order Discovery:
+- When the user asks for available mods, run `housecarl_load_order_status` to fetch active plugins from MO2 and display a friendly list for the user to select from.
 
 ---
 
