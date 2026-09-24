@@ -12,6 +12,7 @@
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.11+"></a>
   <a href="https://elderscrolls.bethesda.net/"><img src="https://img.shields.io/badge/TES%20V-Skyrim%20SE%20%2F%20AE%20%2F%20VR-B22222?style=for-the-badge&logo=the-elder-scrolls&logoColor=white" alt="Skyrim"></a>
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/Release-v0.7.0-blueviolet?style=for-the-badge" alt="Version 0.7.0"></a>
+  <a href="AGENT_GUIDE.md"><img src="https://img.shields.io/badge/AI%20Agent-Native-orange?style=for-the-badge" alt="AI Agent Native"></a>
   <a href="AGENT_GUIDE.md"><img src="https://img.shields.io/badge/Quality%20Gate-100%25%20Verified-008080?style=for-the-badge" alt="Quality Gate"></a>
   <a href="https://github.com/EfferusNex/DovahScribe"><img src="https://img.shields.io/badge/Direct%20Binary%20Inject-0.05s-success?style=for-the-badge" alt="Direct Inject"></a>
 </p>
@@ -20,15 +21,29 @@
 
 ## 📖 О проекте
 
-**DovahScribe** — это полноценная интеллектуальная среда автоматизированного перевода (CAT) и прямого бинарного патчинга для моддинга **The Elder Scrolls V: Skyrim**. 
+**DovahScribe** — это специализированная интеллектуальная среда автоматизированного перевода (CAT) и прямого бинарного патчинга для моддинга **The Elder Scrolls V: Skyrim**. 
 
-Комплекс выводит качество локализации модов на уровень официальных студийных релизов благодаря передовым технологиям анализа и контроля качества:
+Комплекс спроектирован с упором на **автономную работу AI-агентов** (Antigravity, Gemini CLI, Claude Code, Cursor, Cline, OpenDevin), предоставляя языковым моделям готовую детерминированную инфраструктуру: сквозные графы диалогов, базы лора 1С, защиту скриптов Papyrus и мгновенный бинарный инжектор плагинов.
 
+### 🌟 Инженерные стандарты качества:
 * 💬 **Связные живые диалоги:** Граф диалогов передаёт нейросети контекст всей беседы целиком, сохраняя эмоциональный тон, интонацию и нить разговора.
 * 👩 **Грамматическое согласование рода:** Автоматический учёт пола NPC — спутницы и персонажи говорят о себе строго в женском роде (*«Я нашла»*, *«Я готова»*).
 * 🏛️ **Лорная точность и Anti-Trap:** 72,000+ каноничных терминов 1С и защита от нелепого буквального перевода (*«Staff»* ➔ *«Посох»*, *«Race»* ➔ *«Раса»*, *«Chest»* ➔ *«Сундук»*).
 * 🛡️ **Защита движка от вылетов:** 100% сохранение целостности игровых тегов и плейсхолдеров (`<ALIAS=Player>`, `%s`, `%d`, `[pagebreak]`).
 * ⚡ **Чистый бинарный деплой:** Прямой инжект строк в плагин (`ESPInjector`) за 0.05 сек с защитой Papyrus-скриптов и отсутствием лишнего мусора в сборке.
+
+---
+
+## 🔮 Вектор развития и планы (Roadmap)
+
+В настоящее время DovahScribe идеально оптимизирован для тандемной работы с **AI-агентами** через терминал и IDE. В ближайших обновлениях запланировано:
+
+1. 🔌 **Прямая интеграция LLM & MT API (Встроенный перевод):**
+   - Поддержка ввода собственных API-ключей (**OpenAI GPT-4o**, **Anthropic Claude 3.5**, **DeepSeek V3**, **Google Gemini Flash/Pro**, **DeepL**, **Yandex Cloud**) для перевода модов «в один клик» прямо из CLI или GUI без необходимости запуска внешней агентной среды.
+2. 📦 **Автономный оффлайн-режим (Без ИИ):**
+   - Режим мгновенной локализации без подключения к сети на основе 72k+ базы 1С, встроенной памяти переводов (TM), регулярных выражений и эвристических словарей.
+3. 🌳 **Интерактивный визуализатор графов диалогов:**
+   - Наглядная древовидная карта диалоговых веток и квестов (`QUST` ➔ `DIAL` ➔ `INFO`) прямо в веб-дашборде вычитки.
 
 ---
 
@@ -142,7 +157,6 @@ DovahScribe/
 ├── requirements.txt            # Зависимости проекта
 ├── AGENT_GUIDE.md              # Официальный гайд для сторонних AI-агентов
 ├── CHANGELOG.md                # История версий и изменений (Keep a Changelog)
-├── ROADMAP.md                  # Стратегический роадмап и бэклог развития
 ├── data/
 │   ├── Strings/                # Официальные двуязычные базы строк Bethesda (.strings)
 │   ├── vanilla_dictionary.json # Каноничная база официального перевода 1С (72k пар)
@@ -183,8 +197,7 @@ python -m unittest discover tests
 ## 📜 Документация и ссылки
 
 * 📖 **[AGENT_GUIDE.md](AGENT_GUIDE.md)** — Стандарт интеграции и жизненного цикла для AI-агентов.
-* 📜 **[CHANGELOG.md](CHANGELOG.md)** — Подробная история изменений по версиям.
-* 🗺️ **[ROADMAP.md](ROADMAP.md)** — Стратегический план развития и будущие вехи.
+* 📜 **[CHANGELOG.md](CHANGELOG.md)** — Подробная история версий и изменений.
 
 ---
 
