@@ -191,3 +191,136 @@ class NarrativeContextBuffer:
         lines.append("ПАКЕТЫ СТРОК ДЛЯ ПЕРЕВОДА:")
         lines.append(json.dumps(packages, ensure_ascii=False, indent=2))
         return "\n".join(lines)
+
+
+class DialogueGraphBuilder:
+    """
+    Построитель графа диалогов и квестовых деревьев (Dialogue Tree Graph).
+    Связывает:
+      Квесты (QUST) -> Топики / Реплики игрока (DIAL / Prompt) -> Ответы NPC (INFO / NAM1).
+    """
+
+    @classmethod
+    def build_graph(cls, items: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Строит иерархический граф диалогов из списка записей плагина.
+        """
+        quests_map: Dict[str, Dict[str, Any]] = {}
+        # Дефолтный контейнер для диалогов без привязки к явному квесту
+        default_quest_key = "GENERAL_DIALOGUES"
+        quests_map[default_quest_key] = {
+            "quest_id": default_quest_key,
+            "quest_name": "Общие диалоги (без квеста)",
+            "topics": {}
+        }
+
+        # 1. Первый проход: сбор квестов (QUST)
+        for item in items:
+            r_type = item.get("type", "")
+            if r_type in ["QUST", "Quest"]:
+                q_id = item.get("formid") or item.get("editorid") or "UNKNOWN_QUEST"
+                q_name = item.get("translated") or item.get("original") or item.get("text") or q_id
+                quests_map[q_id] = {
+                    "quest_id": q_id,
+                    "quest_name": q_name,
+                    "topics": {}
+                }
+
+        # 2. Второй проход: сбор топиков игрока (DIAL / Prompt)
+        topics_map: Dict[str, Dict[str, Any]] = {}
+        for item in items:
+            r_type = item.get("type", "")
+            field = item.get("field") or item.get("path") or ""
+            parent_ctx = item.get("parent_context", {})
+            topic_id = parent_ctx.get("topic_id") or (item.get("formid") if r_type in ["DIAL", "DialogTopic"] else None)
+
+            if r_type in ["DIAL", "DialogTopic"] or field == "Prompt":
+                t_id = item.get("formid") or topic_id or f"TOPIC_{item.get('id')}"
+                orig_prompt = item.get("original") or item.get("text") or ""
+                trans_prompt = item.get("translated") or orig_prompt
+                q_id = parent_ctx.get("quest_id") or default_quest_key
+                if q_id not in quests_map:
+                    quests_map[q_id] = {
+                        "quest_id": q_id,
+                        "quest_name": parent_ctx.get("quest_name") or q_id,
+                        "topics": {}
+                    }
+
+                topic_obj = {
+                    "topic_id": t_id,
+                    "prompt_original": orig_prompt,
+                    "prompt_translated": trans_prompt,
+                    "prompt_entry_id": item.get("id"),
+                    "responses": []
+                }
+                quests_map[q_id]["topics"][t_id] = topic_obj
+                topics_map[t_id] = topic_obj
+
+        # 3. Третий проход: сбор реплик NPC (INFO / DialogResponses)
+        total_dialogue_lines = 0
+        for item in items:
+            r_type = item.get("type", "")
+            if r_type not in ["INFO", "DialogResponses", "DialogResponse"]:
+                continue
+
+            total_dialogue_lines += 1
+            parent_ctx = item.get("parent_context", {})
+            topic_id = parent_ctx.get("topic_id") or item.get("topic")
+            spk_ctx = item.get("speaker_context", {})
+
+            resp_obj = {
+                "entry_id": item.get("id"),
+                "formid": item.get("formid", ""),
+                "original": item.get("original") or item.get("text") or "",
+                "translated": item.get("translated") or "",
+                "speaker": spk_ctx.get("speaker_name") or item.get("speaker") or "NPC",
+                "gender": spk_ctx.get("gender") or "unknown",
+                "quality_status": item.get("quality_status") or "ok",
+                "source": item.get("source", "pending")
+            }
+
+            # Пытаемся найти родительский топик
+            target_topic = None
+            if topic_id and topic_id in topics_map:
+                target_topic = topics_map[topic_id]
+            else:
+                # Если топик не найден явно, создаем дефолтный внутри квеста или general
+                q_id = parent_ctx.get("quest_id") or default_quest_key
+                if q_id not in quests_map:
+                    quests_map[q_id] = {
+                        "quest_id": q_id,
+                        "quest_name": parent_ctx.get("quest_name") or q_id,
+                        "topics": {}
+                    }
+                synth_t_id = topic_id or f"MISC_TOPIC_{item.get('id')}"
+                if synth_t_id not in quests_map[q_id]["topics"]:
+                    synth_topic = {
+                        "topic_id": synth_t_id,
+                        "prompt_original": parent_ctx.get("topic_name") or "Диалог",
+                        "prompt_translated": parent_ctx.get("topic_name") or "Диалог",
+                        "prompt_entry_id": None,
+                        "responses": []
+                    }
+                    quests_map[q_id]["topics"][synth_t_id] = synth_topic
+                    topics_map[synth_t_id] = synth_topic
+                target_topic = quests_map[q_id]["topics"][synth_t_id]
+
+            target_topic["responses"].append(resp_obj)
+
+        # Преобразуем словари в чистые списки
+        quests_list = []
+        for q_key, q_data in quests_map.items():
+            topics_list = list(q_data["topics"].values())
+            # Оставляем только квесты, у которых есть топики/реплики
+            if topics_list:
+                quests_list.append({
+                    "quest_id": q_data["quest_id"],
+                    "quest_name": q_data["quest_name"],
+                    "topics": topics_list
+                })
+
+        return {
+            "total_dialogue_lines": total_dialogue_lines,
+            "quests": quests_list
+        }
+

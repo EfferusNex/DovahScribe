@@ -107,6 +107,17 @@
             </div>
           </div>
 
+          <!-- Кнопка 3: Дерево диалогов (Dialogue Tree) -->
+          <div class="relative group">
+            <button onclick="openDialogueTreeModal()" class="px-3.5 py-1.5 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 text-sm font-medium border border-emerald-700/40 transition flex items-center gap-2 shadow-sm">
+              🌳 Дерево диалогов
+            </button>
+            <div class="absolute right-0 top-full mt-2 hidden group-hover:flex flex-col w-72 p-2.5 bg-gray-950/95 border border-emerald-700/50 rounded-xl shadow-2xl z-50 pointer-events-none text-xs backdrop-blur">
+              <span class="font-bold text-emerald-300 flex items-center gap-1.5">🌳 Интерактивный граф диалогов</span>
+              <p class="text-gray-400 text-[11px] mt-1 leading-snug">Визуализация квестовых веток, реплик игрока и ответов NPC с живым редактированием перевода прямо на узлах графа.</p>
+            </div>
+          </div>
+
           <!-- Кнопка 3: Сохранить Review JSON -->
           <div class="relative group">
             <button onclick="exportReviewJson()" id="btn-export-review" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-sm font-medium text-white transition flex items-center gap-2 shadow-lg shadow-indigo-600/20 disabled:opacity-50" disabled>
@@ -861,6 +872,19 @@
             `;
           }
 
+          let treeBtnBadge = '';
+          if (['INFO', 'DIAL', 'DialogResponses'].includes(entry.type) || entry.topic || entry.field === 'Prompt') {
+            treeBtnBadge = `
+              <button 
+                type="button"
+                onclick="openDialogueTreeForEntry(${entry.id})"
+                class="px-2 py-0.5 rounded bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 hover:text-emerald-100 font-mono text-[11px] border border-emerald-800/50 flex items-center gap-1 transition shadow-sm cursor-pointer"
+                title="Открыть эту реплику в интерактивном дереве диалогов">
+                <span>🌳 Дерево</span>
+              </button>
+            `;
+          }
+
           badgesHtml = `
             <div class="flex flex-wrap items-center gap-1.5 text-xs">
               <span class="px-2 py-0.5 rounded bg-gray-800/90 text-gray-300 font-mono text-[11px] border border-gray-700/50">${escapeHtml(cleanFormId || entry.formid || '')}</span>
@@ -869,6 +893,7 @@
               ${safetyBadge}
               ${roleBadge}
               ${topicBadgeLeft}
+              ${treeBtnBadge}
             </div>
           `;
         }
@@ -1715,6 +1740,522 @@
     function exportFalseFriendsJson() {
       downloadFile('false_friends.json', JSON.stringify(falseFriendsRules, null, 2));
     }
+
+    // ==========================================
+    // 🌳 ИНТЕРАКТИВНОЕ ДЕРЕВО ДИАЛОГОВ (DIALOGUE TREE VISUALIZER)
+    // ==========================================
+    let dtGraph = null;
+    let dtCurrentQuestId = 'ALL';
+    let dtCurrentTopicId = 'ALL';
+    let dtSearchQuery = '';
+    let dtZoom = 1.0;
+    let dtPanX = 20;
+    let dtPanY = 20;
+    let dtIsDragging = false;
+    let dtStartX = 0;
+    let dtStartY = 0;
+
+    function buildDialogueGraphFromEntries(items) {
+      const questsMap = {};
+      const defaultQuestKey = "GENERAL_DIALOGUES";
+      questsMap[defaultQuestKey] = {
+        quest_id: defaultQuestKey,
+        quest_name: "Общие диалоги (без квеста)",
+        topics: {}
+      };
+
+      // 1. Сбор квестов
+      items.forEach(e => {
+        if (e.type === 'QUST' || e.type === 'Quest') {
+          const qId = String(e.formid || e.editorid || `QUEST_${e.id}`).trim();
+          const qName = e.translated || e.original || e.text || qId;
+          questsMap[qId] = {
+            quest_id: qId,
+            quest_name: qName,
+            topics: {}
+          };
+        }
+      });
+
+      // 2. Сбор топиков
+      const topicsMap = {};
+      items.forEach(e => {
+        const parentCtx = e.parent_context || {};
+        const isTopic = ['DIAL', 'DialogTopic'].includes(e.type) || e.field === 'Prompt';
+        const topicId = parentCtx.topic_id || (isTopic ? (e.formid || `TOPIC_${e.id}`) : null);
+
+        if (isTopic && topicId) {
+          const qId = parentCtx.quest_id || defaultQuestKey;
+          if (!questsMap[qId]) {
+            questsMap[qId] = {
+              quest_id: qId,
+              quest_name: parentCtx.quest_name || qId,
+              topics: {}
+            };
+          }
+          const topicObj = {
+            topic_id: topicId,
+            prompt_original: e.original || e.text || '',
+            prompt_translated: e.translated || e.original || '',
+            prompt_entry_id: e.id,
+            responses: []
+          };
+          questsMap[qId].topics[topicId] = topicObj;
+          topicsMap[topicId] = topicObj;
+        }
+      });
+
+      // 3. Сбор реплик INFO
+      let totalLines = 0;
+      items.forEach(e => {
+        if (!['INFO', 'DialogResponses', 'DialogResponse'].includes(e.type)) return;
+        totalLines++;
+        const parentCtx = e.parent_context || {};
+        const topicId = parentCtx.topic_id || e.topic;
+        const spkCtx = e.speaker_context || {};
+
+        const respObj = {
+          entry_id: e.id,
+          formid: e.formid || '',
+          original: e.original || e.text || '',
+          translated: e.translated || '',
+          speaker: spkCtx.speaker_name || e.speaker || 'NPC',
+          gender: spkCtx.gender || 'unknown',
+          quality_status: e.ui_status || 'ok',
+          ui_issue: e.ui_issue || '',
+          source: e.source || 'pending'
+        };
+
+        let targetTopic = topicId ? topicsMap[topicId] : null;
+        if (!targetTopic) {
+          const qId = parentCtx.quest_id || defaultQuestKey;
+          if (!questsMap[qId]) {
+            questsMap[qId] = {
+              quest_id: qId,
+              quest_name: parentCtx.quest_name || qId,
+              topics: {}
+            };
+          }
+          const synthId = topicId || `MISC_TOPIC_${e.id}`;
+          if (!questsMap[qId].topics[synthId]) {
+            const synthTopic = {
+              topic_id: synthId,
+              prompt_original: parentCtx.topic_name || e.topic || 'Диалоговая сцена',
+              prompt_translated: parentCtx.topic_name || e.topic || 'Диалоговая сцена',
+              prompt_entry_id: null,
+              responses: []
+            };
+            questsMap[qId].topics[synthId] = synthTopic;
+            topicsMap[synthId] = synthTopic;
+          }
+          targetTopic = questsMap[qId].topics[synthId];
+        }
+        targetTopic.responses.push(respObj);
+      });
+
+      const questsList = [];
+      Object.values(questsMap).forEach(q => {
+        const topicsList = Object.values(q.topics);
+        if (topicsList.length > 0) {
+          questsList.push({
+            quest_id: q.quest_id,
+            quest_name: q.quest_name,
+            topics: topicsList
+          });
+        }
+      });
+
+      return {
+        total_lines: totalLines,
+        quests: questsList
+      };
+    }
+
+    function openDialogueTreeModal(targetQuestId = null, targetTopicId = null, targetEntryId = null) {
+      dtGraph = buildDialogueGraphFromEntries(entries);
+      const modal = document.getElementById('modal-dialogue-tree');
+      modal.classList.remove('hidden');
+
+      // Инициализация событий панорамирования/зума
+      initDialogueTreeViewport();
+
+      // Заполняем селекторы
+      populateDialogueTreeSelectors();
+
+      if (targetQuestId) {
+        dtCurrentQuestId = targetQuestId;
+        const qSelect = document.getElementById('dt-quest-select');
+        if (qSelect) qSelect.value = targetQuestId;
+        updateTopicSelectorOptions();
+      }
+      if (targetTopicId) {
+        dtCurrentTopicId = targetTopicId;
+        const tSelect = document.getElementById('dt-topic-select');
+        if (tSelect) tSelect.value = targetTopicId;
+      }
+
+      dtResetZoom();
+      renderDialogueTreeCanvas();
+
+      if (targetEntryId) {
+        setTimeout(() => {
+          highlightDialogueNode(targetEntryId);
+        }, 200);
+      }
+    }
+
+    function closeDialogueTreeModal() {
+      document.getElementById('modal-dialogue-tree').classList.add('hidden');
+    }
+
+    function openDialogueTreeForEntry(entryId) {
+      const entry = entries.find(e => e.id === entryId);
+      if (!entry) return;
+      const parentCtx = entry.parent_context || {};
+      const qId = parentCtx.quest_id || null;
+      const tId = parentCtx.topic_id || (entry.topic ? String(entry.topic).trim() : null);
+      openDialogueTreeModal(qId, tId, entryId);
+    }
+
+    function populateDialogueTreeSelectors() {
+      const qSelect = document.getElementById('dt-quest-select');
+      qSelect.innerHTML = '<option value="ALL">🌐 Все квесты и ветки</option>';
+
+      if (dtGraph && dtGraph.quests) {
+        dtGraph.quests.forEach(q => {
+          const opt = document.createElement('option');
+          opt.value = q.quest_id;
+          opt.textContent = `📜 ${q.quest_name} (${q.topics.length} топиков)`;
+          qSelect.appendChild(opt);
+        });
+      }
+
+      updateTopicSelectorOptions();
+    }
+
+    function updateTopicSelectorOptions() {
+      const qSelect = document.getElementById('dt-quest-select');
+      const tSelect = document.getElementById('dt-topic-select');
+      const selectedQId = qSelect.value;
+      dtCurrentQuestId = selectedQId;
+
+      tSelect.innerHTML = '<option value="ALL">💬 Все топики</option>';
+
+      if (dtGraph && dtGraph.quests) {
+        let candidateTopics = [];
+        if (selectedQId === 'ALL') {
+          dtGraph.quests.forEach(q => candidateTopics.push(...q.topics));
+        } else {
+          const foundQ = dtGraph.quests.find(q => q.quest_id === selectedQId);
+          if (foundQ) candidateTopics = foundQ.topics;
+        }
+
+        candidateTopics.forEach(t => {
+          const opt = document.createElement('option');
+          opt.value = t.topic_id;
+          const promptShort = (t.prompt_translated || t.prompt_original || t.topic_id);
+          opt.textContent = `💬 ${promptShort.substring(0, 45)}${promptShort.length > 45 ? '...' : ''} (${t.responses.length} реплик)`;
+          tSelect.appendChild(opt);
+        });
+      }
+
+      dtCurrentTopicId = tSelect.value;
+      renderDialogueTreeCanvas();
+    }
+
+    function onTopicSelectChange() {
+      const tSelect = document.getElementById('dt-topic-select');
+      dtCurrentTopicId = tSelect.value;
+      renderDialogueTreeCanvas();
+    }
+
+    function onDialogueTreeSearch(val) {
+      dtSearchQuery = val.trim();
+      renderDialogueTreeCanvas();
+    }
+
+    function renderDialogueTreeCanvas() {
+      const container = document.getElementById('dt-canvas-content');
+      container.innerHTML = '';
+
+      if (!dtGraph || dtGraph.quests.length === 0) {
+        container.innerHTML = `
+          <div class="flex flex-col items-center justify-center h-full p-12 text-center text-gray-400">
+            <span class="text-4xl mb-3">💬</span>
+            <h3 class="text-base font-semibold text-gray-200">В этом моде не обнаружено диалоговых веток</h3>
+            <p class="text-xs text-gray-500 mt-1 max-w-md">Дерево автоматически формирует граф из записей QUST, DIAL, INFO и топиков при их наличии.</p>
+          </div>
+        `;
+        document.getElementById('dt-stats-bar').textContent = 'Ветка: 0 диалогов';
+        return;
+      }
+
+      let displayQuests = dtGraph.quests;
+      if (dtCurrentQuestId && dtCurrentQuestId !== 'ALL') {
+        displayQuests = displayQuests.filter(q => q.quest_id === dtCurrentQuestId);
+      }
+
+      let renderedBranchesCount = 0;
+      let renderedLinesCount = 0;
+      let translatedCount = 0;
+
+      const mainWrapper = document.createElement('div');
+      mainWrapper.className = 'flex flex-col gap-8 p-6 max-w-6xl mx-auto';
+
+      displayQuests.forEach(quest => {
+        let displayTopics = quest.topics;
+        if (dtCurrentTopicId && dtCurrentTopicId !== 'ALL') {
+          displayTopics = displayTopics.filter(t => t.topic_id === dtCurrentTopicId);
+        }
+
+        if (dtSearchQuery) {
+          const qLower = dtSearchQuery.toLowerCase();
+          displayTopics = displayTopics.filter(t => {
+            const matchPrompt = (t.prompt_original || '').toLowerCase().includes(qLower) || (t.prompt_translated || '').toLowerCase().includes(qLower);
+            const matchResp = t.responses.some(r => (r.original || '').toLowerCase().includes(qLower) || (r.translated || '').toLowerCase().includes(qLower) || (r.speaker || '').toLowerCase().includes(qLower));
+            return matchPrompt || matchResp;
+          });
+        }
+
+        if (displayTopics.length === 0) return;
+
+        // Карточка квеста
+        const questSection = document.createElement('div');
+        questSection.className = 'bg-gray-900/80 border border-indigo-900/50 rounded-2xl p-5 space-y-5 shadow-2xl backdrop-blur';
+
+        const questHeader = document.createElement('div');
+        questHeader.className = 'flex flex-wrap items-center justify-between border-b border-gray-800 pb-3 gap-2';
+        questHeader.innerHTML = `
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">📜</span>
+            <div>
+              <h3 class="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+                ${escapeHtml(quest.quest_name)}
+                <span class="text-[11px] font-mono font-normal px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800/40">${escapeHtml(quest.quest_id)}</span>
+              </h3>
+              <span class="text-[11px] text-gray-400">Топиков в ветке: ${displayTopics.length}</span>
+            </div>
+          </div>
+        `;
+        questSection.appendChild(questHeader);
+
+        // Список топиков
+        const topicsContainer = document.createElement('div');
+        topicsContainer.className = 'space-y-6';
+
+        displayTopics.forEach(topic => {
+          renderedBranchesCount++;
+          const topicCard = document.createElement('div');
+          topicCard.className = 'bg-gray-950/90 border border-emerald-900/40 rounded-xl p-4 shadow-lg flex flex-col lg:flex-row gap-5 items-start';
+
+          // Левая колонка: Вопрос игрока
+          const promptNode = document.createElement('div');
+          promptNode.id = `dt-node-topic-${topic.topic_id}`;
+          promptNode.className = 'w-full lg:w-80 flex-shrink-0 bg-emerald-950/25 border border-emerald-800/50 rounded-xl p-3.5 space-y-2';
+          promptNode.innerHTML = `
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-semibold border border-emerald-700/50 flex items-center gap-1 shadow-sm">
+                👤 Вопрос игрока
+              </span>
+              ${topic.prompt_entry_id ? `<button onclick="jumpFromTreeToRow(${topic.prompt_entry_id})" class="text-[10px] text-emerald-400 hover:text-emerald-200 underline font-mono">#${topic.prompt_entry_id}</button>` : ''}
+            </div>
+            <div class="text-xs text-gray-300 bg-gray-900/80 p-2 rounded border border-gray-800 font-sans leading-relaxed">
+              <span class="text-[10px] text-gray-500 uppercase block font-semibold mb-0.5">EN оригинал:</span>
+              «${escapeHtml(topic.prompt_original)}»
+            </div>
+            <div class="text-xs text-emerald-200 bg-emerald-950/40 p-2 rounded border border-emerald-800/40 font-sans font-medium leading-relaxed">
+              <span class="text-[10px] text-emerald-500 uppercase block font-semibold mb-0.5">RU перевод:</span>
+              «${escapeHtml(topic.prompt_translated || topic.prompt_original)}»
+            </div>
+          `;
+          topicCard.appendChild(promptNode);
+
+          // Разделитель / Стрелка связи
+          const arrowEl = document.createElement('div');
+          arrowEl.className = 'hidden lg:flex items-center justify-center self-center text-emerald-500/70 text-2xl font-bold px-1 select-none';
+          arrowEl.innerHTML = '➔';
+          topicCard.appendChild(arrowEl);
+
+          // Правая колонка: Ответы NPC
+          const responsesContainer = document.createElement('div');
+          responsesContainer.className = 'flex-1 w-full space-y-3';
+
+          if (topic.responses.length === 0) {
+            responsesContainer.innerHTML = `<div class="text-xs text-gray-500 italic p-3 bg-gray-900/40 rounded-lg border border-gray-800">Нет прикрепленных дочерних реплик NPC</div>`;
+          } else {
+            topic.responses.forEach(resp => {
+              renderedLinesCount++;
+              if (resp.translated && resp.translated.trim()) translatedCount++;
+
+              const respNode = document.createElement('div');
+              respNode.id = `dt-node-resp-${resp.entry_id}`;
+              const isOk = resp.quality_status === 'ok';
+              const isPending = resp.quality_status === 'pending' || !resp.translated.trim();
+
+              respNode.className = `p-3 rounded-xl border transition flex flex-col md:flex-row gap-3 items-start ${
+                isPending 
+                  ? 'bg-gray-900/60 border-gray-800' 
+                  : (!isOk ? 'bg-amber-950/20 border-amber-500/40 shadow-md shadow-amber-950/20' : 'bg-gray-900/40 border-gray-800/80')
+              }`;
+
+              const spkGender = resp.gender === 'female' ? '♀ ' : (resp.gender === 'male' ? '♂ ' : '');
+              const statusBadge = isPending 
+                ? `<span class="px-1.5 py-0.5 rounded bg-rose-950/80 text-rose-300 text-[10px] border border-rose-800/40">Ожидает</span>`
+                : (!isOk 
+                    ? `<span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 text-[10px] border border-amber-700/40">Замечание</span>`
+                    : `<span class="px-1.5 py-0.5 rounded bg-emerald-950/80 text-emerald-300 text-[10px] border border-emerald-700/40">Готово</span>`);
+
+              respNode.innerHTML = `
+                <div class="w-full md:w-1/2 space-y-1.5">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="px-2 py-0.5 rounded bg-pink-950/80 text-pink-300 font-medium border border-pink-800/40 flex items-center gap-1">
+                      🗣️ ${spkGender}${escapeHtml(resp.speaker)}
+                    </span>
+                    <div class="flex items-center gap-2">
+                      ${statusBadge}
+                      <button onclick="jumpFromTreeToRow(${resp.entry_id})" class="text-[10px] text-pink-400 hover:text-pink-200 underline font-mono" title="Перейти к строке в таблице">
+                        #${resp.entry_id}
+                      </button>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-200 bg-gray-950/70 p-2 rounded border border-gray-800/80 font-sans leading-relaxed">
+                    ${escapeHtml(resp.original)}
+                  </div>
+                </div>
+
+                <div class="w-full md:w-1/2 space-y-1.5">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-[11px] font-semibold text-pink-400 uppercase tracking-wide">Перевод:</span>
+                    <button onclick="saveNodeTranslation(${resp.entry_id})" class="px-2.5 py-0.5 rounded bg-pink-600 hover:bg-pink-500 text-[11px] font-semibold text-white transition flex items-center gap-1 shadow-sm">
+                      💾 Сохранить
+                    </button>
+                  </div>
+                  <textarea 
+                    id="dt-textarea-${resp.entry_id}"
+                    rows="2"
+                    placeholder="Введите перевод на русском..."
+                    class="w-full p-2 rounded-lg bg-gray-950 border border-gray-700 focus:border-pink-500 focus:ring-1 focus:ring-pink-500 text-xs text-white resize-y font-sans leading-relaxed"
+                  >${escapeHtml(resp.translated || '')}</textarea>
+                </div>
+              `;
+              responsesContainer.appendChild(respNode);
+            });
+          }
+
+          topicCard.appendChild(responsesContainer);
+          topicsContainer.appendChild(topicCard);
+        });
+
+        questSection.appendChild(topicsContainer);
+        mainWrapper.appendChild(questSection);
+      });
+
+      container.appendChild(mainWrapper);
+
+      document.getElementById('dt-stats-bar').textContent = `Показано: ${renderedBranchesCount} топиков | Реплик: ${renderedLinesCount} | Переведено: ${translatedCount} (${renderedLinesCount ? Math.round(translatedCount/renderedLinesCount*100) : 0}%)`;
+    }
+
+    function saveNodeTranslation(entryId) {
+      const textarea = document.getElementById(`dt-textarea-${entryId}`);
+      if (!textarea) return;
+      const newText = textarea.value;
+
+      const entry = entries.find(e => e.id === entryId);
+      if (entry) {
+        entry.translated = newText;
+        entry.source = 'manual_review';
+        runFullAudit();
+        renderTable();
+
+        const btn = event?.target;
+        if (btn) {
+          const origText = btn.textContent;
+          btn.textContent = '✅ Сохранено!';
+          btn.classList.add('bg-emerald-600');
+          setTimeout(() => {
+            btn.textContent = origText;
+            btn.classList.remove('bg-emerald-600');
+          }, 1200);
+        }
+
+        // Синхронизируем статистику дерева
+        renderDialogueTreeCanvas();
+      }
+    }
+
+    function jumpFromTreeToRow(entryId) {
+      closeDialogueTreeModal();
+      
+      // Находим страницу
+      const entryIdx = filteredEntries.findIndex(e => e.id === entryId);
+      if (entryIdx !== -1) {
+        currentPage = Math.floor(entryIdx / pageSize) + 1;
+        renderTable();
+      }
+
+      setTimeout(() => {
+        const textarea = document.getElementById(`trans-${entryId}`);
+        if (textarea) {
+          textarea.focus();
+          textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const card = textarea.closest('.rounded-xl');
+          if (card) {
+            card.classList.add('card-jump-flash');
+            setTimeout(() => card.classList.remove('card-jump-flash'), 2000);
+          }
+        }
+      }, 150);
+    }
+
+    function highlightDialogueNode(entryId) {
+      const node = document.getElementById(`dt-node-resp-${entryId}`);
+      if (node) {
+        node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        node.classList.add('card-jump-flash');
+        setTimeout(() => node.classList.remove('card-jump-flash'), 2500);
+      }
+    }
+
+    function initDialogueTreeViewport() {
+      const viewport = document.getElementById('dt-viewport');
+      if (!viewport || viewport.dataset.initialized) return;
+      viewport.dataset.initialized = 'true';
+
+      viewport.addEventListener('wheel', (e) => {
+        if (e.ctrlKey || e.metaKey || e.altKey) {
+          e.preventDefault();
+          if (e.deltaY < 0) dtZoomIn();
+          else dtZoomOut();
+        }
+      }, { passive: false });
+    }
+
+    function dtZoomIn() {
+      dtZoom = Math.min(1.6, dtZoom + 0.1);
+      applyCanvasTransform();
+    }
+
+    function dtZoomOut() {
+      dtZoom = Math.max(0.6, dtZoom - 0.1);
+      applyCanvasTransform();
+    }
+
+    function dtResetZoom() {
+      dtZoom = 1.0;
+      dtPanX = 0;
+      dtPanY = 0;
+      applyCanvasTransform();
+    }
+
+    function applyCanvasTransform() {
+      const content = document.getElementById('dt-canvas-content');
+      if (content) {
+        content.style.transform = `scale(${dtZoom})`;
+        content.style.transformOrigin = 'top center';
+      }
+      const zoomBadge = document.getElementById('dt-zoom-level');
+      if (zoomBadge) zoomBadge.textContent = `${Math.round(dtZoom * 100)}%`;
+    }
   </script>
 
   <!-- МОДАЛЬНОЕ ОКНО РЕЕСТРА ЛЯПОВ (ANTI-TRAP) -->
@@ -1777,6 +2318,88 @@
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО ДЕРЕВА ДИАЛОГОВ (DIALOGUE TREE VISUALIZER) -->
+  <div id="modal-dialogue-tree" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-gray-950 border border-emerald-700/50 rounded-2xl w-full h-[94vh] max-w-[1850px] flex flex-col shadow-2xl shadow-emerald-950/50 overflow-hidden">
+      
+      <!-- Верхняя панель управления деревом диалогов -->
+      <div class="p-3 sm:p-4 border-b border-gray-800 bg-gray-900/80 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🌳</span>
+          <div>
+            <h2 class="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+              Интерактивное дерево диалогов и квестов
+              <span id="dt-zoom-level" class="text-xs font-mono font-normal px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800/50">100%</span>
+            </h2>
+            <span id="dt-stats-bar" class="text-[11px] text-gray-400">Загрузка структуры диалогов...</span>
+          </div>
+        </div>
+
+        <!-- Фильтры и селекторы -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Выбор квеста -->
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs text-gray-400 font-medium">Квест:</span>
+            <select id="dt-quest-select" onchange="updateTopicSelectorOptions()" class="bg-gray-950 border border-gray-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-emerald-500 focus:outline-none max-w-[240px]">
+              <option value="ALL">🌐 Все квесты и ветки</option>
+            </select>
+          </div>
+
+          <!-- Выбор топика -->
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs text-gray-400 font-medium">Топик:</span>
+            <select id="dt-topic-select" onchange="onTopicSelectChange()" class="bg-gray-950 border border-gray-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-emerald-500 focus:outline-none max-w-[260px]">
+              <option value="ALL">💬 Все топики</option>
+            </select>
+          </div>
+
+          <!-- Поиск по репликам -->
+          <div class="relative">
+            <input 
+              id="dt-search-input" 
+              type="text" 
+              placeholder="Поиск по фразам..." 
+              oninput="onDialogueTreeSearch(this.value)"
+              class="bg-gray-950 border border-gray-700 rounded-lg pl-7 pr-2.5 py-1.5 text-xs text-white focus:border-emerald-500 focus:outline-none w-44"
+            >
+            <span class="absolute left-2 top-2 text-xs text-gray-500">🔍</span>
+          </div>
+
+          <!-- Зум-контролы -->
+          <div class="flex items-center gap-1 bg-gray-950 p-1 rounded-lg border border-gray-800">
+            <button onclick="dtZoomIn()" class="px-2 py-1 rounded hover:bg-gray-800 text-xs text-gray-300 font-bold transition" title="Увеличить (Zoom In)">➕</button>
+            <button onclick="dtZoomOut()" class="px-2 py-1 rounded hover:bg-gray-800 text-xs text-gray-300 font-bold transition" title="Уменьшить (Zoom Out)">➖</button>
+            <button onclick="dtResetZoom()" class="px-2 py-1 rounded hover:bg-gray-800 text-xs text-gray-300 font-mono transition" title="Сбросить зум (100%)">↺ 100%</button>
+          </div>
+
+          <!-- Закрыть -->
+          <button onclick="closeDialogueTreeModal()" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-sm text-gray-300 hover:text-white font-bold transition ml-1" title="Закрыть окно">
+            &times;
+          </button>
+        </div>
+      </div>
+
+      <!-- Основная область полотна диалогов (Viewport) -->
+      <div id="dt-viewport" class="flex-1 overflow-auto bg-[#070b14] relative select-text cursor-default">
+        <div id="dt-canvas-content" class="transition-transform duration-100 ease-out origin-top">
+          <!-- Дерево диалогов генерируется динамически -->
+        </div>
+      </div>
+
+      <!-- Нижняя статусная панель -->
+      <div class="p-2.5 px-4 border-t border-gray-800 bg-gray-900/60 flex flex-wrap items-center justify-between text-xs text-gray-400">
+        <div class="flex items-center gap-2">
+          <span>💡</span>
+          <span><b>Подсказка:</b> Редактируйте перевод прямо внутри карточек ответов на графе и нажимайте <code class="text-pink-400 font-mono">💾 Сохранить</code>. Клик по номеру <code class="text-pink-400 font-mono">#ID</code> перенесет вас к строке в общей таблице.</span>
+        </div>
+        <button onclick="closeDialogueTreeModal()" class="px-3 py-1 rounded bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 transition">
+          Закрыть
+        </button>
+      </div>
+
     </div>
   </div>
 </body>
