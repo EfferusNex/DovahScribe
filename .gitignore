@@ -63,7 +63,7 @@ Interface/
 # ------------------------------------------------------------------------------
 # 5. DATA DIRECTORY: Strict Whitelist (Block ALL except Core Dictionaries)
 # ------------------------------------------------------------------------------
-# Block everything inside data/ by default:
+# Block everything inside data/ by default (reviews, patches, tm, raw caches, mcm outputs):
 data/*
 
 # Whitelist: ALLOW ONLY canonical TES dictionaries & immutable glossaries
@@ -85,10 +85,20 @@ web/*_backup.*
 !web/dovahscribe_banner.jpg
 
 # ------------------------------------------------------------------------------
-# 7. SCRIPTS: Root & Source temporary one-off scratch scripts
+# 7. SCRATCH & TEMPORARY FILES (Diagnostic dumps, one-off scripts, test plugins)
+# ------------------------------------------------------------------------------
+scratch/
+scratch/**
+*.tmp
+*.bak
+*.swp
+*.patch
+*.diff
+
+# ------------------------------------------------------------------------------
+# 8. SCRIPTS: Root & Source temporary one-off scratch scripts
 # ------------------------------------------------------------------------------
 translate_*.py
 !translate.py
 src/apply_*.py
 src/translate_*.py
-

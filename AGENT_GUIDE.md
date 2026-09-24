@@ -37,55 +37,84 @@ DovahScribe relies on the **houseCARL MCP Server** for low-level interaction wit
 
 ---
 
-## 📋 MANDATORY 7-STEP TRANSLATION LIFECYCLE
+## 📋 MANDATORY TRANSLATION LIFECYCLE & WORKFLOW MODES
 
-When the user specifies a plugin to translate (e.g. `SampleMod.esp`), execute the following steps in sequence:
+Depending on user intent, select the appropriate execution path:
 
-### Step 1. Raw Extraction (`.jsonl`)
-- Query plugin records using `housecarl_records` (or execute `python translate.py --step extract --plugin SampleMod.esp`).
-- Save the raw dump to `data/raw_extracted/SampleMod_raw.jsonl`.
+### 🌟 Mode A: End-to-End Autonomous Translation (Default: *"Translate / Локализуй мод <ModName>"*)
+Follow the complete 7-step lifecycle. **Do NOT stop at Step 2 (Match)**: the AI agent MUST translate all pending strings in Step 4 before launching the review preview in Step 5.
+
+### 🔍 Mode B: Inspection / Manual CAT Mode (*"Dump strings / Open review for <ModName>"*)
+Execute Steps 1–2 (Extract & Match), then immediately launch `app.py` in Step 5, reporting how many strings are ready vs pending for manual user translation.
+
+---
+
+### Step 1. Raw Extraction (`.jsonl` & PEX/VMAD)
+- Query plugin records using `housecarl_records` (always specify `"source": "SampleMod.esp"` to disable load-order winner overrides) or execute `python translate.py --step extract --plugin SampleMod.esp`.
+- Save the complete raw dump to `data/raw_extracted/SampleMod_raw.jsonl`.
 - Extract SkyUI MCM translation files (`Interface/Translations/SampleMod_ENGLISH.txt`) if present.
+- **MCM & Script Properties (VMAD / PEX):** Many mods (e.g. Apocalypse, Ordinator, Sacrosanct) store their entire MCM menu configuration in `VMAD` script properties on Quest records rather than `Interface/Translations/`. Always run `PexSafetyEngine.extract_vmad_strings(esp_path)` and inspect `.pex` scripts in BSA/loose files during extraction to capture all UI text.
 
 ### Step 2. Vanilla Skyrim Base Matching (0 Tokens)
 - Run `python translate.py --step match --plugin SampleMod.esp` (or internal `VanillaMatcher`).
-- Instantly matches against the official 68,000-entry canonical Russian Skyrim dictionary (`Skyrim`, `Update`, `Dawnguard`, `Hearthfires`, `Dragonborn`) with zero token consumption.
+- Instantly matches against the official 72,600+ entry canonical Russian Skyrim dictionary (`Skyrim`, `Update`, `Dawnguard`, `Hearthfires`, `Dragonborn`) with zero token consumption.
+- Ingests Cyrillic master overrides directly as `vanilla_russian`.
+- Generates the initial review manifest `data/review/SampleMod_review.json` with matched strings marked as `vanilla_strings` / `tm_cache` / `vanilla_russian` and new strings (including safe `VMAD` script properties) marked as `pending`.
 
 ### Step 3. Translation Memory Lookup (Mod Translation Memory)
-- Check for existing `data/mod_translations/SampleMod.json`.
-- If the mod was previously translated or updated, pull in existing verified translations automatically.
+- Automatically integrated into Step 2 (`TranslationEngine`). Pulls verified translations from `data/mod_translations/SampleMod.json`.
 
-### Step 4. Contextual AI Translation (Pending Strings)
-- Assemble contextual packages containing dialogue branches, speaker metadata (`speaker_context.gender`, `speaker_context.role`), and Elder Scrolls lore rules.
-- Translate only the remaining `pending` strings into natural, lore-accurate Russian.
-- Export the intermediate review manifest to `data/review/SampleMod_review.json`.
+### Step 4. Contextual AI Translation (Pending Strings Execution)
+> **CRITICAL FOR AI AGENTS IN MODE A:** `translate.py` does not contain an internal LLM API call. The AI Agent operating in the IDE/CLI performs this translation directly!
+1. **Read Manifest:** Load `data/review/SampleMod_review.json`.
+2. **Identify Pending Entries:** Find all items where `"source": "pending"` or `"translated"` is empty.
+3. **Translate Contextually:** Translate the pending English strings into lore-accurate, canonical Russian:
+   - Respect `speaker_context.gender` (female grammatical inflections when `female`).
+   - Preserve all engine tags (`<ALIAS=...>`, `<font color=...>`, `%s`, `[pagebreak]`).
+   - Obey the Elder Scrolls Lore Glossary (Staff -> Посох, Chest -> Сундук, Race -> Раса).
+4. **Update Manifest:** Put translated Russian text into `"translated"`, set `"source": "ai_agent"`.
+5. **Save Review File:** Write the updated JSON back to `data/review/SampleMod_review.json`.
+6. **Audit Quality:** Run `python translate.py --step audit --plugin SampleMod.esp` to verify zero language leaks or broken tags.
 
 ### Step 5. Launch Interactive Preview & ENTER STANDBY MODE
-- Launch the native desktop CAT dashboard in a non-blocking Windows process:
+- Provide the generated standalone HTML dashboard link (`web/SampleMod_dashboard.html`) and/or launch the native desktop CAT dashboard in a non-blocking Windows process:
   ```powershell
   Start-Process -FilePath "python" -ArgumentList "app.py SampleMod"
   # or via compiled binary:
   Start-Process -FilePath ".\DovahScribe.exe" -ArgumentList "SampleMod"
   ```
-- **CRITICAL (Standby Requirement):** Notify the user that the editor window is open, and **PAUSE execution**. Do NOT proceed to patching or deployment until the user has reviewed their strings.
+- **CRITICAL (Standby Requirement):** Notify the user that the review file and dashboard are ready, summarize stats (e.g. `120 translated, 0 pending, 0 leaks`), and **PAUSE execution**. Do NOT proceed to patching or deployment until the user confirms review.
 - Example message to user:
-  > *"DovahScribe Desktop Review Window is now open for `SampleMod`! You can inspect and edit translations in the CAT interface (Ctrl+S to save). When you are satisfied and close the window, let me know with 'Ready' or 'Deploy' to package and deploy the patch to MO2!"*
+  > *"DovahScribe Review & Dashboard are ready for `SampleMod`! You can inspect and edit translations in the CAT interface (Ctrl+S to save) or dashboard. When you are satisfied, let me know with 'Ready' or 'Deploy' to package and deploy the patch to MO2!"*
 
 ### Step 6. Binary Patch Packaging
 - After the user confirms review completion, execute:
   ```powershell
   python translate.py --step patch --plugin SampleMod.esp
   ```
-- Builds the operation manifest `data/patches/SampleMod_ops.json` and patches the binary via `housecarl_apply`.
+- Builds the operation manifest `data/patches/SampleMod_ops.json` and patches the binary via `ESPInjector` / `housecarl_apply`.
 
 ### Step 7. Automated MO2 Deployment & Load Order Priority
 - Deploy the localized mod into Mod Organizer 2:
   ```powershell
   python translate.py --step deploy --plugin SampleMod.esp
   ```
-- The deployment script automatically:
-  1. Creates an isolated mod folder in Mod Organizer 2: `mods/SampleMod [RU]/`.
-  2. Places patched binaries and Russian MCM translation files into the directory.
-  3. **Appends the mod to MO2 `modlist.txt` with highest priority AFTER the original plugin**, guaranteeing the translation wins all asset conflicts.
+- The deployment script automatically creates a **single self-contained package** in `mods/<ModName> [RU]/` with all translated assets bundled together:
+  ```text
+  mods/<ModName> [RU]/
+  ├── <ModName>.esp / .esm / .esl         # Direct patched binary (ESPInjector)
+  ├── meta.ini                            # MO2 metadata (category: Translations)
+  ├── seq/                                # Quest start-enabled sequence (.seq) if original had one
+  │   └── *.seq
+  ├── scripts/                            # ONLY translated/modified binary scripts (.pex)
+  │   └── *.pex
+  ├── Source/Scripts/                     # ONLY translated/modified Papyrus script sources (.psc)
+  │   └── *.psc
+  └── Interface/Translations/             # SkyUI MCM UTF-16 LE translation files
+      └── <ModName>_RUSSIAN.txt
+  ```
+  *(Note: If scripts were NOT modified/translated, do NOT copy them into `[RU]` — let the original mod supply its original unedited files cleanly!)*
+- **Inserts `+<ModName> [RU]` into MO2 `modlist.txt` directly above the original mod**, guaranteeing higher priority and clean asset overrides in MO2 VFS without touching original files.
 
 ---
 
@@ -103,7 +132,7 @@ python translate.py --step match --plugin <ModName.esp>
 # 3. Audit translation quality & check for English leaks
 python translate.py --step audit --plugin <ModName.esp>
 
-# 4. Build binary patch via housecarl_apply
+# 4. Build binary patch / Direct ESP injection
 python translate.py --step patch --plugin <ModName.esp>
 
 # 5. Deploy localized mod to Mod Organizer 2 (<ModName> [RU])
@@ -151,6 +180,20 @@ All stages communicate through standardized JSON review files:
   ]
 }
 ```
+
+---
+
+## 📜 Papyrus PEX & VMAD Script Safety Engine (`src/pex_safety.py`)
+
+Many Skyrim mods (including Apocalypse, Ordinator, Sacrosanct, UI mods) configure their MCM menus, HUD displays, notifications, and spell formatters inside **VMAD script properties** on Quest records or compiled **`.pex` scripts**.
+
+### 1. Safety Classification (xTranslator-Style Protection):
+- 🔒 **`locked` (`auth: false`):** Script/class names, property names, state names, local variables, and arguments passed to blacklisted Papyrus engine calls (148 built-in functions from `pexNoTransProc.txt`, e.g. `RegisterForUpdate`, `SendStoryEvent`, `PlayAnimation`). **AI Agents and users MUST NOT modify or translate locked entries.**
+- ⚠️ **`warning` (`warn: true`):** Strings used in conditional branch comparisons (`==`, `!=`, `<`, `>`). Inspect with care to avoid breaking state-machine comparisons.
+- 🟢 **`safe` (`auth: true`):** Player-facing text: `Debug.Notification`, `Debug.MessageBox`, `SetInfoText`, `VMAD` script string properties (MCM titles, option labels, descriptions, and format strings).
+
+### 2. Autonomous Agent Rule:
+When translating a mod in Mode A, always extract VMAD properties via `PexSafetyEngine.extract_vmad_strings(esp_path)` and include them in the batch translation step alongside regular plugin records.
 
 ---
 

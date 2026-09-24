@@ -66,10 +66,16 @@ class VanillaMatcher:
                             chars.append(ch)
                         raw_bytes = b"".join(chars)
 
-                    try:
-                        decoded = raw_bytes.decode("utf-8")
-                    except UnicodeDecodeError:
-                        decoded = raw_bytes.decode("cp1251", errors="replace")
+                    if "russian" in file_path.name.lower():
+                        try:
+                            decoded = raw_bytes.decode("cp1251")
+                        except Exception:
+                            decoded = raw_bytes.decode("utf-8", errors="replace")
+                    else:
+                        try:
+                            decoded = raw_bytes.decode("utf-8")
+                        except UnicodeDecodeError:
+                            decoded = raw_bytes.decode("cp1251", errors="replace")
 
                     if decoded:
                         results[sid] = decoded

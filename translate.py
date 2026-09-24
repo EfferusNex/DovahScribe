@@ -30,13 +30,16 @@ from src.io_utils import (
     build_housecarl_records_params,
     parse_extracted_records,
     save_extracted_data,
-    load_extracted_data
+    load_extracted_data,
+    has_cyrillic,
 )
 from src.vanilla_matcher import VanillaMatcher
 from src.translation import TranslationEngine, normalize_mod_name
 from src.narrative_context import NarrativeContextBuffer
 from src.ai_agent import AIAgentCoordinator
 from src.review_manager import ReviewManager
+from src.esp_injector import ESPInjector
+from src.mo2_deployer import MO2Deployer
 from src.quality_gate import QualityGate, QualityReport
 from src.patcher import Patcher
 from src.glossary import GlobalGlossary, GlossaryExtractor
@@ -44,6 +47,7 @@ from src.speaker_analyzer import SpeakerAnalyzer
 from src.mcm_manager import MCMManager
 from src.version_differ import VersionDiffer, DiffReport
 from src.mo2_deployer import MO2Deployer
+from src.esp_injector import ESPInjector, inject_and_deploy_mod
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -75,6 +79,7 @@ def run_pipeline(
     clean_mod_name = normalize_mod_name(plugin_name)
     raw_cache_file = RAW_DIR / f"{clean_mod_name}_raw.json"
     review_file = ReviewManager.get_review_filepath(plugin_name)
+    target_ui_path = BASE_DIR / "web" / f"{clean_mod_name}_dashboard.html"
 
     print(f"📦 Целевой плагин: \033[1;36m{plugin_name}\033[0m")
     print(f"🏷️  Имя проекта/словаря: \033[1;32m{clean_mod_name}\033[0m")
@@ -146,12 +151,20 @@ def run_pipeline(
             items = load_extracted_data(str(raw_jsonl_file))
             save_extracted_data(items, str(raw_cache_file))
         else:
-            print("    Формируем параметры для вызова housecarl_records...")
-            params = build_housecarl_records_params(plugin_name)
-            print(f"    Отслеживается типов записей: {len(params['types'])}")
-            print(f"    Целевых путей полей: {len(params['project']['fields'])}")
-            if not items:
-                print(f"    ⚠️ Вызов housecarl_records должен быть выполнен через MCP для плагина {plugin_name}.")
+            mo2_path = kwargs.get("mo2_path")
+            deployer = MO2Deployer(mo2_base_path=Path(mo2_path) if mo2_path else None)
+            source_esp_path = deployer.find_original_plugin_file(plugin_name)
+            if source_esp_path and source_esp_path.exists():
+                print(f"    ⚡ Автоматическое бинарное извлечение строк через ESPInjector: \033[1;36m{source_esp_path.name}\033[0m")
+                items = ESPInjector.extract_all_strings(source_esp_path)
+                save_extracted_data(items, str(raw_cache_file))
+            else:
+                print("    Формируем параметры для вызова housecarl_records...")
+                params = build_housecarl_records_params(plugin_name)
+                print(f"    Отслеживается типов записей: {len(params['types'])}")
+                print(f"    Целевых путей полей: {len(params['project']['fields'])}")
+                if not items:
+                    print(f"    ⚠️ Вызов housecarl_records должен быть выполнен через MCP для плагина {plugin_name}.")
 
         if items:
             items = SpeakerAnalyzer.enrich_items_with_speaker_context(items)
@@ -205,7 +218,15 @@ def run_pipeline(
             r_type = item.get("type", "MISC")
             path = item.get("path", "Name")
 
-            # 1. Проверяем локальный TM-словарь мода
+            # 1. Если строка уже на русском языке (например, каноничные ванильные оверрайды из 1C)
+            if has_cyrillic(raw_text):
+                item["translated"] = raw_text
+                item["source"] = "vanilla_russian"
+                vanilla_hits += 1
+                tm_engine.save_translation(r_type, path, raw_text, raw_text, item.get("formid", ""), source="vanilla_russian", auto_save=False)
+                continue
+
+            # 2. Проверяем локальный TM-словарь мода
             tm_trans = tm_engine.get_translation(r_type, path, raw_text)
             if tm_trans:
                 item["translated"] = tm_trans
@@ -213,7 +234,7 @@ def run_pipeline(
                 tm_hits += 1
                 continue
 
-            # 2. Проверяем официальные ванильные строки
+            # 3. Проверяем официальные ванильные строки
             vanilla_trans = matcher.match(raw_text)
             if vanilla_trans:
                 item["translated"] = vanilla_trans
@@ -284,31 +305,51 @@ def run_pipeline(
         return
 
     # ==========================================
-    # ЭТАП 7: СБОРКА ПАТЧА (PATCHER)
+    # ЭТАП 7: СБОРКА ПАТЧА / БИНАРНЫЙ ИНЖЕКТ В ESP
     # ==========================================
     if step in ["all", "patch"]:
-        print("⚡ [5/6] Подготовка операций патчинга (housecarl_apply)...")
+        use_housecarl = kwargs.get("use_housecarl", False)
+
         if review_file.exists():
             reviewed_entries = ReviewManager.load_reviewed_file(review_file)
             print(f"    Загружено строк из файла ревью: {len(reviewed_entries)}")
         else:
             reviewed_entries = items
 
-        ops, report = Patcher.build_patch_ops(
-            reviewed_entries,
-            validate_quality=True,
-            allow_leaks=allow_leaks,
-        )
+        if not use_housecarl:
+            print("⚡ [5/6] Прямой бинарный инжект строк через ESPInjector (Direct Mode)...")
+            mo2_path = kwargs.get("mo2_path")
+            deployer = MO2Deployer(mo2_base_path=Path(mo2_path) if mo2_path else None)
 
-        manifest_path = Patcher.save_ops_manifest(clean_mod_name, ops)
-        params = Patcher.prepare_apply_params(clean_mod_name, ops, dry_run=dry_run)
+            # Ищем исходный плагин в папке модов MO2
+            source_esp_path = deployer.find_original_plugin_file(plugin_name)
 
-        print(f"    Сформировано валидных операций 'Set': \033[1;32m{len(ops)}\033[0m")
-        if report and not report.is_clean and not allow_leaks:
-            print(f"    🛡️  Отсеяно некорректных/непереведенных строк: \033[1;33m{report.issues_count}\033[0m")
-        print(f"    Манифест операций сохранен: \033[1;36m{manifest_path}\033[0m")
-        print(f"    Целевой патч-плагин: \033[1;35m{params['patch']}.esp\033[0m")
-        print(f"    Режим Dry-Run: {dry_run}\n")
+            out_patch_dir = DATA_DIR / "patches" / clean_mod_name
+            out_patch_dir.mkdir(parents=True, exist_ok=True)
+            target_esp_path = out_patch_dir / plugin_name
+
+            if source_esp_path and source_esp_path.exists() and review_file.exists():
+                print(f"    Исходный плагин: \033[1;36m{source_esp_path}\033[0m")
+                inject_res = ESPInjector.inject_translations(
+                    source_esp=source_esp_path,
+                    target_esp=target_esp_path,
+                    review_file=review_file,
+                )
+                print(f"    🎉 Успешно инжектировано: \033[1;32m{inject_res['applied_count']}/{inject_res['total_review_items']}\033[0m записей")
+                print(f"    Собранный бинарный плагин: \033[1;32m{target_esp_path}\033[0m (0 циклических мастеров)")
+            else:
+                print(f"    ℹ️ Исходный файл {plugin_name} готов к сборке через ESPInjector.")
+        else:
+            print("⚡ [5/6] Подготовка операций патчинга (housecarl_apply)...")
+            ops, report = Patcher.build_patch_ops(
+                reviewed_entries,
+                validate_quality=True,
+                allow_leaks=allow_leaks,
+            )
+            manifest_path = Patcher.save_ops_manifest(clean_mod_name, ops)
+            params = Patcher.prepare_apply_params(clean_mod_name, ops, dry_run=dry_run)
+            print(f"    Сформировано валидных операций 'Set': \033[1;32m{len(ops)}\033[0m")
+            print(f"    Манифест операций сохранен: \033[1;36m{manifest_path}\033[0m")
 
         # Экспорт файла переводов SkyUI MCM (_RUSSIAN.txt) в UTF-16 LE с BOM
         mcm_out = MCMManager.export_russian_mcm(reviewed_entries, clean_mod_name)
@@ -335,9 +376,13 @@ def run_pipeline(
 
             # Ищем собранный ESP патч (если есть)
             esp_file = None
-            candidate_esp = DATA_DIR / "patches" / f"{clean_mod_name}_RU.esp"
+            candidate_esp = DATA_DIR / "patches" / clean_mod_name / plugin_name
             if candidate_esp.exists():
                 esp_file = candidate_esp
+            else:
+                candidate_esp_legacy = DATA_DIR / "patches" / f"{clean_mod_name}_RU.esp"
+                if candidate_esp_legacy.exists():
+                    esp_file = candidate_esp_legacy
 
             deploy_res = deployer.deploy(
                 mod_name=plugin_name,
@@ -377,6 +422,7 @@ def main():
     parser.add_argument("--lore", type=str, default="The Elder Scrolls V: Skyrim", help="Лор и эпоха")
     parser.add_argument("--dry-run", action="store_true", help="Проверка патча без записи на диск")
     parser.add_argument("--allow-leaks", action="store_true", help="Разрешить включение непереведенных строк в патч")
+    parser.add_argument("--use-housecarl", action="store_true", help="Использовать устаревший housecarl merge вместо прямого ESPInjector")
     parser.add_argument("--raw-cache", type=str, default="", help="Путь к файлу с сырыми данными housecarl")
     parser.add_argument("--diff-with", "-d", type=str, default="", help="Путь к ревью/словарю старой версии мода для переноса перевода (0 токенов)")
     parser.add_argument("--deploy", action="store_true", help="Автоматически развернуть пакет перевода в Mod Organizer 2")
@@ -390,6 +436,7 @@ def main():
         lore=args.lore,
         dry_run=args.dry_run,
         allow_leaks=args.allow_leaks,
+        use_housecarl=args.use_housecarl,
         raw_data_cache=args.raw_cache,
         diff_with=args.diff_with,
         deploy=args.deploy,

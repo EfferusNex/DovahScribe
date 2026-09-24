@@ -255,6 +255,9 @@
         <button onclick="setCategoryFilter('mcm')" data-cat="mcm" class="cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition">
           ⚙️ MCM (<span id="cnt-mcm">0</span>)
         </button>
+        <button onclick="setCategoryFilter('scripts')" data-cat="scripts" class="cat-btn px-3 py-1.5 rounded-lg hover:bg-gray-800 text-gray-400 transition">
+          📜 Скрипты (<span id="cnt-scripts">0</span>)
+        </button>
       </div>
 
       <!-- Сортировка -->
@@ -371,7 +374,7 @@
       "DLL", "SWF", "LOTD", "JSON", "IE", "EE", "SE", "AE", "BOM", "INI",
       "PEX", "PSC", "NIF", "DDS", "BSA", "SKSE64", "SKYUI", "PAPYRUSUTIL", "PAPYRUS",
       "DATA", "PLUGINS", "INTERFACE", "TRANSLATIONS", "SCRIPTS", "MESHES", "TEXTURES", "SOUND", "MUSIC", "STRINGS",
-      "DEFAULTCONFIG", "QUICKLOOT", "QUICKLOOTIE", "ATOMCRAFTY", "COMPLETIONIST",
+      "DEFAULTCONFIG", "QUICKLOOT", "QUICKLOOTIE", "ATOMCRAFTY", "COMPLETIONIST", "APOCALYPSE",
       "E", "R", "F", "C", "Z", "X", "V", "Q", "W", "A", "S", "D", "M1", "M2", "TAB", "SHIFT", "ALT", "CTRL"
     ]);
     const ROMAN_NUMERALS_REGEX = /\b(?=[MDCLXVI])M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})\b/gi;
@@ -582,6 +585,7 @@
       document.getElementById('cnt-magic').textContent = entries.filter(e => ['SPEL', 'MGEF', 'PERK', 'AVIF', 'ENCH', 'SHOU', 'Spell', 'MagicEffect', 'Perk'].includes(e.type)).length;
       document.getElementById('cnt-quest').textContent = entries.filter(e => ['QUST', 'MESG', 'INFO', 'DIAL', 'DialogResponses', 'ACTI', 'CONT', 'CELL', 'FACT', 'CLAS', 'Quest'].includes(e.type) || e.field === 'Prompt').length;
       document.getElementById('cnt-mcm').textContent = entries.filter(e => e.type === 'MCM' || (e.formid && String(e.formid).startsWith('MCM:'))).length;
+      document.getElementById('cnt-scripts').textContent = entries.filter(e => ['Script', 'PEX', 'VMAD', 'PexScript'].includes(e.type) || e.script_name || (e.formid && String(e.formid).startsWith('PEX:')) || (e.field && String(e.field).startsWith('VMAD:'))).length;
     }
 
     // 1. Управление фильтром статуса (верхние карточки)
@@ -671,6 +675,8 @@
           if (!['INFO', 'DIAL', 'DialogResponses'].includes(entry.type) && entry.field !== 'Prompt') return false;
         } else if (currentCategoryFilter === 'mcm') {
           if (entry.type !== 'MCM' && !(entry.formid && String(entry.formid).startsWith('MCM:'))) return false;
+        } else if (currentCategoryFilter === 'scripts') {
+          if (!['Script', 'PEX', 'VMAD', 'PexScript'].includes(entry.type) && !entry.script_name && !(entry.formid && String(entry.formid).startsWith('PEX:')) && !(entry.field && String(entry.field).startsWith('VMAD:'))) return false;
         } else if (currentCategoryFilter === 'book') {
           if (!['BOOK', 'Book'].includes(entry.type)) return false;
         } else if (currentCategoryFilter === 'items') {
@@ -810,9 +816,27 @@
           const typeIcons = {
             'INFO': '💬 INFO', 'DIAL': '💬 DIAL', 'BOOK': '📖 Книга', 'QUST': '📜 Квест',
             'WEAP': '⚔️ Оружие', 'ARMO': '🛡️ Броня', 'SPEL': '✨ Заклинание', 'MGEF': '🔮 Эффект',
-            'PERK': '🌟 Перк', 'ALCH': '🧪 Зелье', 'MESG': '✉️ Сообщение'
+            'PERK': '🌟 Перк', 'ALCH': '🧪 Зелье', 'MESG': '✉️ Сообщение',
+            'VMAD': '⚙️ Свойство VMAD', 'Script': '📜 Скрипт PEX', 'PEX': '📜 Скрипт PEX'
           };
           const typeDisplay = typeIcons[entry.type] || entry.type || 'MISC';
+
+          let scriptBadge = '';
+          if (entry.script_name || entry.type === 'VMAD' || entry.type === 'Script') {
+            scriptBadge = `
+              <span class="px-2 py-0.5 rounded bg-purple-950/90 text-purple-300 font-mono text-[11px] border border-purple-800/50">📜 ${escapeHtml(entry.script_name || 'Papyrus')}</span>
+              ${entry.prop_name ? `<span class="px-2 py-0.5 rounded bg-pink-950/70 text-pink-300 text-[11px] font-mono border border-pink-900/40">${escapeHtml(entry.prop_name)}</span>` : ''}
+            `;
+          }
+
+          let safetyBadge = '';
+          if (entry.safety_level === 'locked' || entry.auth === false) {
+            safetyBadge = `<span class="px-2 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono border border-gray-700">🔒 Заблокировано</span>`;
+          } else if (entry.safety_level === 'warning' || entry.warn === true) {
+            safetyBadge = `<span class="px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 text-[10px] font-mono border border-amber-700/50">⚠️ Проверка логики</span>`;
+          } else if (entry.safety_level === 'safe') {
+            safetyBadge = `<span class="px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 text-[10px] font-mono border border-emerald-700/50">🟢 Безопасно (UI)</span>`;
+          }
 
           let topicBadgeLeft = '';
           if (entry.topic) {
@@ -841,6 +865,8 @@
             <div class="flex flex-wrap items-center gap-1.5 text-xs">
               <span class="px-2 py-0.5 rounded bg-gray-800/90 text-gray-300 font-mono text-[11px] border border-gray-700/50">${escapeHtml(cleanFormId || entry.formid || '')}</span>
               <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 font-medium border border-indigo-900/40">${typeDisplay}</span>
+              ${scriptBadge}
+              ${safetyBadge}
               ${roleBadge}
               ${topicBadgeLeft}
             </div>
@@ -887,9 +913,14 @@
         const rightCol = document.createElement('div');
         rightCol.className = 'w-full md:w-1/2 space-y-2';
 
+        const isLocked = entry.safety_level === 'locked' || entry.auth === false;
         let statusBadge = '';
-        if (entry.source === 'keep_original') {
+        if (isLocked) {
+          statusBadge = `<span class="text-xs text-gray-400 flex items-center gap-1 font-medium bg-gray-800/80 px-2 py-0.5 rounded border border-gray-700/60">🔒 Заблокировано (Системный скрипт)</span>`;
+        } else if (entry.source === 'keep_original') {
           statusBadge = `<span class="text-xs text-sky-400 flex items-center gap-1 font-medium bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/40">🔒 Оригинал (EN)</span>`;
+        } else if (entry.safety_level === 'warning' || entry.warn === true) {
+          statusBadge = `<span class="text-xs text-amber-400 flex items-center gap-1 font-medium bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40">⚠️ Опасно (${escapeHtml(entry.reason || 'Условие / Сравнение')})</span>`;
         } else if (entry.ui_status === 'warning') {
           statusBadge = `<span class="text-xs text-amber-400 flex items-center gap-1">⚠️ ${escapeHtml(entry.ui_issue)}</span>`;
         } else if (entry.ui_status === 'pending') {
@@ -934,26 +965,29 @@
               ${topicBadgeRight}
             </div>
             <div class="flex items-center gap-1.5">
-              <button 
-                type="button"
-                onclick="revertToOriginal(${entry.id})" 
-                title="Оставить оригинальный английский текст без перевода (Alt+O)"
-                class="px-2 py-1 text-xs rounded bg-gray-800 hover:bg-sky-900/60 text-gray-300 hover:text-sky-200 border border-gray-700/60 transition flex items-center gap-1">
-                <span>📑</span> <span class="hidden sm:inline">Оригинал</span> <kbd class="text-[10px] text-gray-500 bg-gray-900 px-1 rounded">Alt+O</kbd>
-              </button>
-              <button 
-                type="button"
-                onclick="resetToAIDraft(${entry.id})" 
-                title="Сбросить перевод к исходному варианту ИИ (Alt+R)"
-                class="px-2 py-1 text-xs rounded bg-gray-800 hover:bg-indigo-900/60 text-gray-300 hover:text-indigo-200 border border-gray-700/60 transition flex items-center gap-1">
-                <span>🤖</span> <span class="hidden sm:inline">Сброс ИИ</span> <kbd class="text-[10px] text-gray-500 bg-gray-900 px-1 rounded">Alt+R</kbd>
-              </button>
+              ${isLocked ? '' : `
+                <button 
+                  type="button"
+                  onclick="revertToOriginal(${entry.id})" 
+                  title="Оставить оригинальный английский текст без перевода (Alt+O)"
+                  class="px-2 py-1 text-xs rounded bg-gray-800 hover:bg-sky-900/60 text-gray-300 hover:text-sky-200 border border-gray-700/60 transition flex items-center gap-1">
+                  <span>📑</span> <span class="hidden sm:inline">Оригинал</span> <kbd class="text-[10px] text-gray-500 bg-gray-900 px-1 rounded">Alt+O</kbd>
+                </button>
+                <button 
+                  type="button"
+                  onclick="resetToAIDraft(${entry.id})" 
+                  title="Сбросить перевод к исходному варианту ИИ (Alt+R)"
+                  class="px-2 py-1 text-xs rounded bg-gray-800 hover:bg-indigo-900/60 text-gray-300 hover:text-indigo-200 border border-gray-700/60 transition flex items-center gap-1">
+                  <span>🤖</span> <span class="hidden sm:inline">Сброс ИИ</span> <kbd class="text-[10px] text-gray-500 bg-gray-900 px-1 rounded">Alt+R</kbd>
+                </button>
+              `}
             </div>
           </div>
           <textarea 
             id="textarea-${entry.id}"
+            ${isLocked ? 'readonly' : ''}
             rows="${Math.max(2, Math.min(8, Math.ceil((entry.original || '').length / 45)))}" 
-            class="w-full bg-gray-950 border ${entry.ui_status === 'warning' ? 'border-amber-500/40 focus:border-amber-400' : (entry.source === 'keep_original' ? 'border-sky-800/60 focus:border-sky-500' : 'border-gray-800 focus:border-indigo-500')} rounded-lg p-3 text-sm text-white focus:outline-none transition resize-y font-normal"
+            class="w-full ${isLocked ? 'bg-gray-900/40 text-gray-400 border-gray-800/80 cursor-not-allowed select-none' : 'bg-gray-950 text-white'} border ${entry.ui_status === 'warning' ? 'border-amber-500/40 focus:border-amber-400' : (entry.source === 'keep_original' ? 'border-sky-800/60 focus:border-sky-500' : 'border-gray-800 focus:border-indigo-500')} rounded-lg p-3 text-sm focus:outline-none transition resize-y font-normal"
             oninput="onTranslationEdit(${entry.id}, this.value)"
             onkeydown="onTextareaKeydown(event, ${entry.id})"
           >${escapeHtml(entry.translated || '')}</textarea>

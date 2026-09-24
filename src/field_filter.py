@@ -27,6 +27,11 @@ FIELD_FILTERS = {
     'CELL': ['Name'],
     'WRLD': ['Name'],
     'LCTN': ['Name'],
+    'CONT': ['Name'],
+    'DOOR': ['Name'],
+    'FLOR': ['Name'],
+    'TREE': ['Name'],
+    'TACT': ['Name'],
     'ACTI': ['Name', 'ActivateTextOverride'],
 
     # Magic and Effects
@@ -42,6 +47,8 @@ FIELD_FILTERS = {
     'LSCR': ['Description'],
     'EXPL': ['Name'],
     'PROJ': ['Name'],
+    'REFR': ['MapMarker.Name', 'Name'],
+    'ACHR': ['Name'],
 }
 
 # Список всех отслеживаемых типов записей по умолчанию

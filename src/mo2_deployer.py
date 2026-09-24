@@ -115,29 +115,31 @@ class MO2Deployer:
 
         clean_name = mod_name.replace(".esp", "").replace(".esm", "").replace(".esl", "").strip().lower()
 
-        # 1. Точное совпадение
+        # Папки, которые следует игнорировать при поиске оригинала
+        def is_translation_folder(name: str) -> bool:
+            nl = name.lower()
+            return "[ru]" in nl or "(ru)" in nl or "_russian" in nl or "translations" in nl
+
+        # 1. Приоритет 1: Точное совпадение имени папки с именем мода
         for folder in self.mods_dir.iterdir():
-            if not folder.is_dir():
+            if not folder.is_dir() or is_translation_folder(folder.name):
                 continue
             fname_lower = folder.name.lower()
-            # Пропускаем уже созданные переводы
-            if "[ru]" in fname_lower or "_russian" in fname_lower:
-                continue
-
             if fname_lower == clean_name or folder.name == mod_name:
                 return folder.name
-            
-            # Проверка наличия плагина внутри
+
+        # 2. Приоритет 2: Папка содержит имя плагина внутри и не является сборником переводов
+        for folder in self.mods_dir.iterdir():
+            if not folder.is_dir() or is_translation_folder(folder.name):
+                continue
             if (folder / mod_name).exists():
                 return folder.name
 
-        # 2. Нестрогое совпадение
+        # 3. Приоритет 3: Нестрогое совпадение имени папки
         for folder in self.mods_dir.iterdir():
-            if not folder.is_dir():
+            if not folder.is_dir() or is_translation_folder(folder.name):
                 continue
             fname_lower = folder.name.lower()
-            if "[ru]" in fname_lower or "_russian" in fname_lower:
-                continue
             if clean_name in fname_lower or fname_lower in clean_name:
                 return folder.name
 
@@ -344,7 +346,46 @@ tracked=0
             shutil.copy2(mcm_russian_path, dest_mcm)
             copied_files.append(str(dest_mcm.relative_to(target_mod_dir)))
 
-        # 3. Копируем дополнительные файлы
+        # 3. Автоматически разворачиваем извлеченные / переведенные PEX и PSC скрипты
+        scripts_stage_dir = DATA_DIR / "scripts_output" / clean_name
+        if scripts_stage_dir.exists():
+            # Копируем .pex в scripts/
+            for pex in scripts_stage_dir.glob("*.pex"):
+                dest_pex = target_mod_dir / "scripts" / pex.name
+                dest_pex.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(pex, dest_pex)
+                copied_files.append(str(dest_pex.relative_to(target_mod_dir)))
+            # Копируем .psc в Source/Scripts/
+            for psc in scripts_stage_dir.glob("*.psc"):
+                dest_psc = target_mod_dir / "Source" / "Scripts" / psc.name
+                dest_psc.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(psc, dest_psc)
+                copied_files.append(str(dest_psc.relative_to(target_mod_dir)))
+
+        # 4. Автоматически копируем .seq файлы инициализации квестов
+        if orig_folder_name:
+            orig_mod_path = self.mods_dir / orig_folder_name
+            found_seq_dir = None
+            for seq_dir_name in ["seq", "Seq", "SEQ"]:
+                candidate_seq_dir = orig_mod_path / seq_dir_name
+                if candidate_seq_dir.exists() and candidate_seq_dir.is_dir():
+                    found_seq_dir = candidate_seq_dir
+                    break
+
+            if found_seq_dir:
+                dest_seq_dir = target_mod_dir / "seq"
+                dest_seq_dir.mkdir(parents=True, exist_ok=True)
+                seen_seqs = set()
+                for seq_file in found_seq_dir.iterdir():
+                    if seq_file.is_file() and seq_file.suffix.lower() == ".seq":
+                        clean_seq_name = seq_file.name.lower()
+                        if clean_seq_name not in seen_seqs:
+                            seen_seqs.add(clean_seq_name)
+                            dest_seq = dest_seq_dir / clean_seq_name
+                            shutil.copy2(seq_file, dest_seq)
+                            copied_files.append(str(dest_seq.relative_to(target_mod_dir)))
+
+        # 5. Копируем дополнительные файлы
         if extra_files:
             for src_file, rel_dest in extra_files:
                 if Path(src_file).exists():
@@ -353,7 +394,7 @@ tracked=0
                     shutil.copy2(src_file, dest_path)
                     copied_files.append(str(dest_path.relative_to(target_mod_dir)))
 
-        # 4. Создаем meta.ini
+        # 6. Создаем meta.ini
         meta_content = self.generate_meta_ini(ru_folder_name)
         with open(target_mod_dir / "meta.ini", "w", encoding="utf-8") as f:
             f.write(meta_content)

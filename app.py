@@ -174,17 +174,65 @@ class DovahScribeAPI:
 
 
 
-def launch_app(mod_name: str | None = None, width: int = 1440, height: int = 920, debug: bool = False):
+def launch_app(
+    target_input: str | None = None,
+    width: int = 1440,
+    height: int = 920,
+    debug: bool = False,
+) -> None:
     """
     Запуск десктопного окна DovahScribe с логированием, масштабированием и поддержкой полноэкранного режима.
+    Принимает:
+      - имя мода ('Open World Loot')
+      - имя плагина ('Open World Loot.esp')
+      - путь к файлу ревью ('data/review/Open World Loot_review.json')
     """
-    display_title = mod_name if mod_name else "Workspace"
+    clean_mod_name = None
+    target_review_file: Path | None = None
+
+    if target_input:
+        raw_str = target_input.strip().strip('"').strip("'")
+        p = Path(raw_str)
+        if p.exists() and p.is_file() and p.suffix.lower() == ".json":
+            target_review_file = p
+            clean_mod_name = p.stem.replace("_review", "")
+        else:
+            stem = p.stem if ("/" in raw_str or "\\" in raw_str) else raw_str
+            clean = stem.replace(".esp", "").replace(".esm", "").replace(".esl", "").replace("_review", "").strip()
+            clean_mod_name = clean
+            candidate_review = REVIEW_DIR / f"{clean_mod_name}_review.json"
+            if candidate_review.exists():
+                target_review_file = candidate_review
+
+    display_title = clean_mod_name if clean_mod_name else "Workspace"
     logger.info("Запуск DovahScribe Desktop для мода: %s (debug=%s)", display_title, debug)
     api = DovahScribeAPI()
 
-    target_dashboard = WEB_DIR / f"{mod_name}_dashboard.html" if mod_name else WEB_DIR / "cat_dashboard.html"
-    if not target_dashboard.exists():
-        target_dashboard = WEB_DIR / "cat_dashboard.html"
+    template_path = WEB_DIR / "cat_dashboard.html"
+    target_dashboard: Path | None = None
+
+    if clean_mod_name:
+        dash_candidate = WEB_DIR / f"{clean_mod_name}_dashboard.html"
+        if dash_candidate.exists():
+            target_dashboard = dash_candidate
+
+    # Если дашборд для мода еще не создан, но есть файл ревью — собираем дашборд на лету
+    if (not target_dashboard or not target_dashboard.exists()) and target_review_file and target_review_file.exists() and template_path.exists():
+        try:
+            target_dashboard = WEB_DIR / f"{clean_mod_name}_dashboard.html"
+            review_content = target_review_file.read_text(encoding="utf-8")
+            template_content = template_path.read_text(encoding="utf-8")
+            injected_html = template_content.replace(
+                '<script id="preloaded-data" type="application/json"></script>',
+                f'<script id="preloaded-data" type="application/json">\n{review_content}\n</script>',
+            )
+            target_dashboard.write_text(injected_html, encoding="utf-8")
+            logger.info("Автоматически собран персональный дашборд: %s", target_dashboard)
+        except Exception as e:
+            logger.warning("Не удалось собрать дашборд на лету: %s", e)
+
+    if not target_dashboard or not target_dashboard.exists():
+        target_dashboard = template_path
 
     if not target_dashboard.exists():
         logger.error("Файл разметки не найден: %s", target_dashboard)
@@ -227,7 +275,7 @@ def parse_arguments() -> tuple[str | None, bool]:
     args = sys.argv[1:]
     is_debug = "--debug" in args or "-d" in args
     clean_args = [a for a in args if not a.startswith("-")]
-    mod_name = clean_args[0] if clean_args else None
+    mod_name = " ".join(clean_args) if clean_args else None
     return mod_name, is_debug
 
 

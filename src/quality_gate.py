@@ -62,6 +62,7 @@ class QualityGate:
         "DATA", "PLUGINS", "INTERFACE", "TRANSLATIONS", "SCRIPTS", "MESHES", "TEXTURES", "SOUND", "MUSIC", "STRINGS",
         "DEFAULTCONFIG", "QUICKLOOT", "QUICKLOOTIE", "ATOMCRAFTY", "COMPLETIONIST",
         "NPC", "DEFEAT", "ZAZ", "NSAP", "UIEXTENSIONS", "PARADISE", "HALLS", "ANIMATION",
+        "HPACK", "HAIRPACK", "DINT999", "DINT", "APOCALYPSE", "NB",
         "E", "R", "F", "C", "Z", "X", "V", "Q", "W", "A", "S", "D", "M1", "M2", "TAB", "SHIFT", "ALT", "CTRL"
     }
 
@@ -73,15 +74,21 @@ class QualityGate:
 
     # Системные переменные, скриптовые префиксы и токены ($TOKEN, pRing*, vFaction, xxp, CF_*, aaa_*, etc.)
     SYSTEM_TOKEN_PATTERN = re.compile(
-        r"^\$[A-Za-z0-9_]+$|^(p|v|xxp|f|k|q|z|aaa|CF|vk)[A-Za-z0-9_]*$|^[A-Za-z0-9_]+(Script|Quest|Spell|Faction|Effect|Ability|Armor|Weapon)$",
+        r"^\$[A-Za-z0-9_]+$|^(p|v|xxp|f|k|q|z|aaa|CF|vk)[A-Za-z0-9_]*$|^[A-Za-z0-9_]+(Script|Quest|Spell|Faction|Effect|Ability|Armor|Weapon|Holder)$|.*BodyArtHolder.*|^TEST\s+PERK.*",
         re.IGNORECASE
+    )
+
+    # Игровые шрифты рун и древних языков (Falmer, Dwemer, Daedric, MageScript, Dragon runes)
+    LORE_RUNE_FONT_PATTERN = re.compile(
+        r"<?<font\s+face=['\"]?\$(?:FalmerFont|DwemerFont|DaedricFont|MageScriptFont|DragonFont)['\"]?[^>]*>.*?(?:</font>|(?=</p>)|(?=\[pagebreak\])|$)",
+        re.IGNORECASE | re.DOTALL
     )
 
     # Теги и подстановки Skyrim
     TAG_PATTERNS = [
         re.compile(r"<font[^>]*>", re.IGNORECASE),
         re.compile(r"</font>", re.IGNORECASE),
-        re.compile(r"<alias=[^>]+>", re.IGNORECASE),
+        re.compile(r"<alias(?:\.[^=>]+)?=[^>]+>", re.IGNORECASE),
         re.compile(r"<[^>]+>", re.IGNORECASE),
         re.compile(r"\[pagebreak\]", re.IGNORECASE),
         re.compile(r"%[0-9\.\-+]*[sdfgixX%]"),
@@ -91,7 +98,6 @@ class QualityGate:
         re.compile(r"\b[0-9]+[a-zA-Z]+\b|\b[a-zA-Z]+[0-9]+\b"),  # Ники/авторские теги вида 5chars, 3d, mod4
     ]
 
-    # Поиск латинских слов из 2 и более букв
     # Поиск латинских слов из 2 и более букв
     LATIN_WORD_PATTERN = re.compile(r"[a-zA-Z]{2,}")
 
@@ -124,6 +130,9 @@ class QualityGate:
         Оставляет только значимый текст для проверки на утечку латиницы.
         """
         cleaned = text
+
+        # 0. Удаляем блоки рунических шрифтов (Falmer, Dwemer, Daedric, MageScript, Dragon)
+        cleaned = cls.LORE_RUNE_FONT_PATTERN.sub(" ", cleaned)
 
         # 1. Удаляем теги и подстановки
         for pattern in cls.TAG_PATTERNS:
@@ -200,13 +209,17 @@ class QualityGate:
         clean = re.sub(r"[^\w\s]", "", word, flags=re.UNICODE).strip().lower()
         if len(clean) <= 3:
             return clean
-        # Отсекаем типовые окончания прилагательных и существительных
+        # Отсекаем типовые окончания прилагательных и существительных в порядке убывания длины
         for suffix in [
-            "ского", "скому", "скими", "ском", "ской", "ских", "ская", "ское", "ские", "ский",
-            "ного", "ному", "ными", "ном", "ной", "ных", "ная", "ное", "ные", "ный",
+            "овыми", "овому", "ового", "овой", "овом", "овых", "овые", "овая", "овое", "овый", "овую",
+            "евыми", "евому", "евого", "евой", "евом", "евых", "евые", "евая", "евое", "евый", "евую",
+            "скими", "скому", "ского", "ской", "ском", "ских", "ские", "ская", "ское", "ский", "скую",
+            "ными", "ному", "ного", "ной", "ном", "ных", "ные", "ная", "ное", "ный", "ную",
             "ение", "ения", "ению", "ением", "ении",
-            "ого", "его", "ому", "ему", "ыми", "ими", "ами", "ями", "ах", "ях",
-            "ой", "ей", "ем", "ом", "ам", "ям", "ов", "ев",
+            "ыми", "ими", "ами", "ями",
+            "ого", "его", "ому", "ему", "ых", "их", "ах", "ях",
+            "ой", "ей", "ем", "ом", "ам", "ям", "ов", "ев", "ец", "цы", "цев", "цам", "цами", "цах",
+            "ую", "юю", "ая", "яя", "ое", "ее", "ые", "ие", "ый", "ий",
             "а", "я", "о", "е", "ы", "и", "у", "ю", "ь"
         ]:
             if clean.endswith(suffix) and len(clean) - len(suffix) >= 3:
@@ -230,7 +243,8 @@ class QualityGate:
         if glossary_matches is None:
             try:
                 from src.glossary import GlobalGlossary
-                glossary_matches = GlobalGlossary().find_matching_terms(original)
+                clean_orig = cls.strip_safe_tokens(original)
+                glossary_matches = GlobalGlossary().find_matching_terms(clean_orig)
             except Exception:
                 return []
 
@@ -270,8 +284,8 @@ class QualityGate:
         original = entry.get("original") or entry.get("text") or ""
         translated = entry.get("translated", "")
         source = entry.get("source", "")
-        # 0. Если пользователь явно выбрал оставить оригинал без перевода
-        if source == "keep_original":
+        # 0. Если пользователь явно выбрал оставить оригинал, это каноничный текст на языке Слоудов (Н'Гаста) или внутренний ассет HeadPart (HDPT)
+        if source == "keep_original" or "01AD0E" in formid or entry.get("type") == "HDPT":
             return None
 
         # 1. Если перевод пустой

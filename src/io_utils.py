@@ -23,15 +23,15 @@ def is_already_russian(text: str) -> bool:
     return cyrillic_chars > latin_chars * 2 or latin_chars == 0
 
 
-def is_valid_string(text: str) -> bool:
+def is_valid_string(text: str, allow_russian: bool = True) -> bool:
     """
-    Проверяет, требует ли строка перевода.
+    Проверяет, требует ли строка обработки / перевода.
     Отсеивает:
       - Пустые строки и пробелы
       - Строки из одних цифр, спецсимволов и пунктуации
       - Технические пути (Meshes, Textures, Scripts, *.nif, *.dds, *.pex, *.psc)
       - Служебные переменные скриптов или идентификаторы с суффиксами
-      - Уже переведенные русские строки
+      - Уже переведенные русские строки (только если allow_russian=False)
     """
     if not text or not isinstance(text, str):
         return False
@@ -54,8 +54,8 @@ def is_valid_string(text: str) -> bool:
     if re.match(r'^[a-zA-Z0-9_]+_Script$', trimmed) or re.match(r'^<.+>$', trimmed):
         return False
 
-    # 4. Если строка уже на русском — переводить не нужно
-    if is_already_russian(trimmed):
+    # 4. Если allow_russian=False и строка уже на русском — отсеиваем
+    if not allow_russian and is_already_russian(trimmed):
         return False
 
     return True
@@ -64,7 +64,7 @@ def is_valid_string(text: str) -> bool:
 def build_housecarl_records_params(
     plugin_name: str,
     types: Optional[List[str]] = None,
-    limit: int = 5000,
+    limit: int = 50000,
     to_file: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
@@ -81,10 +81,12 @@ def build_housecarl_records_params(
 
     params: Dict[str, Any] = {
         "plugins": {"names": [plugin_name]},
+        "source": plugin_name,
         "types": target_types,
         "project": {
             "form": "fields",
             "fields": sorted(list(unique_fields)),
+            "depth": 3,
         },
         "format": "json",
         "limit": limit,
@@ -95,14 +97,36 @@ def build_housecarl_records_params(
     return params
 
 
-METADATA_PATHS = {"Configuration.Flags", "Race", "Voice", "Speaker", "Conditions"}
+TRANSLATABLE_BASE_PATHS = {
+    "Name", "Description", "Prompt", "ShortName", "BookText", "ActivateTextOverride",
+    "MapMarker.Name", "MapMarker.Name.String"
+}
+
+METADATA_PATHS = {
+    "Configuration.Flags", "Race", "Voice", "Speaker", "Conditions", "EditorID",
+    "Responses", "Objectives", "Stages", "MenuButtons"
+}
 
 
 def is_translatable_path(path: str) -> bool:
     """Проверяет, является ли путь к полю транслируемым текстом, а не метаданными."""
     if path in METADATA_PATHS or path.startswith("*parent"):
         return False
-    return True
+    if path in TRANSLATABLE_BASE_PATHS:
+        return True
+    # Диалоговые реплики: Responses[0].Text
+    if re.match(r"^Responses\[\d+\]\.Text$", path):
+        return True
+    # Кнопки сообщений: MenuButtons[0].Text
+    if re.match(r"^MenuButtons\[\d+\]\.Text$", path):
+        return True
+    # Цели квестов: Objectives[0].DisplayText / Text
+    if re.match(r"^Objectives\[\d+\]\.(DisplayText|Text)$", path):
+        return True
+    # Стадии квестов: Stages[0].LogEntry / Text
+    if re.match(r"^Stages\[\d+\]\.(LogEntry|Text)$", path):
+        return True
+    return False
 
 
 def parse_extracted_records(housecarl_json_data: Dict[str, Any]) -> List[Dict[str, Any]]:

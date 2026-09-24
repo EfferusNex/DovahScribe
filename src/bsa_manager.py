@@ -198,6 +198,21 @@ class BSAManager:
         ]
 
         # Автопоиск в каталогах MO2 (из .env, settings.json или стандартных путей)
+        try:
+            from src.mo2_deployer import MO2Deployer
+            deployer = MO2Deployer()
+            if deployer.mods_dir and deployer.mods_dir.exists():
+                orig_folder = deployer.find_original_mod_folder(plugin_name)
+                if orig_folder:
+                    default_dirs.append(deployer.mods_dir / orig_folder)
+                for mod_folder in deployer.mods_dir.iterdir():
+                    if not mod_folder.is_dir():
+                        continue
+                    if (mod_folder / plugin_name).exists() or (mod_folder / f"{clean_name}.esp").exists():
+                        default_dirs.append(mod_folder)
+        except Exception:
+            pass
+
         mo2_candidates = [
             os.environ.get("MO2_BASE_PATH"),
             Path("C:/Modding/MO2"),
